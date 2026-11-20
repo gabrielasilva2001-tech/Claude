@@ -80,3 +80,10 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
   num "quer dizer..."), com a mesma moderação das diretrizes.
 - **Final:** a última cena engraçadinha congela e leva um **zoom rápido** (punch-in) no rosto dela + o que
   estiver junto, com um **som zoado** de zoom (apito subindo). Neste vídeo o zoom foi **na carinha da cachorra**, não nela. **NUNCA risada** ("pelo amor de Deus").
+
+## Nível de acabamento por tipo de vídeo (fala dela, 20/11/2026)
+
+- Banho da Lúcia (v3) **aprovado**: "bem fluida", bom para um vídeo **não profissional** (rotina/vlog casual).
+- Vídeos em que ela está **falando para a câmera** (conteúdo de fala) pedem acabamento **bem mais profissional**
+  que esse. Antes de editar um desses, combinar com ela o que significa "profissional" (referências) e
+  caprichar em: decupagem fina das falas, legenda mais elaborada, áudio tratado, cor e enquadramento.
