@@ -108,3 +108,11 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
 - **Cortes:** aprovados ("não cortou nada relevante").
 - Cortes finos que ela pediu na v4: tirar momentos de **checagem** (olhar o relógio pra ver se a câmera está
   gravando, arrumar a câmera) mesmo no meio de partes aceleradas — manter só a ação e a fala.
+
+## v4 do banho APROVADA ("melhorou muito, muito... gostei muito") — ajustes para os próximos
+
+- **Zoom de ênfase: exagerar menos e mais suave.** Na v4 foi 1.55–1.7x em 0,45–0,6 s (e 2.3x no final) —
+  forte e rápido demais. Próximos: algo como **1.2–1.35x**, movimento de **~1,2–2 s** (ease suave), e o
+  final até ~1.6x, também devagar.
+- **Barulhinhos: um pouco menos.** Manter o padrão situação→som, mas cortar os de ênfase (o "swish" em
+  todo zoom pode sair) e deixar só os momentos que realmente pedem.
