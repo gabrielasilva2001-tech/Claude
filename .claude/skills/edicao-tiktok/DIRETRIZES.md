@@ -69,7 +69,7 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
   texto em minúsculas, fonte arredondada encorpada (Fredoka Bold, `fonts/Fredoka-Bold.ttf`), preto sobre
   caixinhas coloridas (lilás `&H00FFB8C9` e amarelo-claro `&H008AF0F6`), levemente tortas (~4°), uma abaixo da
   outra e deslocadas, entrando com "tapinha" (0→116%→100%), + brilhinhos de 4 pontas (amarelo, rosa, branco)
-  girando devagar. Script mais recente: `scripts/editar_banho_lucia_v3.py`.
+  girando devagar. Script mais recente: `scripts/editar_banho_lucia_v4.py` (zoom de ênfase andando, padrão de sons, adesivos no título).
 - **Legenda/título NUNCA no rosto dela** (ela reclamou duas vezes). Neste vídeo: rosto no alto → legenda e
   título embaixo; ela embaixo no quadro → legenda em cima. Conferir **cada legenda** num quadro antes de mandar
   (inclusive o título do começo). Nos próximos vídeos ela quer tentar manter um padrão fixo.
@@ -106,3 +106,5 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
   (templates "a day in my life"/"day in my life" do CapCut: etiquetas coloridas tortas, letras grandes e
   arredondadas, brilhinhos, emojis/adesivos tipo carinha e florzinha).
 - **Cortes:** aprovados ("não cortou nada relevante").
+- Cortes finos que ela pediu na v4: tirar momentos de **checagem** (olhar o relógio pra ver se a câmera está
+  gravando, arrumar a câmera) mesmo no meio de partes aceleradas — manter só a ação e a fala.
