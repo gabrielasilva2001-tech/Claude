@@ -62,3 +62,15 @@ conteúdo permitir, visualmente interessante. **A personalidade dela é o destaq
 
 **IMPORTANTE:** não aplicar todas as técnicas automaticamente. Analisar o conteúdo, achar os melhores
 momentos e escolher só os recursos que fazem sentido para cada vídeo.
+
+## Aprovado no "banho da Lúcia" (v1 aprovada: "amei, ficou ótimo")
+
+- **Título inicial = etiquetas coladas** (referência dela: templates "a day in my life" do CapCut):
+  texto em minúsculas, fonte arredondada encorpada (Fredoka Bold, `fonts/Fredoka-Bold.ttf`), preto sobre
+  caixinhas coloridas (lilás `&H00FFB8C9` e amarelo-claro `&H008AF0F6`), levemente tortas (~4°), uma abaixo da
+  outra e deslocadas, entrando com "tapinha" (0→116%→100%), + brilhinhos de 4 pontas (amarelo, rosa, branco)
+  girando devagar. Script: `scripts/editar_banho_lucia_v2.py`.
+- **Posição da legenda segue ela:** se ela está embaixo no quadro (agachada etc.) → legenda **em cima**;
+  se está mais pra cima (em pé, rosto no alto) → legenda **embaixo**. Escolher por cena.
+- **Final:** a última cena engraçadinha congela e leva um **zoom rápido** (punch-in) no rosto dela + o que
+  estiver junto, com um **som zoado** de zoom (apito subindo). **NUNCA risada** ("pelo amor de Deus").
