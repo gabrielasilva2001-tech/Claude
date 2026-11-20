@@ -69,8 +69,14 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
   texto em minúsculas, fonte arredondada encorpada (Fredoka Bold, `fonts/Fredoka-Bold.ttf`), preto sobre
   caixinhas coloridas (lilás `&H00FFB8C9` e amarelo-claro `&H008AF0F6`), levemente tortas (~4°), uma abaixo da
   outra e deslocadas, entrando com "tapinha" (0→116%→100%), + brilhinhos de 4 pontas (amarelo, rosa, branco)
-  girando devagar. Script: `scripts/editar_banho_lucia_v2.py`.
-- **Posição da legenda segue ela:** se ela está embaixo no quadro (agachada etc.) → legenda **em cima**;
-  se está mais pra cima (em pé, rosto no alto) → legenda **embaixo**. Escolher por cena.
+  girando devagar. Script mais recente: `scripts/editar_banho_lucia_v3.py`.
+- **Legenda/título NUNCA no rosto dela** (ela reclamou duas vezes). Neste vídeo: rosto no alto → legenda e
+  título embaixo; ela embaixo no quadro → legenda em cima. Conferir **cada legenda** num quadro antes de mandar
+  (inclusive o título do começo). Nos próximos vídeos ela quer tentar manter um padrão fixo.
+- **Vídeo reto:** se a gravação ficou torta (paredes/azulejos inclinados), endireitar. Medir com linhas verticais
+  (OpenCV Hough) e gerar cópias de trabalho já endireitadas a partir do bruto 4K (rotate + zoom de compensação).
+  Aqui foi V1 6,5°, V2 5,5°, V3 6°.
+- **Efeitinhos:** ela liberou colocar quando eu achar que cabe (ex.: flash de câmera na pose, zoom de susto
+  num "quer dizer..."), com a mesma moderação das diretrizes.
 - **Final:** a última cena engraçadinha congela e leva um **zoom rápido** (punch-in) no rosto dela + o que
-  estiver junto, com um **som zoado** de zoom (apito subindo). **NUNCA risada** ("pelo amor de Deus").
+  estiver junto, com um **som zoado** de zoom (apito subindo). Neste vídeo o zoom foi **na carinha da cachorra**, não nela. **NUNCA risada** ("pelo amor de Deus").
