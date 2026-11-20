@@ -87,3 +87,6 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
 - Vídeos em que ela está **falando para a câmera** (conteúdo de fala) pedem acabamento **bem mais profissional**
   que esse. Antes de editar um desses, combinar com ela o que significa "profissional" (referências) e
   caprichar em: decupagem fina das falas, legenda mais elaborada, áudio tratado, cor e enquadramento.
+- Depois ela completou: a edição do banho ficou **"bem simples"** (não precisou refazer). Nos próximos,
+  ousar mais dentro das diretrizes: mais variedade de enquadramento/ritmo, grafismos e transições com
+  propósito, títulos e legendas com mais personalidade — sem virar "edição de IA".
