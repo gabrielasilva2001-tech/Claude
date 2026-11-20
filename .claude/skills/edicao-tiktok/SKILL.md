@@ -5,6 +5,12 @@ description: Edita de verdade os vídeos brutos dela para TikTok/Reels (rotina, 
 
 # Edição TikTok/Reels — estilo dela
 
+> **LEIA PRIMEIRO `DIRETRIZES.md`** (escrito por ela em 20/11/2026). Ele vale acima deste arquivo.
+> Mudanças em relação ao que está abaixo: rótulos em fonte cursiva (Caveat) estão vetados; zoom não deve
+> alternar em todo corte; os sons podem usar o repertório de TikTok (whoosh, ding, vine boom, record scratch etc.)
+> com moderação; nada se aplica automaticamente, cada vídeo pede seus recursos.
+> Fontes/cores/tamanhos definitivos: aguardar as referências visuais dela.
+
 Estilo construído e aprovado no vídeo "tripé com inteligência artificial" (versão 11, postada).
 O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **copie e adapte**, não comece do zero.
 
