@@ -90,3 +90,19 @@ momentos e escolher só os recursos que fazem sentido para cada vídeo.
 - Depois ela completou: a edição do banho ficou **"bem simples"** (não precisou refazer). Nos próximos,
   ousar mais dentro das diretrizes: mais variedade de enquadramento/ritmo, grafismos e transições com
   propósito, títulos e legendas com mais personalidade — sem virar "edição de IA".
+
+## Feedback detalhado do banho da Lúcia (o que faltou — aplicar nos próximos)
+
+- **Dar ênfase onde a fala pede.** Quando ela comenta algo do pet/objeto/pessoa (ex.: "a Lúcia é...", "olha
+  essa lágrima ácida"), a cena não pode ficar parada: **zoom (ou reenquadramento) no que ela está comentando**,
+  no momento da palavra. Mapear na transcrição cada fala sobre algo e decidir a ênfase.
+- **Zoom final ANDA até o alvo** (movimento suave/rápido do enquadramento até o rosto da cachorra), começando
+  **logo que ela termina de falar** — não um corte seco para um quadro já ampliado no fim.
+- **Sons: portfólio maior, mas com padrão fixo por situação.** Ter mais sons disponíveis e variar entre
+  vídeos, mas dentro do vídeo manter a regra "situação X → som Y" (ex.: ênfase em fala = sempre o mesmo
+  ding; humor/absurdo = sempre o mesmo scratch; revelação/zoom = sempre o mesmo; pose/foto = obturador).
+  Montar a tabela situação→som no início de cada edição.
+- **Título:** gostou das etiquetas da v2/v3, mas nos próximos puxar **mais forte** para a referência dela
+  (templates "a day in my life"/"day in my life" do CapCut: etiquetas coloridas tortas, letras grandes e
+  arredondadas, brilhinhos, emojis/adesivos tipo carinha e florzinha).
+- **Cortes:** aprovados ("não cortou nada relevante").
