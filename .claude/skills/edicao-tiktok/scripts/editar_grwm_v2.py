@@ -305,6 +305,7 @@ def snd(n): return f"{OUT}/{n}.wav" if os.path.exists(f"{OUT}/{n}.wav") else f"{
 # (som, momento na timeline, onde fica o pico dentro do som, volume, motivo)
 SFX = [
     ("teclado_gancho", 0.15, 0.0, 0.10, "título do gancho sendo digitado (baixinho, pedido dela)"),
+    ("click", at("IMG_6257", 10.34), 0.0, 0.35, "logo depois de 'torneio relâmpago' (pedido dela)"),
     ("click", at("IMG_6257", 38.2), 0.0, 0.35, "✓ mista aparece"),
     ("click", at("IMG_6257", 40.8), 0.0, 0.35, "✓ feminina aparece"),
     ("click", at("IMG_6257", 41.85), 0.0, 0.35, "✓ sábado aparece"),
