@@ -24,9 +24,12 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 ## O que ela APROVOU
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
-  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
+  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`).
+  **Texto autêntico:** usar as palavras que ELA falou no vídeo (ex.: "não faço ideia do cheiro" → "SEM SABER O CHEIRO"),
+  não frase de efeito inventada. Ela achou "NO ESCURO ✦" sem autenticidade.
   Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).
-- **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, centro-baixo (MarginV 620).
+- **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, **bem embaixo, longe do rosto (MarginV 400)**.
+  Ela achou MarginV 620 perto demais do rosto.
   **Dinâmica:** cada bloco entra com pulinho (85%→100%) e a **palavra falada fica amarela e 8% maior**.
   Termina dentro da própria cena.
 - **Rótulos soltos no meio (ela gosta):** Caveat 104 creme, levemente inclinados, curtos e com personalidade:
@@ -40,6 +43,14 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
   **Sem** congelar a imagem, **sem** frase de fechamento na tela e **sem** escurecer até o preto.
   Ela odiou o final congelado com "Comprei no escuro e ARRASEI ✦" (vídeo da We Pink, nov/2026), mesmo
   com o tripé tendo usado esse final antes. O fechamento do tripé no script de exemplo **não vale mais**.
+- **Imagem flutuante do produto (ela pediu):** quando ela fala de um produto, um cartão com a foto dele
+  (recortada do próprio vídeo, no quadro em que o nome aparece nítido), borda branca arredondada, sombra,
+  inclinado ±4°, entra deslizando da direita e fica boiando ~2 s no lado direito (x≈690, y≈430). Ver `cartoes.py`
+  do vídeo da We Pink: recorte → cartão PNG → overlay no ffmpeg.
+- **Do vídeo de referência dela (talking head, perto da câmera):** palavra/número gigante no peito por 1–2 s
+  ("4 PERFUMES", "TEM PRESENÇA") e **tópico numerado** quando muda de assunto ("1 · FATAL BLACK").
+- **Enquadramento:** aproximar (zoom 1.4–1.55) e tirar o que sobra (teto do carro); renderizar do original 4K.
+  Câmera frontal grava espelhada → desespelhar (hflip) pra ler o nome das caixas.
 - **Volume:** normalizar para -14 LUFS.
 
 ## Som: SEMPRE segue a imagem (regra mais importante)
@@ -60,6 +71,9 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Repetir "tem na minha vitrine" no final / cartão "Gostou? / me segue".
 - **Final congelado com frase de fechamento na tela e escurecendo** (ela odeia). Final é normal, corte seco na última fala.
 - Legenda inventada quando a transcrição não tem certeza.
+- **Emoji/símbolo "feio" (✦, emoji do Android/Google).** Ela só gosta de emoji do iPhone, e a fonte da Apple não existe
+  aqui (é da Apple, não dá pra instalar). Então: **não colocar emoji nenhum**; se ela quiser emoji, ela põe no celular
+  (CapCut/Edits), e eu deixo espaço/indico onde.
 
 ## Sons dela
 
