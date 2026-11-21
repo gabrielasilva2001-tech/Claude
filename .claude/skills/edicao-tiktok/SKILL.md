@@ -21,6 +21,33 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
    Ver quadros (folha de contato a 1 fps) para achar o momento exato de gestos (ex.: joinha) e do sorriso final.
 5. **Montar** com o script (SEGS, FIX, overlays, sfx), renderizar, **conferir quadros e volume antes de mandar**.
 
+## Formato 2 (APROVADO): arrume-se comigo falando PERTO DA CÂMERA, dicas numeradas
+
+Quando ela grava se arrumando/maquiando e conversando perto da câmera, com um tema de lista
+("coisas que eu faria se…"). Script aprovado: `scripts/editar_arrume_dicas.py` (v2, "como entrar num
+banco ou cooperativa") — **copie e adapte** (CUTS/SEGS, FIX, TIPS, rótulos). Inspirado num vídeo de
+referência de outra criadora (lista "#1. …" no peito), mas no estilo dela.
+
+- **Só fala, bem dinâmico (ela pediu e aprovou):** tirar TODA pausa de pensamento, silêncio e respiro.
+  Não confiar nos tempos do Whisper (ele estica a palavra por cima da pausa). Rodar
+  `scripts/fala.py <arquivos>` → `audio/fala.json` (detector de voz Silero + volume: corta trechos
+  baixos ≥ 0,16 s, limiar = p90 − 19 dB). O script monta só com esses trechos e remapeia as legendas.
+  `pip install silero-vad` (usa o torch do Whisper; carregar o áudio com `wave`, sem torchaudio).
+- Cada corte de fala vira corte seco; zoom alterna 1.0 ↔ 1.12–1.18 (não alterna em pedacinho < 1 s).
+- **Cabeçalho da dica no topo (y≈300) durante a dica inteira:** Montserrat Black Itálico 60,
+  "**#1** siga a cooperativa" (número rosa, texto branco) + 2ª linha maior em amarelo ("no INSTAGRAM").
+  Entra com pulinho + som de **"check"** (duas notinhas subindo, sintetizado no script).
+- Gancho digitado de sempre ("Como entrar num banco / ou **COOPERATIVA** ✦"), legenda dinâmica,
+  rótulos Caveat ("ai, mas...", "sinto muito!", "metade?!"), info em Poppins com colchetes rosa
+  ("[ CPA-10 · CPA-20 · CEA ]" + plim), P&B quando algo deu errado ("nunca me chamaram" + "5x não...").
+- Fechamento igual ao aprovado: congela no rosto dela centralizado, "Corre atrás e / **NÃO DESISTE** ✦".
+- Aprovado com ~1:45. Tirar trechos que o Whisper não entendeu (nomes, siglas) e listar pra ela no final.
+  Termos que ele erra aqui: Sicoob ("Ciccobi"), Sicredi ("Ciccred"), CEA ("CEPIA").
+- **Render em etapas** (cada corte vira um arquivo, depois concat, depois legendas/sons): com 40+ cortes
+  num filtro só o processo morre por falta de memória. Duração de cada corte arredondada em quadros
+  (1/30 s) para a legenda não escorregar.
+- Vídeo final > 100 MB: não vai pro git (`videos/` no .gitignore); entregar pelo chat.
+
 ## O que ela APROVOU
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
