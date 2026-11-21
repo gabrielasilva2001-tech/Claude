@@ -100,7 +100,8 @@ a edição de referência mais recente — copiar e adaptar ela (cortes pelo áu
 - **Entrega:** arquivo de 183 MB ela NÃO conseguiu baixar pelo app. Entregar em HEVC (libx265 crf 21, -tag:v hvc1, ~50 MB)
   feito a partir do pre.mkv de alta qualidade — mesma nitidez, baixa normal no iPhone.
 - **Conferir os brutos ao receber** (ffprobe): os de 21/11 eram 4K mas H.264 7–14 Mbps, 24 fps (iPhone 4K normal ≈ 40–50 Mbps HEVC)
-  → chegaram comprimidos. Avisar ela antes de editar. Sugestão dada: modo Vídeo normal (NÃO modo cinema), 4K 30 qps,
+  → chegaram comprimidos (metadados: gravados em MODO CINEMA [cinematic-video-intent=1] e reconvertidos p/ H.264 no envio ao
+  Dropbox — data do arquivo ≠ data de gravação). Ela usa 4K 60 qps, sem HDR, no modo Vídeo. Avisar ela antes de editar. Sugestão dada: modo Vídeo normal (NÃO modo cinema), 4K 30 qps,
   Alta Eficiência, Vídeo HDR desligado, câmera de trás, boa luz; mandar arquivo original sem compressão.
 - Dizer a ela: ligar "Permitir upload em alta qualidade" no TikTok e mandar o arquivo pro celular sem compressão
   (salvar o arquivo/AirDrop, não WhatsApp).
