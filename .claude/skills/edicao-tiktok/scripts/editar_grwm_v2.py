@@ -38,7 +38,8 @@ PHRASES = [
     ("IMG_6259", 29.10, 31.20, "fala"),    # não nasci com coordenação
     ("IMG_6259", 36.00, 40.85, "fala"),    # balé, jazz, hip hop, nada deu certo
     ("IMG_6262", 10.85, 12.95, "fala"),    # bora arrumar a cara em dois segundos
-    ("IMG_6262", 13.75, 16.50, "fala"),    # adivinha? atrasada!
+    ("IMG_6262", 13.75, 15.55, "fala"),    # adivinha?
+    ("IMG_6262", 15.60, 17.10, "inteiro"), # atrasada! (segura a cena do café pra palavra espalhar)
     ("IMG_6262", 23.25, 25.05, "fala"),    # vou arrumar o meu cabelo
     ("IMG_6262", 31.60, 34.95, "fala"),    # não vai dar pra fazer o que eu queria
     ("IMG_6262", 35.00, 39.40, "4x"),      # prendendo o cabelo
@@ -81,11 +82,11 @@ for f in FILES:
     db = np.maximum.reduce([np.roll(db, k) for k in (-2, -1, 0, 1, 2)])  # suaviza 100 ms
     ENV[f] = (db, np.percentile(db, 90) - 22)  # limiar: 18 dB abaixo da fala
 
-def speech_runs(f, a, b, min_sil=0.30, pad_end=0.12, pad_start=0.07):
+def speech_runs(f, a, b, min_sil=0.25, pad_end=0.12, pad_start=0.07):
     db, thr = ENV[f]; i0, i1 = int(a * 50), int(b * 50)
     loud = db[i0:i1] > thr
     for w in words[f]:  # nenhuma palavra pode ser cortada: o início de cada palavra conta como fala
-        ws, we = w["start"] - 0.04, w["start"] + min(w["end"] - w["start"], 0.45)
+        ws, we = w["start"] - 0.04, w["start"] + min(w["end"] - w["start"], 0.30)
         k0, k1 = max(int(ws * 50) - i0, 0), min(int(we * 50) - i0, len(loud))
         if k1 > k0: loud[k0:k1] = True
     runs, k = [], 0
@@ -215,14 +216,31 @@ def coupon(t0, t1, brand, y=420):
     typed(t0, t1, "Serif", 540, y, brand, color=YEL, step=0.05)
     EV.append((2, t0 + 0.35, t1, "Pill", f"{{\\pos(540,{y + 95})\\fad(120,150)}}{POP}cupom {{\\b1}}GABISILVA"))
 
+
+# ---------- emojis do iPhone (pedido dela) ----------
+from PIL import ImageFont
+EMO_DIR = os.environ.get("EMO_DIR", "/tmp/claude-0/-home-user-Claude/c9666f33-89ef-5d36-9a00-fdf48ae9d107/scratchpad/emoji_apple")
+FONTFILE = {"Serif": (f"{FONTS}/OutfitSemiBold.ttf", 80), "Title": (f"{FONTS}/Montserrat-BlackItalic.ttf", 68),
+            "Hand": (f"{FONTS}/PatrickHand-Regular.ttf", 88)}
+from fontTools.ttLib import TTFont as _TT
+def _libass_scale(path):  # libass: tamanho = altura (winAscent+winDescent); PIL: tamanho = em
+    f = _TT(path); o = f["OS/2"]; return f["head"].unitsPerEm / (o.usWinAscent + o.usWinDescent)
+def text_w(style, text, fs=None):
+    path, size = FONTFILE[style]; return ImageFont.truetype(path, fs or size).getlength(text) * _libass_scale(path)
+EMO = []  # (png, início, fim, centro_x, centro_y, tamanho)
+def emoji_after(name, t0, t1, style, x, y, text, size=96, fs=None, gap=14):
+    if t0 is None or t1 is None: return
+    EMO.append((f"{EMO_DIR}/{name}.png", t0, t1, x + text_w(style, text, fs) / 2 + gap + size / 2, y, size))
+
 # --- gancho: título digitado (estilo aprovado "Melhor DICA pra sua PROVA"), sem ✦
 hook = [(WHITE, "Arrume-sisi comigo pro"), (WHITE, "\n"), (PINK, "TORNEIO "), (YEL, "RELÂMPAGO")]
 chars = [(c, ch) for c, tx in hook for ch in tx]; vis = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
 HOOK_END = at("IMG_6257", 14.3) + 0.6
+HOOK_Y = 520
 for k, n in enumerate(vis):
     a = 0.15 + k * 0.045; b = 0.15 + (k + 1) * 0.045 if k + 1 < len(vis) else HOOK_END
     body = "".join(("{\\c%s\\alpha&H00&}" % c if i <= n else "{\\alpha&HFF&}") + (r"\N" if ch == "\n" else ch) for i, (c, ch) in enumerate(chars))
-    EV.append((2, a, b, "Title", f"{{\\pos(540,330)}}{r'{\\fad(0,200)}' if k + 1 == len(vis) else ''}{body}"))
+    EV.append((2, a, b, "Title", f"{{\\pos(540,{HOOK_Y})}}{r'{\\fad(0,200)}' if k + 1 == len(vis) else ''}{body}"))
 
 # --- títulos ao longo do vídeo
 arc(at("IMG_6257", 16.9), at("IMG_6257", 19.0), "Serif", 540, 360, "mais chiques", radius=420, span=40, color=YEL)
@@ -237,7 +255,7 @@ coupon(at("IMG_6258", 10.5), seg_end_of("IMG_6258", 16.2), "conjunto HIPY")
 typed(at("IMG_6258", 29.3), seg_end_of("IMG_6258", 30.1), "Hand", 540, 470, "sustentação absurda", color=WHITE)
 label(at("IMG_6259", 13.75), seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!", color=YEL, rot=-4)
 typed(at("IMG_6259", 38.0), seg_end_of("IMG_6259", 39.0), "Serif", 540, 420, "balé · jazz · hip hop", color=CREAM, step=0.03)
-scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 15.9), "Modern", "atrasada!", n=6)
+scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 16.5), "Modern", "atrasada!", n=6)
 typed(at("IMG_6262", 23.5), seg_end_of("IMG_6262", 24.4), "Serif", 540, 420, "cabelo", color=CREAM)
 label(at("IMG_6262", 35.0), seg_end_of("IMG_6262", 35.5), "Modern", 540, 420, "prendendo... (4x)", color=WHITE, rot=-3)
 typed(at("IMG_6262", 65.6), at("IMG_6262", 69.4), "Serif", 540, 400, "tem na minha vitrine", color=YEL, step=0.035)
@@ -257,8 +275,20 @@ def bounce_line(ws, t_first, step, color_of):
                 + w + (" " if k + 1 < len(ws) else ""))
     return out
 END_T0 = 0.15
-EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,300)\fad(0,250)}" + bounce_line(["Arrume-sisi", "comigo"], END_T0, 0.17, lambda k: WHITE)))
-EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,395)\fad(0,250)\fs90}" + bounce_line(["EXPRESS"], END_T0 + 0.45, 0.2, lambda k: PINK)))
+EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,345)\fad(0,250)}" + bounce_line(["Arrume-sisi", "comigo"], END_T0, 0.17, lambda k: WHITE)))
+EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,440)\fad(0,250)\fs90}" + bounce_line(["EXPRESS"], END_T0 + 0.45, 0.2, lambda k: PINK)))
+
+# emojis (poucos, só no fim de alguns títulos — como na referência)
+T_HOOK_DONE = 0.15 + len(vis) * 0.045
+emoji_after("tenis", T_HOOK_DONE, HOOK_END, "Title", 540, HOOK_Y + 42, "TORNEIO RELÂMPAGO", size=88)
+emoji_after("relogio", at("IMG_6257", 56.04) + 0.6, seg_end_of("IMG_6257", 59.0), "Serif", 540, 420, "até o Garmin")
+emoji_after("fogo", at("IMG_6259", 13.75) + 0.15, seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!")
+if at("IMG_6262", 15.75) is not None:
+    EMO.append((f"{EMO_DIR}/despertador.png", at("IMG_6262", 15.75) + 0.6, seg_end_of("IMG_6262", 16.5), 820, 1080, 120))
+emoji_after("sacola", at("IMG_6262", 65.6) + 0.7, at("IMG_6262", 69.4), "Serif", 540, 400, "tem na minha vitrine")
+emoji_after("brilho", at("IMG_6264", 2.4) + 0.5, seg_end_of("IMG_6264", 5.0), "Serif", 540, 400, "look pronto")
+emoji_after("tenis", at("IMG_6264", 11.6) + 0.7, seg_end_of("IMG_6264", 17.0), "Serif", 540, 420, "grips Spin Grip")
+emoji_after("raio", TOTAL + END_T0 + 0.75, TOTAL + END, "Title", 540, 440, "EXPRESS", size=100, fs=90)
 
 ass = f"""[Script Info]
 ScriptType: v4.00+
@@ -271,7 +301,7 @@ ScaledBorderAndShadow: yes
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Cap,Poppins SemiBold,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,4,2,2,80,80,600,1
 Style: Title,Montserrat Thin Black,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,-1,0,0,100,100,-2,0,1,0,6,5,60,60,0,1
-Style: Serif,Instrument Serif,104,&H00C8F4FF,&H00FFFFFF,&H00000000,&H70000000,0,-1,0,0,100,100,0,0,1,0,4,5,60,60,0,1
+Style: Serif,Outfit SemiBold,80,&H00C8F4FF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,4,5,60,60,0,1
 Style: Hand,Patrick Hand,88,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,4,5,60,60,0,1
 Style: Modern,Bricolage Grotesque,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,-1,0,0,0,100,100,-1,0,1,0,4,5,60,60,0,1
 Style: List,Poppins SemiBold,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,3,4,60,60,0,1
@@ -353,11 +383,20 @@ def render_segs():
 
 ass_path = f"{OUT}/legendas.ass".replace(":", r"\:")
 inputs = ["-f", "concat", "-safe", "0", "-i", f"{LISTDIR}/list.txt"]
-fc = [f"[0:v]tpad=stop_mode=clone:stop_duration={END},{LOOK},subtitles='{ass_path}':fontsdir={FONTS},fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]",
+fc = [f"[0:v]tpad=stop_mode=clone:stop_duration={END},{LOOK},subtitles='{ass_path}':fontsdir={FONTS}[v_s]",
       f"[0:a]apad=pad_dur={END}[acp]"]
+n_in = 1
+vlast = "v_s"
+for j, (png, t0, t1, cx, cy, size) in enumerate(EMO):
+    inputs += ["-loop", "1", "-framerate", "30", "-t", f"{TOTAL+END:.2f}", "-i", png]
+    k = n_in; n_in += 1
+    fc.append(f"[{k}:v]format=rgba,scale={size}:{size},fade=t=in:st={t0:.3f}:d=0.12:alpha=1,fade=t=out:st={max(t1-0.15,t0):.3f}:d=0.15:alpha=1[e{j}]")
+    fc.append(f"[{vlast}][e{j}]overlay=x={cx - size/2:.0f}:y={cy - size/2:.0f}:enable='between(t,{t0:.3f},{t1:.3f})'[v{j}]")
+    vlast = f"v{j}"
+fc.append(f"[{vlast}]fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]")
 mix = ["[acp]"]
 for j, (name, peak, inner, vol, why) in enumerate(SFX):
-    idx = len(inputs) // 2 - 2; inputs += ["-i", snd(name)]
+    idx = n_in; n_in += 1; inputs += ["-i", snd(name)]
     start = peak - inner; cut = max(-start, 0); ms = int(max(start, 0) * 1000)
     fc.append(f"[{idx}:a]atrim=start={cut:.3f},asetpts=PTS-STARTPTS,volume={vol},adelay={ms}|{ms},aformat=channel_layouts=stereo[s{j}]"); mix.append(f"[s{j}]")
 fc.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0:duration=first,afade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[aout]")

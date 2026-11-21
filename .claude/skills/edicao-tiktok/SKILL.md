@@ -70,8 +70,14 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   NÃO acelerar gancho, piadas e falas com marca/cupom.
 - **Click no fim do título do gancho** (depois da última palavra da frase do gancho, ex. "...de beach tennis?").
 - **Produto do TikTok Shop → rótulo "tem na minha vitrine"** (não escrever "TikTok Shop" no rótulo).
-- **Fontes:** serifada itálica (Instrument Serif) e as "falinhas do meio" ela aprovou; para destaque engraçado
+- **Fontes:** a serifada itálica (Instrument Serif) ela achou BREGA → títulos/rótulos em **Outfit SemiBold** (fonts/OutfitSemiBold.ttf);
+  as "falinhas do meio" (Patrick Hand) ela aprovou; para destaque engraçado
   (palavra espalhada tipo "atrasada!") usar fonte moderna Bricolage Grotesque bold. Variar a fonte às vezes.
+- **Título do gancho mais baixo (y≈520)** — no topo o TikTok põe "Seguindo | Para você". Fechamento em y≈345/440.
+- **Emoji do iPhone LIBERADO por ela** (poucos, no fim de alguns títulos: 🎾 ⌚ 🔥 ⏰ 🛍️ ✨ ⚡). Imagens Apple 160 px:
+  `curl https://cdn.jsdelivr.net/gh/iamcal/emoji-data@master/img-apple-160/<codigo>.png` (ex. 1f3be = 🎾).
+  NÃO versionar as imagens no git (são da Apple); baixar na pasta de trabalho. No script: emoji_after(...) + overlay.
+- **Silêncios longos: pode cortar** (min_sil 0,25 s), mas segurar a cena quando há uma piada visual (ex. "atrasada!" + café).
 - **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
   antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
 
