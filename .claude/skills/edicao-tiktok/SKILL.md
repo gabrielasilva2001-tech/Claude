@@ -48,6 +48,9 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
 - **Volume:** normalizar para -14 LUFS.
 
+**APROVADO 21/11 ("Arrasouuuu, eu amei"):** `scripts/editar_grwm_v2.py` (Arrume-sisi comigo, beach tennis, v11) é agora
+a edição de referência mais recente — copiar e adaptar ela (cortes pelo áudio, checklist, cupom, emojis sutis, final sem congelar).
+
 ## Feedback dela (21/11, vídeo "Arrume-sisi comigo" beach tennis) — PRIORIDADE
 
 - **Cortes em cima da última palavra = confuso.** Deixar a palavra terminar (~0,15–0,25 s de folga depois do fim
