@@ -1,4 +1,4 @@
-"""(v1, aguardando aprovação dela) Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
+"""(v2: só fala, sem pausas nem respiros — aguardando aprovação) Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
 Tema: coisas que eu faria se quisesse entrar num banco/cooperativa.
 Base: editar_exemplo_tripe.py (estilo aprovado) + ideias da referência (lista #1, #2... no topo durante cada dica).
 """
@@ -88,20 +88,25 @@ SEGS = [
 ]
 BW_TAGS = {"nunca"}
 
-# tira pausas dentro de cada corte (> 0.45 s entre palavras) — vira corte seco com zoom alternado
-GAP = 0.45
-_out = []
-for seg in SEGS:
-    ws = words[seg["f"]]; i0 = seg["wi"]; part = 0
-    for k in range(seg["wi"], seg["wj"] + 1):
-        last = k == seg["wj"]
-        if last or ws[k + 1]["start"] - ws[k]["end"] > GAP:
-            a = seg["a"] if i0 == seg["wi"] else max(ws[i0]["start"] - 0.08, ws[i0 - 1]["end"] + 0.02)
-            b = seg["b"] if last else min(ws[k]["end"] + 0.12, ws[k + 1]["start"] - 0.05)
-            z = seg["z"] if part % 2 == 0 else (1.0 if seg["z"] > 1.0 else 1.12)
-            _out.append(dict(seg, a=round(a, 2), b=round(b, 2), z=z, wi=i0, wj=k, tag=seg["tag"] if part == 0 else None))
-            part += 1; i0 = k + 1
-SEGS = _out
+# ---------- só fala: corta pausas de pensamento e respiros (audio/fala.json, gerado por fala.py) ----------
+FALA = json.load(open(f"{S}/audio/fala.json"))
+CUTS = SEGS
+PIECES = []  # (ci, f, a, b, z, tag)
+for ci, c in enumerate(CUTS):
+    ps = []
+    for fa, fb in FALA[c["f"]]:
+        a, b = max(fa, c["a"]), min(fb, c["b"])
+        if b - a >= 0.10: ps.append([a, b])
+    merged = []
+    for p in ps:
+        if merged and p[0] - merged[-1][1] < 0.10: merged[-1][1] = p[1]
+        else: merged.append(p)
+    if not merged: merged = [[c["a"], c["b"]]]
+    if c["b"] - merged[-1][1] < 0.6 and c is CUTS[-1]: merged[-1][1] = c["b"]   # fecha no sorriso
+    z = c["z"]; alt = 1.0 if z > 1.0 else 1.12
+    for k, (a, b) in enumerate(merged):
+        PIECES.append(dict(ci=ci, f=c["f"], a=round(a, 3), b=round(b, 3), z=z, tag=c["tag"] if k == 0 else None))
+        if b - a >= 1.0: z = alt if z == c["z"] else c["z"]   # zoom alterna a cada corte (exceto pedacinhos)
 
 # Correções de transcrição: (arquivo, início da palavra) -> texto
 FIX = {
@@ -142,33 +147,48 @@ def ts(t):
 
 # ---------- timeline ----------
 timeline, t = [], 0.0
-for seg in SEGS:
-    d = round((seg["b"] - seg["a"]) * 30) / 30; timeline.append((seg, t, d)); t += d
+for pc in PIECES:
+    d = round((pc["b"] - pc["a"]) * 30) / 30; pc["b"] = pc["a"] + d
+    timeline.append((pc, t, d)); t += d
 TOTAL = t
 END = 3.0
+cut_out = {}
+for pc, o, d in timeline:
+    ci = pc["ci"]; s0, e0 = cut_out.get(ci, (o, o)); cut_out[ci] = (min(s0, o), o + d)
+def map_t(ci, x, side):
+    """tempo no bruto -> tempo no vídeo final; se cair num pedaço cortado, encosta no vizinho"""
+    ps = [(pc, o, d) for pc, o, d in timeline if pc["ci"] == ci]
+    for pc, o, d in ps:
+        if pc["a"] <= x <= pc["b"]: return o + x - pc["a"]
+        if x < pc["a"]: return o if side == "start" else max(o - 0.001, ps[0][1])
+    return ps[-1][1] + ps[-1][2]
 def seg_start(tag):
-    for seg, o, d in timeline:
-        if seg["tag"] == tag: return o
+    for ci, c in enumerate(CUTS):
+        if c["tag"] == tag: return cut_out[ci][0]
 def seg_dur(tag):
-    for seg, o, d in timeline:
-        if seg["tag"] == tag: return d
+    for ci, c in enumerate(CUTS):
+        if c["tag"] == tag: return cut_out[ci][1] - cut_out[ci][0]
 
 # ---------- legendas dinâmicas ----------
 caps, seg_end = [], []
-for i, (seg, o, d) in enumerate(timeline):
-    f, a, b = seg["f"], seg["a"], seg["b"]
-    chunk = []
-    for k in range(seg["wi"], seg["wj"] + 1):
+for ci, c in enumerate(CUTS):
+    f = c["f"]; chunk = []; cend = cut_out[ci][1]
+    for k in range(c["wi"], c["wj"] + 1):
         w = words[f][k]
         raw = w["word"].strip()
         txt = FIX.get((f, round(w["start"], 2), raw), FIX.get((f, round(w["start"], 2)), raw))
         txt = FIX_TEXT.get(txt, txt)
         if not txt: continue
-        if k == seg["wj"] and txt[-1] not in ",.?!": pass
-        chunk.append((txt, o + w["start"] - a, o + min(w["end"], b) - a))
+        ws_, we_ = map_t(ci, w["start"], "start"), map_t(ci, min(w["end"], c["b"]), "end")
+        if we_ <= ws_ + 0.08: we_ = ws_ + 0.15
+        chunk.append((txt, ws_, we_))
         if len(chunk) >= 3 or txt[-1] in ",.?!":
-            caps.append(chunk); seg_end.append(o + d); chunk = []
-    if chunk: caps.append(chunk); seg_end.append(o + d)
+            caps.append(chunk); seg_end.append(cend); chunk = []
+    if chunk: caps.append(chunk); seg_end.append(cend)
+# palavras dentro do bloco em ordem crescente
+for ch in caps:
+    for m in range(1, len(ch)):
+        if ch[m][1] < ch[m - 1][1] + 0.06: ch[m] = (ch[m][0], ch[m - 1][1] + 0.06, max(ch[m][2], ch[m - 1][1] + 0.2))
 fixed = []
 for k, ch in enumerate(caps):
     a, b = ch[0][1], ch[-1][2]
@@ -256,7 +276,7 @@ for a, b, st, x, y, txt in overlays:
     ass += f"Dialogue: 1,{ts(a)},{ts(b)},{st},,0,0,0,,{{\\pos({x},{y})}}{txt}\n"
 # gancho digitado letra por letra (fica até o fim do 2º corte do gancho)
 TYPE_START, TYPE_STEP = 0.20, 0.045
-TYPE_END = timeline[1][1] + timeline[1][2]
+TYPE_END = cut_out[1][1]
 parts = [("&HFFFFFF&", "Como entrar num banco"), ("&HFFFFFF&", "\n"), ("&HFFFFFF&", "ou "), ("&HB45CFF&", "COOPERATIVA "), ("&H3DD9FF&", "✦")]
 chars = [(c, ch) for c, txt in parts for ch in txt]
 typed = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
@@ -293,7 +313,7 @@ def render():
     for i, (seg, o, d) in enumerate(timeline):
         f, a, b, z = seg["f"], seg["a"], seg["b"], seg["z"]
         cw, ch = int(W / z) // 2 * 2, int(H / z) // 2 * 2
-        bw = ",hue=s=0" if seg["tag"] in BW_TAGS else ""
+        bw = ",hue=s=0" if CUTS[seg["ci"]]["tag"] in BW_TAGS else ""
         dst = f"{OUT}/segs/{i:03d}.mp4"
         subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-i", f"{PROXY}/{f}.mp4", "-frames:v", str(round(d * 30)), "-t", f"{d:.4f}",
             "-vf", f"crop={cw}:{ch}:(iw-{cw})/2:(ih-{ch})/2.6,scale={W}:{H},fps=30,setsar=1{bw}",
