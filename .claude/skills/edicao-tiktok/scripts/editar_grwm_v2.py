@@ -324,6 +324,7 @@ SFX = [
 
 LOOK = "eq=contrast=1.06:saturation=1.14:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03"
 SEGDIR = f"{OUT}/segs"; os.makedirs(SEGDIR, exist_ok=True)
+LISTDIR = os.environ.get("SEGLIST_DIR", SEGDIR)  # ex.: segs_bokeh (cortes com bokeh)
 def render_segs():
     lst = []
     for i, (seg, o, d) in enumerate(timeline):
@@ -343,7 +344,7 @@ def render_segs():
     open(f"{SEGDIR}/list.txt", "w").write("\n".join(lst) + "\n")
 
 ass_path = f"{OUT}/legendas.ass".replace(":", r"\:")
-inputs = ["-f", "concat", "-safe", "0", "-i", f"{SEGDIR}/list.txt"]
+inputs = ["-f", "concat", "-safe", "0", "-i", f"{LISTDIR}/list.txt"]
 fc = [f"[0:v]tpad=stop_mode=clone:stop_duration={END},{LOOK},subtitles='{ass_path}':fontsdir={FONTS},fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]",
       f"[0:a]apad=pad_dur={END}[acp]"]
 mix = ["[acp]"]
@@ -370,5 +371,5 @@ m = json.loads(j[j.rindex("{"):j.rindex("}") + 1])
 subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", f"{OUT}/pre.mkv", "-c:v", "copy", "-af",
                 f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:"
                 f"measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true,aresample=48000",
-                "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", f"{OUT}/grwm_v2.mp4"], check=True)
+                "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", f"{OUT}/" + os.environ.get("OUTNAME", "grwm_v2.mp4")], check=True)
 print(f"OK duração {TOTAL+END:.1f}s")

@@ -22,7 +22,8 @@ dec = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", str(ss), "-t", str(dur),
                        stdout=subprocess.PIPE)
 enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                         "-ss", str(ss), "-t", str(dur), "-i", src, "-map", "0:v", "-map", "1:a?", "-shortest",
-                        "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-pix_fmt", "yuv420p", "-c:a", "aac", out],
+                        "-c:v", "libx264", "-preset", "veryfast", "-crf", "14", "-pix_fmt", "yuv420p",
+                        "-c:a", "pcm_s16le" if out.endswith(".mkv") else "aac", out],
                        stdin=subprocess.PIPE)
 prev, n = None, 0
 k = int(strength) * 2 + 1
@@ -34,8 +35,8 @@ while True:
     res = seg.segment_for_video(mp.Image(image_format=mp.ImageFormat.SRGB, data=np.ascontiguousarray(small)), int(n * 1000 / FPS))
     person = 1.0 - res.confidence_masks[0].numpy_view().astype(np.float32)  # classe 0 = fundo
     person = cv2.resize(person, (W, H), interpolation=cv2.INTER_LINEAR)
-    person = cv2.dilate(person, np.ones((3, 3), np.uint8))           # borda justa (sem contorno claro)
-    person = cv2.GaussianBlur(person, (21, 21), 0)                    # borda macia
+    person = cv2.erode(person, np.ones((5, 5), np.uint8))            # recorte justo: a transição cai dentro da pessoa
+    person = cv2.GaussianBlur(person, (15, 15), 0)                    # borda macia
     prev = person if prev is None else 0.55 * person + 0.45 * prev  # suaviza no tempo (sem tremer)
     m = np.clip(prev, 0, 1)[..., None]
     # desfoca o fundo SEM a pessoa (desfoque normalizado): o vestido/pele não "vaza" e não fica contorno claro
