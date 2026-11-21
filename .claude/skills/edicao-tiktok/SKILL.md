@@ -75,3 +75,9 @@ barulho de acelerada na parte acelerada.
 - Rede: Dropbox entrega arquivos por servidores com nome aleatório; Whisper baixa modelo de
   `openaipublic.azureedge.net`; instalar `openai-whisper` pelo PyPI (o servidor do PyTorch pode estar bloqueado).
 - Renders longos: rodar em segundo plano (o processo pode reiniciar) e mandar o vídeo só depois de conferir quadros.
+
+## Quadros / séries
+
+- **"Uma limpa no guarda-roupa"** (ep. 1 = Calças): formato do título e rótulos em `quadro-limpa-guarda-roupa.md`.
+  Esse quadro usa o estilo da referência dela (amarelo-creme, minúsculas, texto atrás dela, "fica"/"vai embora"),
+  não o gancho rosa/amarelo do vídeo do tripé.
