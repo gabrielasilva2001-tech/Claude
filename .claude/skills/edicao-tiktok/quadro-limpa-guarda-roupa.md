@@ -29,3 +29,17 @@ Mesmo esquema, ajustando para a série (validar com a fala dela quando o bruto c
 4. Durante as provas: "fica" / "vai embora" em cada calça.
 Se ela falar a introdução tipo a referência ("provando todas as calças até ficar só com as que eu realmente uso"),
 usar as palavras grandes uma a uma acompanhando a fala.
+
+## Ep. 1 feito (v2, 21/11/2026) — `scripts/editar_limpa_calcas.py`
+
+- Fonte do quadro: **Nunito Black** (`fonts/Nunito-Black.ttf`), cor `&HA6F3FF&`, espaçamento -3.
+- Título "uma limpa no / guarda-roupa" digitado com cursor, na altura da cabeça dela (y≈690) para a cabeça
+  passar na frente: máscara da pessoa com `scripts/mascara_pessoa.py` (mediapipe selfie_multiclass; precisa de
+  `apt-get install libegl1 libgles2`), camada do título renderizada à parte e a pessoa recortada por cima.
+- Palavras grandes na intro acompanhando a fala; legendas da fala no ALTO (acima da cabeça), pra não cobrir a calça.
+- Veredito no topo (y=330) com plim no "fica" e duas notas descendo ("tchau") no "vai embora".
+- ✨ é PNG (Noto Color Emoji) sobreposto — o libass não desenha emoji colorido.
+- Pausas dentro das falas são cortadas automaticamente (corte seco, zoom alterna 1.0/1.08).
+- Render: cada corte vira um arquivo e depois concatena (dezenas de trims do mesmo arquivo estouram a memória).
+- Trechos com fala incerta ficaram de fora: IMG_6392 ("esse sabor"?), início do 6394 ("calça de cor/couro"?),
+  nome da loja em 6404, final de 6405, Shopee em 6403. 6410 e 6411 cortados por tempo.
