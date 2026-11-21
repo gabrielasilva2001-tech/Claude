@@ -36,10 +36,10 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 - **Partes longas de ação (montar algo):** acelerar 4x.
 - **Cor:** levemente mais quente e saturada (`eq=contrast=1.06:saturation=1.14`, colorbalance quente).
 - **Quando algo dá errado** ("por que ele não tá me seguindo?"): cena em **preto e branco** + rótulo "ué?".
-- **Fechamento:** congelar no sorriso dela (no meio do quadro!), frase de fechamento no topo com
-  **palavras chegando uma a uma com pulinho** (desfoque→nítido, estica e assenta), 2ª linha maior em rosa,
-  "plim" quando a palavra-chave chega, escurecer até o preto (~3 s no total).
-  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
+- **Fechamento: FINAL NORMAL.** O vídeo termina na última fala dela, com corte seco e o vídeo rodando.
+  **Sem** congelar a imagem, **sem** frase de fechamento na tela e **sem** escurecer até o preto.
+  Ela odiou o final congelado com "Comprei no escuro e ARRASEI ✦" (vídeo da We Pink, nov/2026), mesmo
+  com o tripé tendo usado esse final antes. O fechamento do tripé no script de exemplo **não vale mais**.
 - **Volume:** normalizar para -14 LUFS.
 
 ## Som: SEMPRE segue a imagem (regra mais importante)
@@ -48,7 +48,6 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Gesto (joinha) → **plim** no quadro em que o gesto aparece.
 - Rótulo que merece destaque → plim/bling curto e baixo (não em todos os textos).
 - Parte acelerada → **o próprio áudio acelerado** (asetrate 2x + atempo 2 = 4x, uma oitava acima), só durante a aceleração.
-- Fechamento → plim na palavra-chave.
 - "plim" e "bling" atuais são sintetizados no script (sinos com eco); ela aprovou o plim.
 
 ## O que ela NÃO quer (não repetir)
@@ -59,7 +58,7 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Som solto sem nada acontecendo na tela; som longo (tipo música inteira) em transição.
 - Título grande ocupando a tela.
 - Repetir "tem na minha vitrine" no final / cartão "Gostou? / me segue".
-- Congelar o final num quadro vazio (sem ela).
+- **Final congelado com frase de fechamento na tela e escurecendo** (ela odeia). Final é normal, corte seco na última fala.
 - Legenda inventada quando a transcrição não tem certeza.
 
 ## Sons dela
