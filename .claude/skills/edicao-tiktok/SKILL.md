@@ -30,7 +30,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
   linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
-  Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).
+  Entra **digitado letra por letra** (~45 ms/letra), letras não digitadas invisíveis (texto não pula).
+  **Com som de teclado BAIXINHO** (sons/keyboard_typing.wav, vol ~0.10, só durante a digitação) — ela sempre usa; a voz tem que ser ouvida.
 - **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, centro-baixo (MarginV 620).
   **Dinâmica:** cada bloco entra com pulinho (85%→100%) e a **palavra falada fica amarela e 8% maior**.
   Termina dentro da própria cena.
@@ -61,7 +62,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   Marcas com cupom: **Spin Grip** e **HIPY** (ela fala "HIP"; escreve-se HIPY).
   Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
 - **Não quer rótulo explicando a piada** ("mudou de ideia", "bailarina?"): nesses momentos, só um som engraçado SUTIL
-  (record_scratch / boing baixinhos) e deixar a cena falar.
+  (record_scratch / boing MUITO baixos: vol ~0.06–0.07, uns 12–15 dB abaixo da voz — 0.30 ela achou altíssimo) e deixar a cena falar.
+- **Checklist com ✓ + click a cada item: ela AMOU** (vol 0.35). Repetir sempre que houver lista/agenda.
 - **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
   antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
 
@@ -78,7 +80,7 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.
 - "Pop" em todo texto que entra.
-- Som de teclado sintetizado.
+- Som de teclado sintetizado (o gravado, baixinho, no título do gancho, ela QUER).
 - Som solto sem nada acontecendo na tela; som longo (tipo música inteira) em transição.
 - Título grande ocupando a tela.
 - Repetir "tem na minha vitrine" no final / cartão "Gostou? / me segue".

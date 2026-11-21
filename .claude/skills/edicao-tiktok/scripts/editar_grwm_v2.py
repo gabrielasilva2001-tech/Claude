@@ -298,18 +298,22 @@ def bell(name, notes, d=0.7, vol=1.6):
                     f"afade=t=in:d=0.003,aecho=0.8:0.4:45|90:0.25|0.12,afade=t=out:st={d-0.15}:d=0.15,pan=stereo|c0=c0|c1=c0,volume={vol}",
                     f"{OUT}/plim.wav"], check=True)
 bell("plim", [(1568, 0.5, 7, 0), (2349, 0.3, 9, 0), (3136, 0.12, 12, 0)])
-def snd(n): return f"{OUT}/plim.wav" if n == "plim" else f"{SONS}/{n}.wav"
+TYPE_DUR = 0.045 * len(vis)  # teclado só enquanto o título do gancho é digitado
+subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", f"{SONS}/keyboard_typing.wav", "-af",
+                f"atrim=0:{TYPE_DUR:.3f},afade=t=in:d=0.03,afade=t=out:st={TYPE_DUR-0.15:.3f}:d=0.15", f"{OUT}/teclado_gancho.wav"], check=True)
+def snd(n): return f"{OUT}/{n}.wav" if os.path.exists(f"{OUT}/{n}.wav") else f"{SONS}/{n}.wav"
 # (som, momento na timeline, onde fica o pico dentro do som, volume, motivo)
 SFX = [
+    ("teclado_gancho", 0.15, 0.0, 0.10, "título do gancho sendo digitado (baixinho, pedido dela)"),
     ("click", at("IMG_6257", 38.2), 0.0, 0.35, "✓ mista aparece"),
     ("click", at("IMG_6257", 40.8), 0.0, 0.35, "✓ feminina aparece"),
     ("click", at("IMG_6257", 41.85), 0.0, 0.35, "✓ sábado aparece"),
-    ("record_scratch", at("IMG_6257", 44.55), 0.02, 0.30, "'Não, na verdade talvez não' — quebra de expectativa"),
+    ("record_scratch", at("IMG_6257", 44.55), 0.02, 0.07, "'Não, na verdade talvez não' — quebra de expectativa"),
     ("click", at("IMG_6257", 47.3), 0.0, 0.35, "✓ domingo aparece"),
     ("pop", at("IMG_6258", 10.85), 0.0, 0.40, "cupom HIPY entra na tela"),
     ("whoosh_soft", at("IMG_6259", 13.30), 0.30, 0.55, "corte do closet pra ela vestida (mudança de cena)"),
     ("impact_soft", at("IMG_6259", 13.80), 0.0, 0.55, "look revelado (mãos na cintura)"),
-    ("boing", at("IMG_6259", 23.95), 0.0, 0.22, "braços de bailarina (movimento exagerado)"),
+    ("boing", at("IMG_6259", 23.95), 0.0, 0.06, "braços de bailarina (movimento exagerado)"),
     ("sad_trombone", at("IMG_6259", 39.80), 0.0, 0.30, "'nada deu certo' — expectativa frustrada"),
     ("whoosh_soft", at("IMG_6262", 10.85), 0.30, 0.55, "muda de ambiente: closet -> penteadeira"),
     ("sparkle", at("IMG_6262", 65.6), 0.0, 0.30, "colar em destaque"),
