@@ -47,6 +47,22 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
 - **Volume:** normalizar para -14 LUFS.
 
+## Feedback dela (21/11, vídeo "Arrume-sisi comigo" beach tennis) — PRIORIDADE
+
+- **Cortes em cima da última palavra = confuso.** Deixar a palavra terminar (~0,15–0,25 s de folga depois do fim
+  da última palavra, mais se a frase cai no tom) e começar o corte seguinte um respiro antes da 1ª palavra.
+  Dinâmico SIM, mas a história tem que ser fácil de seguir: não picotar frases que dependem uma da outra.
+- **Tirar sempre:** pausas, respirações, repetições (a mesma frase dita 2x → fica a melhor), "é…", tentativas.
+  Tirar o que é desnecessário, NÃO o que conta a história.
+- **Emoji:** ela detesta o visual de emoji Android (Noto) e qualquer símbolo que pareça isso (o ✦ incluso).
+  A fonte de emoji da Apple não pode ser usada aqui (licença). Usar só emoji que ela mandar do iPhone
+  (print/PNG) como figurinha, ou não usar emoji.
+- **Marca falada → cupom na tela.** Cupom de desconto é SEMPRE **GABISILVA** (ela fala "Gabi Silva").
+  Marcas com cupom: **Spin Grip** e **HIPY** (ela fala "HIP"; escreve-se HIPY).
+  Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
+- **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
+  antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
+
 ## Som: SEMPRE segue a imagem (regra mais importante)
 
 Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
