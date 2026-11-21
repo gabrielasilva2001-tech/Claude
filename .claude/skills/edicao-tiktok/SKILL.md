@@ -26,6 +26,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
 
 ## O que ela APROVOU
 
+- **Nome do quadro:** "Arrume-sisi comigo" (é assim, com "sisi" — o Whisper escreve "arrumo-se se comigo"/"arrume-se comigo"; sempre corrigir na legenda e nos títulos).
+
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
   linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
   Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).

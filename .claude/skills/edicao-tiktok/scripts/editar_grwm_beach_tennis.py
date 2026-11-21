@@ -1,4 +1,4 @@
-"""Arrume-se comigo — torneio relâmpago de beach tennis (brutos IMG_6257..6264).
+"""Arrume-sisi comigo — torneio relâmpago de beach tennis (brutos IMG_6257..6264).
 Adaptado de editar_exemplo_tripe.py (estilo aprovado) + MANUAL_SONS.md.
 Biblioteca de sons dela NÃO estava disponível: só som real, áudio acelerado real,
 o "plim" aprovado e um whoosh suave sintetizado (substituto, avisado no relatório).
@@ -50,7 +50,7 @@ SEGS = [
 NOCAP = {12}  # fala ininteligível na revelação: sem legenda
 
 FIX = {
-    ("IMG_6257", 8.62): "Arrume-se", ("IMG_6257", 8.88): "", ("IMG_6257", 8.98): "",
+    ("IMG_6257", 8.62): "Arrume-sisi", ("IMG_6257", 8.88): "", ("IMG_6257", 8.98): "",
     ("IMG_6257", 9.38): "pra", ("IMG_6257", 10.5): "beach tennis?",
     ("IMG_6257", 56.04): "Garmin",
     ("IMG_6258", 33.4): "10!",
@@ -60,7 +60,7 @@ FIX = {
     ("IMG_6262", 86.11): "xuxinha!",
     ("IMG_6263", 6.0): "tô", ("IMG_6263", 9.26): "tempo,", ("IMG_6263", 21.98): "batidinha",
     ("IMG_6263", 4.36): "só,", ("IMG_6263", 2.44): "aqui,",
-    ("IMG_6264", 24.82): "express.", ("IMG_6264", 23.88): "Arrume-se", ("IMG_6264", 24.04): "",
+    ("IMG_6264", 24.82): "express.", ("IMG_6264", 23.88): "Arrume-sisi", ("IMG_6264", 24.04): "",
     ("IMG_6259", 29.22): "",
 }
 FIX_TEXT = {"para": "pra", "está": "tá", "estava": "tava"}
@@ -115,7 +115,7 @@ def bounce_line(ws, t_first, step, color_of):
                 + w + (" " if k + 1 < len(ws) else ""))
     return out
 END_T0 = 0.15
-l1 = bounce_line(["Arrume-se", "comigo"], END_T0, 0.17, lambda k: "&HFFFFFF&")
+l1 = bounce_line(["Arrume-sisi", "comigo"], END_T0, 0.17, lambda k: "&HFFFFFF&")
 l2 = bounce_line(["EXPRESS", "✦"], END_T0 + 0.45, 0.2, lambda k: "&H3DD9FF&" if k == 1 else "&HB45CFF&")
 
 overlays = [
@@ -164,7 +164,7 @@ for a, b, st, x, y, txt in overlays:
     ass += f"Dialogue: 1,{ts(a)},{ts(b)},{st},,0,0,0,,{{\\pos({x},{y})}}{txt}\n"
 # gancho digitado letra por letra (sem som de teclado)
 TYPE_START, TYPE_STEP, TYPE_END = 0.20, 0.045, ss(1) + 0.4
-parts = [("&HFFFFFF&", "Arrume-se comigo pro"), ("&HFFFFFF&", "\n"), ("&HB45CFF&", "TORNEIO "), ("&H3DD9FF&", "RELÂMPAGO ✦")]
+parts = [("&HFFFFFF&", "Arrume-sisi comigo pro"), ("&HFFFFFF&", "\n"), ("&HB45CFF&", "TORNEIO "), ("&H3DD9FF&", "RELÂMPAGO ✦")]
 chars = [(c, ch) for c, txt in parts for ch in txt]
 typed = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
 for k, n in enumerate(typed):
