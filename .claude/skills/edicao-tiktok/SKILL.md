@@ -63,6 +63,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
 - **Não quer rótulo explicando a piada** ("mudou de ideia", "bailarina?"): nesses momentos, só um som engraçado SUTIL
   (record_scratch / boing MUITO baixos: vol ~0.06–0.07, uns 12–15 dB abaixo da voz — 0.30 ela achou altíssimo) e deixar a cena falar.
+- **sad_trombone ela achou HORRÍVEL** — para "deu errado" usar algo bem sutil (sons/peido_baixo.wav, vol ~0.08).
+- Rótulos que só repetem a fala ("fica 10!", "mudou de ideia", "bailarina?") ela não quer.
 - **Checklist com ✓ + click a cada item: ela AMOU** (vol 0.35). Repetir sempre que houver lista/agenda.
 - **NÃO usar desfoque de fundo (bokeh com recorte da pessoa)** — ela odiou ("tira esse desfoque"). O "Bokeh" do CapCut
   que ela mostrou provavelmente é outro tipo de filtro; perguntar/ver exemplo antes de tentar imitar.
@@ -74,7 +76,7 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   as "falinhas do meio" (Patrick Hand) ela aprovou; para destaque engraçado
   (palavra espalhada tipo "atrasada!") usar fonte moderna Bricolage Grotesque bold. Variar a fonte às vezes.
 - **Título do gancho mais baixo (y≈520)** — no topo o TikTok põe "Seguindo | Para você". Fechamento em y≈345/440.
-- **Emoji do iPhone LIBERADO por ela** (poucos, no fim de alguns títulos: 🎾 ⌚ 🔥 ⏰ 🛍️ ✨ ⚡). Imagens Apple 160 px:
+- **Emoji do iPhone LIBERADO por ela, mas SUTIL: no máximo 2–3 no vídeo todo** (ex. 🎾 no gancho, ⏰ no "atrasada!"); NÃO em todo corte. Imagens Apple 160 px:
   `curl https://cdn.jsdelivr.net/gh/iamcal/emoji-data@master/img-apple-160/<codigo>.png` (ex. 1f3be = 🎾).
   NÃO versionar as imagens no git (são da Apple); baixar na pasta de trabalho. No script: emoji_after(...) + overlay.
 - **Silêncios longos: pode cortar** (min_sil 0,25 s), mas segurar a cena quando há uma piada visual (ex. "atrasada!" + café).

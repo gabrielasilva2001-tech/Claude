@@ -20,3 +20,4 @@ Quando ela mandar os sons dela, eles substituem estes com o mesmo nome.
 | cloth_rustle | "Fabric Rustling" (CC0) |
 | footsteps | "Footsteps" (CC0), 4 passos montados |
 | vine_boom, bass_hit, impact_soft, riser, record_scratch | sintetizados aqui (record_scratch sintético é o mais fraco: preferir o dela) |
+| peido_baixo | "Gastric Distress" (CC0), um som curto recortado |

@@ -253,7 +253,6 @@ typed(at("IMG_6257", 48.0), seg_end_of("IMG_6257", 50.3), "Serif", 790, 640, "ap
 typed(at("IMG_6257", 56.04), seg_end_of("IMG_6257", 59.0), "Serif", 540, 420, "até o Garmin", color=CREAM)
 coupon(at("IMG_6258", 10.5), seg_end_of("IMG_6258", 16.2), "conjunto HIPY")
 typed(at("IMG_6258", 29.3), seg_end_of("IMG_6258", 30.1), "Hand", 540, 470, "sustentação absurda", color=WHITE)
-label(at("IMG_6259", 13.75), seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!", color=YEL, rot=-4)
 typed(at("IMG_6259", 38.0), seg_end_of("IMG_6259", 39.0), "Serif", 540, 420, "balé · jazz · hip hop", color=CREAM, step=0.03)
 scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 16.5), "Modern", "atrasada!", n=6)
 typed(at("IMG_6262", 23.5), seg_end_of("IMG_6262", 24.4), "Serif", 540, 420, "cabelo", color=CREAM)
@@ -281,14 +280,8 @@ EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,440)\fad(0,250)\fs90}" + 
 # emojis (poucos, só no fim de alguns títulos — como na referência)
 T_HOOK_DONE = 0.15 + len(vis) * 0.045
 emoji_after("tenis", T_HOOK_DONE, HOOK_END, "Title", 540, HOOK_Y + 42, "TORNEIO RELÂMPAGO", size=88)
-emoji_after("relogio", at("IMG_6257", 56.04) + 0.6, seg_end_of("IMG_6257", 59.0), "Serif", 540, 420, "até o Garmin")
-emoji_after("fogo", at("IMG_6259", 13.75) + 0.15, seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!")
 if at("IMG_6262", 15.75) is not None:
     EMO.append((f"{EMO_DIR}/despertador.png", at("IMG_6262", 15.75) + 0.6, seg_end_of("IMG_6262", 16.5), 820, 1080, 120))
-emoji_after("sacola", at("IMG_6262", 65.6) + 0.7, at("IMG_6262", 69.4), "Serif", 540, 400, "tem na minha vitrine")
-emoji_after("brilho", at("IMG_6264", 2.4) + 0.5, seg_end_of("IMG_6264", 5.0), "Serif", 540, 400, "look pronto")
-emoji_after("tenis", at("IMG_6264", 11.6) + 0.7, seg_end_of("IMG_6264", 17.0), "Serif", 540, 420, "grips Spin Grip")
-emoji_after("raio", TOTAL + END_T0 + 0.75, TOTAL + END, "Title", 540, 440, "EXPRESS", size=100, fs=90)
 
 ass = f"""[Script Info]
 ScriptType: v4.00+
@@ -351,7 +344,7 @@ SFX = [
     ("whoosh_soft", at("IMG_6259", 13.30), 0.30, 0.55, "corte do closet pra ela vestida (mudança de cena)"),
     ("impact_soft", at("IMG_6259", 13.80), 0.0, 0.55, "look revelado (mãos na cintura)"),
     ("boing", at("IMG_6259", 23.95), 0.0, 0.06, "braços de bailarina (movimento exagerado)"),
-    ("sad_trombone", at("IMG_6259", 39.80), 0.0, 0.30, "'nada deu certo' — expectativa frustrada"),
+    ("peido_baixo", at("IMG_6259", 40.70), 0.0, 0.08, "depois de 'nada deu certo' — bem baixinho (pedido dela; trombone ficou horrível)"),
     ("whoosh_soft", at("IMG_6262", 10.85), 0.30, 0.55, "muda de ambiente: closet -> penteadeira"),
     ("sparkle", at("IMG_6262", 65.6), 0.0, 0.30, "colar em destaque"),
     ("whoosh_soft", at("IMG_6264", 0.50), 0.30, 0.55, "muda de ambiente: penteadeira -> look pronto"),
