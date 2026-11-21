@@ -12,6 +12,7 @@ import numpy as np
 
 S = os.environ.get("EDIT_WORK", os.getcwd())
 PROXY, OUT = f"{S}/proxy", f"{S}/render2"
+BRUTOS = f"{S}/brutos"  # arquivos originais 4K (render final sai daqui)
 os.makedirs(OUT, exist_ok=True)
 SKILL = "/home/user/Claude/.claude/skills/edicao-tiktok"
 FONTS, SONS = f"{SKILL}/fonts", f"{SKILL}/sons"
@@ -360,7 +361,7 @@ SFX = [
     ("plim", at("IMG_6264", 25.72), 0.0, 0.45, "último som no 'Beijo!' (fim do vídeo)"),
 ]
 
-LOOK = "eq=contrast=1.06:saturation=1.14:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03"
+LOOK = "unsharp=5:5:0.35:5:5:0.0,eq=contrast=1.06:saturation=1.14:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03"
 SEGDIR = f"{OUT}/segs"; os.makedirs(SEGDIR, exist_ok=True)
 LISTDIR = os.environ.get("SEGLIST_DIR", SEGDIR)  # ex.: segs_bokeh (cortes com bokeh)
 def render_segs():
@@ -368,7 +369,9 @@ def render_segs():
     for i, (seg, o, d) in enumerate(timeline):
         f, a, b, sp, z, mute = seg
         cw, ch = int(W / z) // 2 * 2, int(H / z) // 2 * 2
-        vf = f"setpts=(PTS-STARTPTS)/{sp},crop={cw}:{ch}:(iw-{cw})/2:(ih-{ch})/2.6,scale={W}:{H},fps=30,setsar=1"
+        # direto do bruto 4K: recorta o zoom no 4K e só depois reduz pra 1080x1920 (nítido)
+        vf = (f"setpts=(PTS-STARTPTS)/{sp},crop=trunc(iw/{z}/2)*2:trunc(ih/{z}/2)*2:(iw-ow)/2:(ih-oh)/2.6,"
+              f"scale={W}:{H}:flags=lanczos,fps=30,setsar=1")
         if mute:
             af = (f"asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,asetrate=96000,aresample=48000,atempo=2.0,"
                   f"volume=0.55,atrim=0:{d:.3f},apad=whole_dur={d:.3f},afade=t=in:d=0.08,afade=t=out:st={max(d-0.1,0):.3f}:d=0.1")
@@ -376,8 +379,8 @@ def render_segs():
             tempo = f"atempo={sp}," if sp != 1 else ""
             af = f"asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,{tempo}afade=t=in:d=0.025,afade=t=out:st={max(d-0.05,0):.3f}:d=0.05"
         o_ = f"{SEGDIR}/s{i:03d}.mkv"
-        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-t", f"{b-a:.3f}", "-i", f"{PROXY}/{f}.mp4",
-                        "-vf", vf, "-af", af, "-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "14",
+        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-t", f"{b-a:.3f}", "-i", f"{BRUTOS}/{f}.mov",
+                        "-vf", vf, "-af", af, "-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "6",
                         "-pix_fmt", "yuv420p", "-c:a", "pcm_s16le", o_], check=True)
         lst.append(f"file '{o_}'")
     open(f"{SEGDIR}/list.txt", "w").write("\n".join(lst) + "\n")
@@ -410,7 +413,8 @@ if os.environ.get("DRY"):
     raise SystemExit
 if not os.environ.get("SKIPSEGS"): render_segs()
 subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(fc),
-                "-map", "[vout]", "-map", "[aout]", "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p",
+                "-map", "[vout]", "-map", "[aout]", "-c:v", "libx264", "-preset", "slow", "-crf", "15", "-profile:v", "high", "-level", "4.2",
+                "-pix_fmt", "yuv420p", "-x264-params", "aq-mode=3",
                 "-c:a", "pcm_s16le", f"{OUT}/pre.mkv"], check=True)
 # volume final -14 LUFS em duas passadas
 j = subprocess.run(["ffmpeg", "-hide_banner", "-i", f"{OUT}/pre.mkv", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"],

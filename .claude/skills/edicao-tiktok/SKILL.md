@@ -91,6 +91,15 @@ a edição de referência mais recente — copiar e adaptar ela (cortes pelo áu
 - **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
   antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
 
+## QUALIDADE (ela reclamou do vídeo borrado no TikTok)
+
+- **Render final SEMPRE direto do bruto 4K** (brutos/*.mov): recortar o zoom no 4K e só depois reduzir p/ 1080x1920 (lanczos).
+  A cópia 1080p (proxy/) é só pra transcrever/olhar — nunca pra renderizar.
+- Uma compressão só com qualidade: cortes intermediários crf 6; final x264 preset slow, crf 15, high@4.2, aq-mode=3
+  (~13 Mbps). unsharp leve (0.35). Antes saía ~5 Mbps, 3 gerações de compressão → borrado no TikTok.
+- Dizer a ela: ligar "Permitir upload em alta qualidade" no TikTok e mandar o arquivo pro celular sem compressão
+  (salvar o arquivo/AirDrop, não WhatsApp).
+
 ## Som: SEMPRE segue a imagem (regra mais importante)
 
 Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
