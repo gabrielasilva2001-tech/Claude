@@ -97,6 +97,8 @@ a edição de referência mais recente — copiar e adaptar ela (cortes pelo áu
   A cópia 1080p (proxy/) é só pra transcrever/olhar — nunca pra renderizar.
 - Uma compressão só com qualidade: cortes intermediários crf 6; final x264 preset slow, crf 15, high@4.2, aq-mode=3
   (~13 Mbps). unsharp leve (0.35). Antes saía ~5 Mbps, 3 gerações de compressão → borrado no TikTok.
+- **Entrega:** arquivo de 183 MB ela NÃO conseguiu baixar pelo app. Entregar em HEVC (libx265 crf 21, -tag:v hvc1, ~50 MB)
+  feito a partir do pre.mkv de alta qualidade — mesma nitidez, baixa normal no iPhone.
 - Dizer a ela: ligar "Permitir upload em alta qualidade" no TikTok e mandar o arquivo pro celular sem compressão
   (salvar o arquivo/AirDrop, não WhatsApp).
 
