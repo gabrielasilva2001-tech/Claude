@@ -63,6 +63,9 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
   Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
 - **Não quer rótulo explicando a piada** ("mudou de ideia", "bailarina?"): nesses momentos, só um som engraçado SUTIL
   (record_scratch / boing MUITO baixos: vol ~0.06–0.07, uns 12–15 dB abaixo da voz — 0.30 ela achou altíssimo) e deixar a cena falar.
+- **Final: NÃO congelar.** Terminar logo depois da última fala dela (fade 0,35 s), com o último som (plim) na última palavra;
+  título de fechamento entra durante a fala final. (Isso substitui o "congelar no sorriso" antigo.)
+- **Palavra espalhada saltando ("atrasada!") → um pop baixinho por palavra** (vol 0.16→0.26).
 - **sad_trombone ela achou HORRÍVEL** — para "deu errado" usar algo bem sutil (sons/peido_baixo.wav, vol ~0.08).
 - Rótulos que só repetem a fala ("fica 10!", "mudou de ideia", "bailarina?") ela não quer.
 - **Checklist com ✓ + click a cada item: ela AMOU** (vol 0.35). Repetir sempre que houver lista/agenda.

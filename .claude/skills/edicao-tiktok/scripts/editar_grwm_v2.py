@@ -50,7 +50,7 @@ PHRASES = [
     ("IMG_6263", 21.80, 25.50, "rapido"),  # batidinha de pó e bora (acelerado 1,12x)
     ("IMG_6264", 0.50, 5.85, "fala"),      # pronto gente, look
     ("IMG_6264", 9.70, 17.60, "fala"),     # grips Spin Grip, vitrine, cupom no site
-    ("IMG_6264", 23.75, 26.05, "inteiro"), # arrume-sisi comigo hoje foi express. beijo! (congela)
+    ("IMG_6264", 23.75, 26.35, "inteiro"), # arrume-sisi comigo hoje foi express. beijo! (termina aqui, sem congelar)
 ]
 NOCAP_SRC = [("IMG_6259", 13.30, 14.60), ("IMG_6259", 23.50, 25.30)]  # revelação + bailarina (ela pediu sem texto)  # fala ininteligível: sem legenda
 
@@ -128,7 +128,8 @@ def ts(t):
 timeline, t = [], 0.0
 for seg in SEGS:
     d = (seg[2] - seg[1]) / seg[3]; timeline.append((seg, t, d)); t += d
-TOTAL, END = t, 3.0
+TOTAL, END = t, 0.0  # sem congelar no final (pedido dela)
+FADE_OUT = 0.35
 
 def at(f, src_t):
     """tempo de saída de um instante do bruto (o segmento que contém, ou o mais próximo depois)"""
@@ -274,8 +275,10 @@ def bounce_line(ws, t_first, step, color_of):
                 + w + (" " if k + 1 < len(ws) else ""))
     return out
 END_T0 = 0.15
-EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,345)\fad(0,250)}" + bounce_line(["Arrume-sisi", "comigo"], END_T0, 0.17, lambda k: WHITE)))
-EV.append((2, TOTAL, TOTAL + END, "Title", r"{\pos(540,440)\fad(0,250)\fs90}" + bounce_line(["EXPRESS"], END_T0 + 0.45, 0.2, lambda k: PINK)))
+END_T = at("IMG_6264", 24.10)  # título final entra junto com a fala "arrume-sisi comigo hoje foi express"
+EXP_OFF = at("IMG_6264", 24.82) - END_T
+EV.append((2, END_T, TOTAL, "Title", r"{\pos(540,345)\fad(0,200)}" + bounce_line(["Arrume-sisi", "comigo"], 0.0, 0.17, lambda k: WHITE)))
+EV.append((2, END_T, TOTAL, "Title", r"{\pos(540,440)\fad(0,200)\fs90}" + bounce_line(["EXPRESS"], EXP_OFF, 0.2, lambda k: PINK)))
 
 # emojis (poucos, só no fim de alguns títulos — como na referência)
 T_HOOK_DONE = 0.15 + len(vis) * 0.045
@@ -344,12 +347,16 @@ SFX = [
     ("whoosh_soft", at("IMG_6259", 13.30), 0.30, 0.55, "corte do closet pra ela vestida (mudança de cena)"),
     ("impact_soft", at("IMG_6259", 13.80), 0.0, 0.55, "look revelado (mãos na cintura)"),
     ("boing", at("IMG_6259", 23.95), 0.0, 0.06, "braços de bailarina (movimento exagerado)"),
+] + [
+    ("pop", at("IMG_6262", 15.75) + k * 0.12, 0.0, 0.16 + 0.02 * k, f"'atrasada!' nº {k+1} saltando na tela")
+    for k in range(6)
+] + [
     ("peido_baixo", at("IMG_6259", 40.70), 0.0, 0.08, "depois de 'nada deu certo' — bem baixinho (pedido dela; trombone ficou horrível)"),
     ("whoosh_soft", at("IMG_6262", 10.85), 0.30, 0.55, "muda de ambiente: closet -> penteadeira"),
     ("sparkle", at("IMG_6262", 65.6), 0.0, 0.30, "colar em destaque"),
     ("whoosh_soft", at("IMG_6264", 0.50), 0.30, 0.55, "muda de ambiente: penteadeira -> look pronto"),
     ("pop", at("IMG_6264", 11.95), 0.0, 0.40, "cupom Spin Grip entra na tela"),
-    ("plim", TOTAL + END_T0 + 0.45 + 0.1, 0.0, 0.50, "'EXPRESS' chega no fechamento"),
+    ("plim", at("IMG_6264", 25.72), 0.0, 0.45, "último som no 'Beijo!' (fim do vídeo)"),
 ]
 
 LOOK = "eq=contrast=1.06:saturation=1.14:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03"
@@ -386,13 +393,13 @@ for j, (png, t0, t1, cx, cy, size) in enumerate(EMO):
     fc.append(f"[{k}:v]format=rgba,scale={size}:{size},fade=t=in:st={t0:.3f}:d=0.12:alpha=1,fade=t=out:st={max(t1-0.15,t0):.3f}:d=0.15:alpha=1[e{j}]")
     fc.append(f"[{vlast}][e{j}]overlay=x={cx - size/2:.0f}:y={cy - size/2:.0f}:enable='between(t,{t0:.3f},{t1:.3f})'[v{j}]")
     vlast = f"v{j}"
-fc.append(f"[{vlast}]fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]")
+fc.append(f"[{vlast}]fade=t=out:st={TOTAL+END-FADE_OUT:.2f}:d={FADE_OUT}[vout]")
 mix = ["[acp]"]
 for j, (name, peak, inner, vol, why) in enumerate(SFX):
     idx = n_in; n_in += 1; inputs += ["-i", snd(name)]
     start = peak - inner; cut = max(-start, 0); ms = int(max(start, 0) * 1000)
     fc.append(f"[{idx}:a]atrim=start={cut:.3f},asetpts=PTS-STARTPTS,volume={vol},adelay={ms}|{ms},aformat=channel_layouts=stereo[s{j}]"); mix.append(f"[s{j}]")
-fc.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0:duration=first,afade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[aout]")
+fc.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0:duration=first,afade=t=out:st={TOTAL+END-FADE_OUT:.2f}:d={FADE_OUT}[aout]")
 
 if os.environ.get("DRY"):
     print(f"duração {TOTAL+END:.1f}s, {len(SEGS)} cortes")
