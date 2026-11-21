@@ -1,5 +1,5 @@
 import sys, json, whisper
-m = whisper.load_model("small")
+m = whisper.load_model("medium")
 for p in sys.argv[1:]:
     r = m.transcribe(p, language="pt", word_timestamps=True, fp16=False)
     json.dump(r["segments"], open(p.replace(".wav", ".json"), "w"), ensure_ascii=False)
