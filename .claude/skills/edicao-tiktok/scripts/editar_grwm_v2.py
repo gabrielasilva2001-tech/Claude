@@ -39,7 +39,7 @@ PHRASES = [
     ("IMG_6259", 36.00, 40.85, "fala"),    # balé, jazz, hip hop, nada deu certo
     ("IMG_6262", 10.85, 12.95, "fala"),    # bora arrumar a cara em dois segundos
     ("IMG_6262", 13.75, 15.55, "fala"),    # adivinha?
-    ("IMG_6262", 15.60, 17.10, "inteiro"), # atrasada! (segura a cena do café pra palavra espalhar)
+    ("IMG_6262", 15.60, 16.75, "inteiro"), # atrasada! (segura um pouco a cena do café)
     ("IMG_6262", 23.25, 25.05, "fala"),    # vou arrumar o meu cabelo
     ("IMG_6262", 31.60, 34.95, "fala"),    # não vai dar pra fazer o que eu queria
     ("IMG_6262", 35.00, 39.40, "4x"),      # prendendo o cabelo
@@ -59,7 +59,7 @@ FIX = {
     ("IMG_6257", 9.38): "pra", ("IMG_6257", 10.5): "beach tennis?",
     ("IMG_6257", 15.6): "arrume-sisi", ("IMG_6257", 15.88): "", ("IMG_6257", 16.0): "", ("IMG_6257", 16.1): "comigo",
     ("IMG_6257", 56.04): "Garmin",
-    ("IMG_6258", 10.9): "HIPY,", ("IMG_6258", 15.34): "", ("IMG_6258", 15.48): "tem", ("IMG_6258", 15.64): "",
+    ("IMG_6258", 10.9): "HIPY,", ("IMG_6258", 15.34): "eu", ("IMG_6258", 15.48): "tenho", ("IMG_6258", 15.64): "",
     ("IMG_6258", 15.84): ["cupom", ""], ("IMG_6258", 16.0): "de", ("IMG_6258", 33.4): "10!",
     ("IMG_6259", 36.36): "tentou,", ("IMG_6259", 36.78): "viu,",
     ("IMG_6259", 38.08): "balé,", ("IMG_6259", 38.58): "jazz,", ("IMG_6259", 39.32): "hop...",
@@ -214,8 +214,7 @@ def checklist(items, t_end, x=80, y0=300, dy=86):
         EV.append((2, t, t_end, "List", f"{{\\an4\\pos({x + 70},{y})\\fad(0,200)}}{txt}"))
 def coupon(t0, t1, brand, y=420):
     """marca + cupom (pedido dela: marca falada -> cupom GABISILVA na tela)"""
-    typed(t0, t1, "Serif", 540, y, brand, color=YEL, step=0.05)
-    EV.append((2, t0 + 0.35, t1, "Pill", f"{{\\pos(540,{y + 95})\\fad(120,150)}}{POP}cupom {{\\b1}}GABISILVA"))
+    EV.append((2, t0, t1, "Pill", f"{{\\pos(540,{y})\\fad(120,150)}}{POP}{brand} · cupom {{\\b1}}GABISILVA"))
 
 
 # ---------- emojis do iPhone (pedido dela) ----------
@@ -252,19 +251,22 @@ checklist([(at("IMG_6257", 38.2), "mista · manhã"), (at("IMG_6257", 40.8), "fe
           seg_end_of("IMG_6257", 50.3))
 typed(at("IMG_6257", 48.0), seg_end_of("IMG_6257", 50.3), "Serif", 790, 640, "apenas?!", color=YEL)
 typed(at("IMG_6257", 56.04), seg_end_of("IMG_6257", 59.0), "Serif", 540, 420, "até o Garmin", color=CREAM)
-coupon(at("IMG_6258", 10.5), seg_end_of("IMG_6258", 16.2), "conjunto HIPY")
+coupon(at("IMG_6258", 10.9), seg_end_of("IMG_6258", 16.2), "HIPY")
 typed(at("IMG_6258", 29.3), seg_end_of("IMG_6258", 30.1), "Hand", 540, 470, "sustentação absurda", color=WHITE)
 typed(at("IMG_6259", 38.0), seg_end_of("IMG_6259", 39.0), "Serif", 540, 420, "balé · jazz · hip hop", color=CREAM, step=0.03)
-scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 16.5), "Modern", "atrasada!", n=6)
+ATR = [("atrasada,", 300, 560, -10), ("como", 760, 720, 8), ("sempre", 420, 900, -6)]
+for k_, (wd, x_, y_, r_) in enumerate(ATR):
+    EV.append((2, at("IMG_6262", 15.75) + k_ * 0.15, seg_end_of("IMG_6262", 16.5), "Modern",
+               f"{{\\pos({x_},{y_})\\frz{r_}\\c{WHITE}\\fad(0,120)}}{POP}{wd}"))
 typed(at("IMG_6262", 23.5), seg_end_of("IMG_6262", 24.4), "Serif", 540, 420, "cabelo", color=CREAM)
 label(at("IMG_6262", 35.0), seg_end_of("IMG_6262", 35.5), "Modern", 540, 420, "prendendo... (4x)", color=WHITE, rot=-3)
-typed(at("IMG_6262", 65.6), at("IMG_6262", 69.4), "Serif", 540, 400, "tem na minha vitrine", color=YEL, step=0.035)
 typed(at("IMG_6262", 85.9), seg_end_of("IMG_6262", 86.2), "Serif", 540, 420, "xuxinha", color=CREAM)
 typed(at("IMG_6263", 1.4), seg_end_of("IMG_6263", 2.2), "Serif", 540, 400, "blush", color=CREAM)
 typed(at("IMG_6263", 11.5), seg_end_of("IMG_6263", 11.6), "Hand", 560, 470, "como sempre", color=YEL)
 typed(at("IMG_6263", 22.6), seg_end_of("IMG_6263", 23.3), "Serif", 540, 400, "pó", color=CREAM)
 typed(at("IMG_6264", 2.4), seg_end_of("IMG_6264", 5.0), "Serif", 540, 400, "look pronto", color=YEL)
-coupon(at("IMG_6264", 11.6), seg_end_of("IMG_6264", 17.0), "grips Spin Grip")
+coupon(at("IMG_6264", 12.2), seg_end_of("IMG_6264", 17.0), "Spin Grip")
+typed(at("IMG_6264", 13.48), seg_end_of("IMG_6264", 14.9), "Serif", 540, 560, "tem na minha vitrine", color=YEL, step=0.035)
 # fechamento: congela no beijo, palavras chegando com pulinho (aprovado), sem ✦
 def bounce_line(ws, t_first, step, color_of):
     out = ""
@@ -284,7 +286,7 @@ EV.append((2, END_T, TOTAL, "Title", r"{\pos(540,440)\fad(0,200)\fs90}" + bounce
 T_HOOK_DONE = 0.15 + len(vis) * 0.045
 emoji_after("tenis", T_HOOK_DONE, HOOK_END, "Title", 540, HOOK_Y + 42, "TORNEIO RELÂMPAGO", size=88)
 if at("IMG_6262", 15.75) is not None:
-    EMO.append((f"{EMO_DIR}/despertador.png", at("IMG_6262", 15.75) + 0.6, seg_end_of("IMG_6262", 16.5), 820, 1080, 120))
+    EMO.append((f"{EMO_DIR}/despertador.png", at("IMG_6262", 15.75) + 0.45, seg_end_of("IMG_6262", 16.5), 790, 950, 110))
 
 ass = f"""[Script Info]
 ScriptType: v4.00+
@@ -303,7 +305,7 @@ Style: Modern,Bricolage Grotesque,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000
 Style: List,Poppins SemiBold,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,3,4,60,60,0,1
 Style: Check,Poppins SemiBold,64,&H007FE6FF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,4,60,60,0,1
 Style: CheckMark,DejaVu Sans,40,&H00202020,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,0,0,4,60,60,0,1
-Style: Pill,Poppins SemiBold,46,&H00FFFFFF,&H00FFFFFF,&H00B45CFF,&H00B45CFF,0,0,0,0,100,100,1,0,3,14,0,5,60,60,0,1
+Style: Pill,Poppins SemiBold,58,&H00FFFFFF,&H00FFFFFF,&H00B45CFF,&H00B45CFF,0,0,0,0,100,100,1,0,3,14,0,5,60,60,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -343,19 +345,18 @@ SFX = [
     ("click", at("IMG_6257", 41.85), 0.0, 0.35, "✓ sábado aparece"),
     ("record_scratch", at("IMG_6257", 44.55), 0.02, 0.07, "'Não, na verdade talvez não' — quebra de expectativa"),
     ("click", at("IMG_6257", 47.3), 0.0, 0.35, "✓ domingo aparece"),
-    ("pop", at("IMG_6258", 10.85), 0.0, 0.40, "cupom HIPY entra na tela"),
+    ("pop", at("IMG_6258", 10.9), 0.0, 0.40, "cupom HIPY entra na tela"),
     ("whoosh_soft", at("IMG_6259", 13.30), 0.30, 0.55, "corte do closet pra ela vestida (mudança de cena)"),
     ("impact_soft", at("IMG_6259", 13.80), 0.0, 0.55, "look revelado (mãos na cintura)"),
     ("boing", at("IMG_6259", 23.95), 0.0, 0.06, "braços de bailarina (movimento exagerado)"),
 ] + [
-    ("pop", at("IMG_6262", 15.75) + k * 0.12, 0.0, 0.16 + 0.02 * k, f"'atrasada!' nº {k+1} saltando na tela")
-    for k in range(6)
+    ("pop", at("IMG_6262", 15.75) + k * 0.15, 0.0, 0.18 + 0.03 * k, f"'atrasada, como sempre' palavra {k+1} saltando")
+    for k in range(3)
 ] + [
     ("peido_baixo", at("IMG_6259", 40.70), 0.0, 0.08, "depois de 'nada deu certo' — bem baixinho (pedido dela; trombone ficou horrível)"),
     ("whoosh_soft", at("IMG_6262", 10.85), 0.30, 0.55, "muda de ambiente: closet -> penteadeira"),
-    ("sparkle", at("IMG_6262", 65.6), 0.0, 0.30, "colar em destaque"),
     ("whoosh_soft", at("IMG_6264", 0.50), 0.30, 0.55, "muda de ambiente: penteadeira -> look pronto"),
-    ("pop", at("IMG_6264", 11.95), 0.0, 0.40, "cupom Spin Grip entra na tela"),
+    ("pop", at("IMG_6264", 12.2), 0.0, 0.40, "cupom Spin Grip entra na tela"),
     ("plim", at("IMG_6264", 25.72), 0.0, 0.45, "último som no 'Beijo!' (fim do vídeo)"),
 ]
 

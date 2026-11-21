@@ -58,6 +58,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
 - **Emoji:** ela detesta o visual de emoji Android (Noto) e qualquer símbolo que pareça isso (o ✦ incluso).
   A fonte de emoji da Apple não pode ser usada aqui (licença). Usar só emoji que ela mandar do iPhone
   (print/PNG) como figurinha, ou não usar emoji.
+- **Texto na tela NÃO pode repetir o que ela fala** (legenda já mostra): sem título "conjunto HIPY" / "colar do TikTok Shop".
+  Cupom = só a etiqueta rosa "MARCA · cupom GABISILVA". "tem na minha vitrine" só quando ela FALA isso.
 - **Marca falada → cupom na tela.** Cupom de desconto é SEMPRE **GABISILVA** (ela fala "Gabi Silva").
   Marcas com cupom: **Spin Grip** e **HIPY** (ela fala "HIP"; escreve-se HIPY).
   Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
