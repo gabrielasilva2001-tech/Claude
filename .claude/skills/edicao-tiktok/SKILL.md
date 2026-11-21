@@ -24,7 +24,7 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 ## O que ela APROVOU
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
-  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
+  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✨.
   Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).
 - **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, centro-baixo (MarginV 620).
   **Dinâmica:** cada bloco entra com pulinho (85%→100%) e a **palavra falada fica amarela e 8% maior**.
@@ -39,7 +39,7 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 - **Fechamento:** congelar no sorriso dela (no meio do quadro!), frase de fechamento no topo com
   **palavras chegando uma a uma com pulinho** (desfoque→nítido, estica e assenta), 2ª linha maior em rosa,
   "plim" quando a palavra-chave chega, escurecer até o preto (~3 s no total).
-  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
+  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✨". Se ela não falou nada de fechamento, propor uma frase curta.
 - **Volume:** normalizar para -14 LUFS.
 
 ## Som: SEMPRE segue a imagem (regra mais importante)
@@ -81,3 +81,4 @@ barulho de acelerada na parte acelerada.
 - **"Uma limpa no guarda-roupa"** (ep. 1 = Calças): formato do título e rótulos em `quadro-limpa-guarda-roupa.md`.
   Esse quadro usa o estilo da referência dela (amarelo-creme, minúsculas, texto atrás dela, "fica"/"vai embora"),
   não o gancho rosa/amarelo do vídeo do tripé.
+- **Estrela: sempre o emoji ✨** (colorido, fonte Noto Color Emoji), nunca ✦ — pedido dela, vale para todos os vídeos.

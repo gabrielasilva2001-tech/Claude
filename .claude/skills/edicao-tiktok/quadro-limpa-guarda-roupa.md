@@ -15,7 +15,7 @@ Formato tirado de um vídeo de referência (provador de jaquetas, 90 s, 576x1024
      O texto fica **ATRÁS dela** (a cabeça cobre parte das letras) → recorte da pessoa (máscara/segmentação) por cima do texto.
   3. Complemento pequeno abaixo à direita "com o que" + palavras grandes embaixo "realmente" / "uso" empilhando.
 - **Cartão de categoria:** quando ela mostra o monte de peças, o nome da categoria grande no meio
-  ("jaquetas") rodeado de **estrelinhas ✦ da mesma cor** espalhadas (4–6, tamanhos variados).
+  ("jaquetas") rodeado de **estrelinhas ✨ (emoji, colorido)** espalhadas (4–6, tamanhos variados). Ela pediu: estrela = sempre ✨, nunca ✦.
 - **Veredito por peça:** rótulo pequeno no canto superior (mesma fonte/cor, ~40 px):
   **"fica"** ou **"vai embora"**, aparece quando ela decide.
 - Cada peça = um provador rápido (cortes secos, 3–6 s por peça).
@@ -25,7 +25,7 @@ Formato tirado de um vídeo de referência (provador de jaquetas, 90 s, 576x1024
 Mesmo esquema, ajustando para a série (validar com a fala dela quando o bruto chegar; não inventar fala):
 1. Topo, digitado com cursor, atrás dela: **"uma limpa no"** / **"guarda-roupa"**
 2. Pequeno abaixo à direita: **"ep. 1"**
-3. Cartão de categoria com estrelinhas: **"calças"** ✦
+3. Cartão de categoria com estrelinhas: **"calças"** ✨
 4. Durante as provas: "fica" / "vai embora" em cada calça.
 Se ela falar a introdução tipo a referência ("provando todas as calças até ficar só com as que eu realmente uso"),
 usar as palavras grandes uma a uma acompanhando a fala.
