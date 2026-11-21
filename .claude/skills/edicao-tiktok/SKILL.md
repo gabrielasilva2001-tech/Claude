@@ -66,6 +66,12 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
 - **Checklist com ✓ + click a cada item: ela AMOU** (vol 0.35). Repetir sempre que houver lista/agenda.
 - **NÃO usar desfoque de fundo (bokeh com recorte da pessoa)** — ela odiou ("tira esse desfoque"). O "Bokeh" do CapCut
   que ela mostrou provavelmente é outro tipo de filtro; perguntar/ver exemplo antes de tentar imitar.
+- **Fala lenta → acelerar só um pouco (1,12x, atempo mantém o tom)** em trechos explicativos/lentos (agenda, maquiagem).
+  NÃO acelerar gancho, piadas e falas com marca/cupom.
+- **Click no fim do título do gancho** (depois da última palavra da frase do gancho, ex. "...de beach tennis?").
+- **Produto do TikTok Shop → rótulo "tem na minha vitrine"** (não escrever "TikTok Shop" no rótulo).
+- **Fontes:** serifada itálica (Instrument Serif) e as "falinhas do meio" ela aprovou; para destaque engraçado
+  (palavra espalhada tipo "atrasada!") usar fonte moderna Bricolage Grotesque bold. Variar a fonte às vezes.
 - **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
   antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
 

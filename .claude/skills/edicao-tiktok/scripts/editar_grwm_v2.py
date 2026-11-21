@@ -24,9 +24,11 @@ PHRASES = [
     ("IMG_6257", 8.45, 11.40, "fala"),     # gancho (2ª tomada)
     ("IMG_6257", 14.25, 20.75, "fala"),    # e agora no nosso arrume-sisi comigo... tripé que me segue
     ("IMG_6257", 21.50, 23.20, "fala"),    # não, silêncio, deixa eu blogueira
-    ("IMG_6257", 32.85, 46.45, "fala"),    # agenda do fim de semana (+ mudou de ideia)
+    ("IMG_6257", 32.85, 44.40, "rapido"),  # agenda do fim de semana (acelerada 1,12x)
+    ("IMG_6257", 44.40, 46.45, "fala"),    # não, na verdade talvez não. tenho que treinar (piada: tempo natural)
     ("IMG_6257", 46.75, 50.85, "fala"),    # domingo apenas uma corrida
-    ("IMG_6257", 55.35, 61.00, "fala"),    # Garmin + tadinho dele
+    ("IMG_6257", 55.35, 59.70, "rapido"),  # Garmin (acelerado 1,12x)
+    ("IMG_6257", 59.70, 61.00, "fala"),    # tadinho dele
     ("IMG_6258", 6.80, 11.45, "fala"),     # conjunto da HIPY
     ("IMG_6258", 13.55, 16.70, "fala"),    # tá na black e tem cupom
     ("IMG_6258", 27.85, 33.95, "fala"),    # sustentação absurda... fica 10
@@ -42,13 +44,14 @@ PHRASES = [
     ("IMG_6262", 35.00, 39.40, "4x"),      # prendendo o cabelo
     ("IMG_6262", 64.00, 70.85, "fala"),    # colar do TikTok Shop
     ("IMG_6262", 84.80, 86.85, "fala"),    # esqueci a xuxinha
-    ("IMG_6263", 0.40, 14.35, "fala"),     # blush, sem criatividade, sem tempo, novidade
-    ("IMG_6263", 21.80, 25.50, "fala"),    # batidinha de pó e bora
+    ("IMG_6263", 0.40, 12.20, "rapido"),   # blush, sem criatividade, sem tempo (acelerado 1,12x)
+    ("IMG_6263", 12.20, 14.35, "fala"),    # agora fala uma novidade
+    ("IMG_6263", 21.80, 25.50, "rapido"),  # batidinha de pó e bora (acelerado 1,12x)
     ("IMG_6264", 0.50, 5.85, "fala"),      # pronto gente, look
     ("IMG_6264", 9.70, 17.60, "fala"),     # grips Spin Grip, vitrine, cupom no site
     ("IMG_6264", 23.75, 26.05, "inteiro"), # arrume-sisi comigo hoje foi express. beijo! (congela)
 ]
-NOCAP_SRC = [("IMG_6259", 13.30, 14.60), ("IMG_6259", 23.50, 23.95)]  # fala ininteligível: sem legenda
+NOCAP_SRC = [("IMG_6259", 13.30, 14.60), ("IMG_6259", 23.50, 25.30)]  # revelação + bailarina (ela pediu sem texto)  # fala ininteligível: sem legenda
 
 FIX = {
     ("IMG_6257", 8.62): "Arrume-sisi", ("IMG_6257", 8.88): "", ("IMG_6257", 8.98): "",
@@ -99,12 +102,14 @@ def speech_runs(f, a, b, min_sil=0.30, pad_end=0.12, pad_start=0.07):
     merged = [r for r in merged if r[1] - r[0] >= 0.12]  # descarta estalos
     return [(max(a, r[0] - pad_start), min(b, r[1] + pad_end)) for r in merged]
 
+RAPIDO = 1.12  # fala mais lenta: acelera só um pouco (mantendo o tom da voz)
 SEGS = []  # (arquivo, a, b, velocidade, zoom, mudo)
 z_alt = [1.00, 1.12]
 for f, a, b, mode in PHRASES:
     if mode == "4x":
         SEGS.append((f, a, b, 4, 1.00, True)); continue
     runs = [(a, b)] if mode == "inteiro" else speech_runs(f, a, b)
+    sp_ = RAPIDO if mode == "rapido" else 1
     for k, (ra, rb) in enumerate(runs):
         pieces = [(ra, rb)]
         if rb - ra > 4.2:  # fala longa: troca o zoom no meio, entre duas palavras (sem tirar nada)
@@ -113,7 +118,7 @@ for f, a, b, mode in PHRASES:
                 cut = min(mid, key=lambda x: abs(x - (ra + rb) / 2)) - 0.03
                 pieces = [(ra, cut), (cut, rb)]
         for pa, pb in pieces:
-            SEGS.append((f, round(pa, 2), round(pb, 2), 1, z_alt[len(SEGS) % 2], False))
+            SEGS.append((f, round(pa, 2), round(pb, 2), sp_, z_alt[len(SEGS) % 2], False))
 
 def ts(t):
     t = max(t, 0); h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60
@@ -155,7 +160,7 @@ for i, (seg, o, d) in enumerate(timeline):
             if key in FIX: USED.add(key)
         txt = FIX_TEXT.get(txt, txt)
         if not txt: continue
-        wa = o + (max(w["start"], a) - a); wb = o + (min(w["end"], b) - a)
+        wa = o + (max(w["start"], a) - a) / sp; wb = o + (min(w["end"], b) - a) / sp
         chunk.append((txt, wa, max(wb, wa + 0.08)))
         if len(chunk) >= 3 or txt[-1] in ",.?!": caps.append(chunk); seg_end.append(o + d); chunk = []
     if chunk: caps.append(chunk); seg_end.append(o + d)
@@ -232,10 +237,10 @@ coupon(at("IMG_6258", 10.5), seg_end_of("IMG_6258", 16.2), "conjunto HIPY")
 typed(at("IMG_6258", 29.3), seg_end_of("IMG_6258", 30.1), "Hand", 540, 470, "sustentação absurda", color=WHITE)
 label(at("IMG_6259", 13.75), seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!", color=YEL, rot=-4)
 typed(at("IMG_6259", 38.0), seg_end_of("IMG_6259", 39.0), "Serif", 540, 420, "balé · jazz · hip hop", color=CREAM, step=0.03)
-scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 15.9), "Hand", "atrasada!", n=6)
+scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 15.9), "Modern", "atrasada!", n=6)
 typed(at("IMG_6262", 23.5), seg_end_of("IMG_6262", 24.4), "Serif", 540, 420, "cabelo", color=CREAM)
-label(at("IMG_6262", 35.0), seg_end_of("IMG_6262", 35.5), "Hand", 540, 420, "prendendo... (4x)", color=WHITE, rot=-3)
-typed(at("IMG_6262", 65.6), at("IMG_6262", 69.4), "Serif", 540, 400, "colar do TikTok Shop", color=YEL, step=0.035)
+label(at("IMG_6262", 35.0), seg_end_of("IMG_6262", 35.5), "Modern", 540, 420, "prendendo... (4x)", color=WHITE, rot=-3)
+typed(at("IMG_6262", 65.6), at("IMG_6262", 69.4), "Serif", 540, 400, "tem na minha vitrine", color=YEL, step=0.035)
 typed(at("IMG_6262", 85.9), seg_end_of("IMG_6262", 86.2), "Serif", 540, 420, "xuxinha", color=CREAM)
 typed(at("IMG_6263", 1.4), seg_end_of("IMG_6263", 2.2), "Serif", 540, 400, "blush", color=CREAM)
 typed(at("IMG_6263", 11.5), seg_end_of("IMG_6263", 11.6), "Hand", 560, 470, "como sempre", color=YEL)
@@ -268,6 +273,7 @@ Style: Cap,Poppins SemiBold,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0
 Style: Title,Montserrat Thin Black,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,-1,0,0,100,100,-2,0,1,0,6,5,60,60,0,1
 Style: Serif,Instrument Serif,104,&H00C8F4FF,&H00FFFFFF,&H00000000,&H70000000,0,-1,0,0,100,100,0,0,1,0,4,5,60,60,0,1
 Style: Hand,Patrick Hand,88,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,4,5,60,60,0,1
+Style: Modern,Bricolage Grotesque,92,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,-1,0,0,0,100,100,-1,0,1,0,4,5,60,60,0,1
 Style: List,Poppins SemiBold,54,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,0,3,4,60,60,0,1
 Style: Check,Poppins SemiBold,64,&H007FE6FF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,4,60,60,0,1
 Style: CheckMark,DejaVu Sans,40,&H00202020,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,0,0,4,60,60,0,1
@@ -305,7 +311,7 @@ def snd(n): return f"{OUT}/{n}.wav" if os.path.exists(f"{OUT}/{n}.wav") else f"{
 # (som, momento na timeline, onde fica o pico dentro do som, volume, motivo)
 SFX = [
     ("teclado_gancho", 0.15, 0.0, 0.10, "título do gancho sendo digitado (baixinho, pedido dela)"),
-    ("click", at("IMG_6257", 10.34), 0.0, 0.35, "logo depois de 'torneio relâmpago' (pedido dela)"),
+    ("click", at("IMG_6257", 11.12) + 0.05, 0.0, 0.35, "fim do título: depois de 'beach tennis' (pedido dela)"),
     ("click", at("IMG_6257", 38.2), 0.0, 0.35, "✓ mista aparece"),
     ("click", at("IMG_6257", 40.8), 0.0, 0.35, "✓ feminina aparece"),
     ("click", at("IMG_6257", 41.85), 0.0, 0.35, "✓ sábado aparece"),
@@ -336,7 +342,8 @@ def render_segs():
             af = (f"asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,asetrate=96000,aresample=48000,atempo=2.0,"
                   f"volume=0.55,atrim=0:{d:.3f},apad=whole_dur={d:.3f},afade=t=in:d=0.08,afade=t=out:st={max(d-0.1,0):.3f}:d=0.1")
         else:
-            af = f"asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.025,afade=t=out:st={max(d-0.05,0):.3f}:d=0.05"
+            tempo = f"atempo={sp}," if sp != 1 else ""
+            af = f"asetpts=PTS-STARTPTS,aresample=48000,aformat=channel_layouts=stereo,{tempo}afade=t=in:d=0.025,afade=t=out:st={max(d-0.05,0):.3f}:d=0.05"
         o_ = f"{SEGDIR}/s{i:03d}.mkv"
         subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-t", f"{b-a:.3f}", "-i", f"{PROXY}/{f}.mp4",
                         "-vf", vf, "-af", af, "-t", f"{d:.3f}", "-c:v", "libx264", "-preset", "veryfast", "-crf", "14",
