@@ -226,13 +226,11 @@ AG_END = seg_end_of("IMG_6257", 45.9)
 checklist([(at("IMG_6257", 38.2), "mista · manhã"), (at("IMG_6257", 40.8), "feminina · tarde"),
            (at("IMG_6257", 41.85), "sábado · descansar?"), (at("IMG_6257", 47.3), "domingo · corrida")],
           seg_end_of("IMG_6257", 50.3))
-label(at("IMG_6257", 44.55), AG_END, "Hand", 790, 640, "mudou de ideia", color=YEL, rot=-5)
 typed(at("IMG_6257", 48.0), seg_end_of("IMG_6257", 50.3), "Serif", 790, 640, "apenas?!", color=YEL)
 typed(at("IMG_6257", 56.04), seg_end_of("IMG_6257", 59.0), "Serif", 540, 420, "até o Garmin", color=CREAM)
 coupon(at("IMG_6258", 10.5), seg_end_of("IMG_6258", 16.2), "conjunto HIPY")
 typed(at("IMG_6258", 29.3), seg_end_of("IMG_6258", 30.1), "Hand", 540, 470, "sustentação absurda", color=WHITE)
 label(at("IMG_6259", 13.75), seg_end_of("IMG_6259", 14.0), "Serif", 560, 420, "fica 10!", color=YEL, rot=-4)
-typed(at("IMG_6259", 23.6), seg_end_of("IMG_6259", 24.0), "Hand", 540, 420, "bailarina?", color=WHITE)
 typed(at("IMG_6259", 38.0), seg_end_of("IMG_6259", 39.0), "Serif", 540, 420, "balé · jazz · hip hop", color=CREAM, step=0.03)
 scatter(at("IMG_6262", 15.75), seg_end_of("IMG_6262", 15.9), "Hand", "atrasada!", n=6)
 typed(at("IMG_6262", 23.5), seg_end_of("IMG_6262", 24.4), "Serif", 540, 420, "cabelo", color=CREAM)
@@ -306,12 +304,12 @@ SFX = [
     ("click", at("IMG_6257", 38.2), 0.0, 0.35, "✓ mista aparece"),
     ("click", at("IMG_6257", 40.8), 0.0, 0.35, "✓ feminina aparece"),
     ("click", at("IMG_6257", 41.85), 0.0, 0.35, "✓ sábado aparece"),
-    ("record_scratch", at("IMG_6257", 44.55), 0.02, 0.45, "'Não, na verdade talvez não' — quebra de expectativa"),
+    ("record_scratch", at("IMG_6257", 44.55), 0.02, 0.30, "'Não, na verdade talvez não' — quebra de expectativa"),
     ("click", at("IMG_6257", 47.3), 0.0, 0.35, "✓ domingo aparece"),
     ("pop", at("IMG_6258", 10.85), 0.0, 0.40, "cupom HIPY entra na tela"),
     ("whoosh_soft", at("IMG_6259", 13.30), 0.30, 0.55, "corte do closet pra ela vestida (mudança de cena)"),
     ("impact_soft", at("IMG_6259", 13.80), 0.0, 0.55, "look revelado (mãos na cintura)"),
-    ("boing", at("IMG_6259", 23.95), 0.0, 0.35, "braços de bailarina (movimento exagerado)"),
+    ("boing", at("IMG_6259", 23.95), 0.0, 0.22, "braços de bailarina (movimento exagerado)"),
     ("sad_trombone", at("IMG_6259", 39.80), 0.0, 0.30, "'nada deu certo' — expectativa frustrada"),
     ("whoosh_soft", at("IMG_6262", 10.85), 0.30, 0.55, "muda de ambiente: closet -> penteadeira"),
     ("sparkle", at("IMG_6262", 65.6), 0.0, 0.30, "colar em destaque"),

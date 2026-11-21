@@ -60,6 +60,8 @@ quando usar cada um, regras obrigatórias e o relatório final com tempo de cada
 - **Marca falada → cupom na tela.** Cupom de desconto é SEMPRE **GABISILVA** (ela fala "Gabi Silva").
   Marcas com cupom: **Spin Grip** e **HIPY** (ela fala "HIP"; escreve-se HIPY).
   Quando ela citar a marca, mostrar marca + "cupom GABISILVA" na tela.
+- **Não quer rótulo explicando a piada** ("mudou de ideia", "bailarina?"): nesses momentos, só um som engraçado SUTIL
+  (record_scratch / boing baixinhos) e deixar a cena falar.
 - **Títulos:** seguir a referência que ela mandar (criadoras que ela gosta); estudar o vídeo de referência
   antes de editar (ritmo de corte, tamanho/posição/animação dos títulos, uso de emoji, sons).
 
