@@ -8,6 +8,9 @@ description: Edita de verdade os vídeos brutos dela para TikTok/Reels (rotina, 
 Estilo construído e aprovado no vídeo "tripé com inteligência artificial" (versão 11, postada).
 O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **copie e adapte**, não comece do zero.
 
+**Leia também `MANUAL_SONS.md`** — o manual dela com a biblioteca oficial de efeitos (`sons/`),
+quando usar cada um, regras obrigatórias e o relatório final com tempo de cada efeito. Vale para toda edição.
+
 ## Fluxo
 
 1. **Receber os brutos.** Upload no chat aceita só ~30 s; vídeos maiores vêm por pasta do Dropbox
