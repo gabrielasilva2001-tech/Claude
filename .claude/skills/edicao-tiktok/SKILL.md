@@ -53,6 +53,13 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 
 ## O que ela NÃO quer (não repetir)
 
+- **Pausas e repetições sobrando** (ela odiou a v2 do ep. 1 de calças). Os tempos do Whisper esticam palavras por cima
+  das pausas e ele NÃO escreve repetição/tropeço. Cortar pelo ÁUDIO com `scripts/fala.py` (fala = trechos acima de
+  p95−19 dB; só fica trecho que tem palavra reconhecida começando nele) e, no fim, **transcrever o vídeo pronto de novo**
+  e conferir que não sobrou frase repetida nem palavra cortada no meio.
+- Vídeo longo: ela prefere **fala acelerada 1,2x** (atempo, sem afinar a voz) e só o essencial de cada item.
+- **Texto passando atrás da cabeça dela** (recorte da pessoa) — achou horroroso. Título fica no alto, livre.
+
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.
 - "Pop" em todo texto que entra.
 - Som de teclado sintetizado.

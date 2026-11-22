@@ -12,7 +12,7 @@ Formato tirado de um vídeo de referência (provador de jaquetas, 90 s, 576x1024
   1. Palavras **grandes, uma de cada vez**, no centro-baixo (y≈1080 em 1920): "provando" → "todas" → "as" → "roupas".
      Troca seca no ritmo da fala, sem animação de entrada.
   2. Frase **no topo digitada letra por letra com cursor "|" piscando**: "até ficar só".
-     O texto fica **ATRÁS dela** (a cabeça cobre parte das letras) → recorte da pessoa (máscara/segmentação) por cima do texto.
+     Na referência o texto fica atrás dela, MAS ELA NÃO GOSTOU disso no vídeo dela: título sempre no alto (y≈330), sem recorte.
   3. Complemento pequeno abaixo à direita "com o que" + palavras grandes embaixo "realmente" / "uso" empilhando.
 - **Cartão de categoria:** quando ela mostra o monte de peças, o nome da categoria grande no meio
   ("jaquetas") rodeado de **estrelinhas ✨ (emoji, colorido)** espalhadas (4–6, tamanhos variados). Ela pediu: estrela = sempre ✨, nunca ✦.
@@ -43,3 +43,7 @@ usar as palavras grandes uma a uma acompanhando a fala.
 - Render: cada corte vira um arquivo e depois concatena (dezenas de trims do mesmo arquivo estouram a memória).
 - Trechos com fala incerta ficaram de fora: IMG_6392 ("esse sabor"?), início do 6394 ("calça de cor/couro"?),
   nome da loja em 6404, final de 6405, Shopee em 6403. 6410 e 6411 cortados por tempo.
+
+## v4 (aprovação pendente) — o que mudou depois da reclamação
+- Título no alto, sem efeito atrás da cabeça. Cortes pelo áudio (`scripts/fala.py`), fala 1,2x, falas enxugadas: 2:04.
+- Conferência final: Whisper no `base.mkv` — sem repetições.
