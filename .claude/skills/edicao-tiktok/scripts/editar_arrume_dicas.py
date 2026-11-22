@@ -1,4 +1,4 @@
-"""APROVADO (v3, "como entrar num banco ou cooperativa"). Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
+"""APROVADO (v4, "como entrar num banco ou cooperativa"). Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
 Tema: coisas que eu faria se quisesse entrar num banco/cooperativa.
 Base: editar_exemplo_tripe.py (estilo aprovado) + ideias da referência (lista #1, #2... no topo durante cada dica).
 """
@@ -330,7 +330,12 @@ def bell(name, notes, d=0.7, vol=1.6):
 bell("plim", [(1568, 0.5, 7, 0), (2349, 0.3, 9, 0), (3136, 0.12, 12, 0)])
 # "check": duas notinhas subindo, curtinho — toca quando cada número da lista entra
 bell("check", [(1046.5, 0.45, 14, 0), (1568, 0.5, 11, 0.075)], d=0.45)
-sfx = [("check", a, 0.25) for a, b in tip_bounds]
+# "click": estalo curtinho (ruído filtrado + tique agudo), tipo clique de botão
+synth("click", ["-f", "lavfi", "-i",
+    "aevalsrc='0.9*sin(2*PI*3200*t)*exp(-900*t)+0.5*sin(2*PI*1400*t)*exp(-500*t)+0.25*(random(0)-0.5)*exp(-1500*t)':s=48000:d=0.06",
+    "-af", "highpass=f=600,pan=stereo|c0=c0|c1=c0,volume=1.4"])
+sfx = [("click", cut_out[1][1] - 0.01, 0.6)]        # fim da introdução ("...qualquer instituição financeira.")
+sfx += [("check", a, 0.25) for a, b in tip_bounds]
 sfx += [("plim", seg_start("cpa"), 0.25),                       # [ CPA-10 · CPA-20 · CEA ]
         ("plim", TOTAL + END_TEXT_T0 + 0.6 + 0.2, 0.45)]        # "DESISTE" chegando
 

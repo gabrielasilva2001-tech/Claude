@@ -40,6 +40,8 @@ referência de outra criadora (lista "#1. …" no peito), mas no estilo dela.
 - Gancho digitado de sempre ("Como entrar num banco / ou **COOPERATIVA** ✨"), legenda dinâmica,
   rótulos Caveat ("ai, mas...", "sinto muito!", "metade?!"), info em Poppins com colchetes rosa
   ("[ CPA-10 · CPA-20 · CEA ]" + plim), P&B quando algo deu errado ("nunca me chamaram" + "5x não...").
+- **"click" no fim da introdução** (ela pediu): estalo curtinho sintetizado, no corte logo depois da
+  última palavra do gancho, antes do conteúdo começar.
 - Fechamento igual ao aprovado: congela no rosto dela centralizado, "Corre atrás e / **NÃO DESISTE** ✨".
 - Aprovado com ~1:45. Tirar trechos que o Whisper não entendeu (nomes, siglas) e listar pra ela no final.
   Termos que ele erra aqui: Sicoob ("Ciccobi"), Sicredi ("Ciccred"), CEA ("CEPIA").
