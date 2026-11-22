@@ -13,61 +13,73 @@ VERSAO = os.environ.get("VERSAO", "v1")
 # (arquivo, início, fim)   — zoom alterna sozinho a cada corte
 SEGS = [
     ("6380", 4.50, 9.95),    # intro
-    ("6385", 9.74, 13.10),   # primeira calça cintura baixa depois que emagreci
-    ("6385", 14.70, 15.95),  # tenho um apego emocional
+    ("6385", 9.74, 15.95),   # primeira calça cintura baixa depois que emagreci, apego emocional
     ("6385", 23.15, 25.10),  # então ela fica
-    ("6388", 6.50, 9.85),    # de quando eu era bem gordinha
-    ("6388", 13.10, 14.80),  # amava calça com bolso
-    ("6388", 23.10, 26.90),  # hoje já não amo, vai sair
-    ("6389", 3.75, 8.85),    # calça sujinha... olha o tamanho dessa barra
-    ("6389", 35.75, 40.00),  # fica por enquanto, se não arrumar, tchau
-    ("6390", 17.40, 19.05),  # apego emocional com essa calça
+    ("6388", 6.50, 12.95),   # de quando eu era bem gordinha, mandei arrumar na costureira
+    ("6388", 13.10, 14.80),  # porque eu amava calça com bolso
+    ("6388", 23.10, 26.90),  # hoje eu já não amo, então ela vai sair
+    ("6389", 3.75, 8.85),    # calça sujinha, amo ela, só que olha o tamanho dessa barra
+    ("6389", 25.00, 27.45),  # se eu não fizer a barra dessa calça aqui até
+    ("6389", 28.40, 31.45),  # a semana que vem eu vou ter que tirar ela
+    ("6389", 35.75, 40.00),  # mas ela fica por enquanto, se eu não arrumar, tchau
+    ("6390", 16.40, 21.70),  # apego emocional, adoro usar em tempos chuvosos
     ("6390", 22.15, 26.60),  # tá ficando branca, vai ter que sair
-    ("6391", 1.75, 3.95),    # uso pra trabalhar
-    ("6391", 9.95, 12.10),   # fazendo até onda de tão usada
+    ("6391", 1.75, 4.20),    # essa daqui eu uso pra trabalhar
+    ("6391", 8.65, 12.10),   # tá vendo aqui? fazendo até onda de tão usada
     ("6391", 12.90, 14.30),  # vai ter que sair
-    ("6393", 1.90, 3.05),    # outra de trabalho
-    ("6393", 4.86, 7.85),    # boca de sino no meio da canela
-    ("6393", 16.50, 17.90),  # vai sair
-    ("6394", 7.30, 10.65),   # comprei no desespero pro Chile, ela é G
+    ("6393", 1.90, 3.05),
+    ("6393", 4.86, 13.10),   # outra de trabalho... boca de sino... pra mim não dá
+    ("6393", 16.50, 17.90),  # então ela vai sair
+    ("6394", 7.33, 14.60),   # comprei no desespero pro Chile, ela é G, uso cintura baixa e finge que tá tudo certo
     ("6394", 24.80, 26.20),  # ela vai ficar
-    ("6395", 28.10, 31.95),  # o problema é esse bolso
+    ("6395", 8.25, 15.55),   # mesma história, bolso, gosto da lavagem, se não tivesse o bolso eu ficaria
+    ("6395", 28.10, 31.95),  # o problema mesmo é esse bolso
     ("6395", 36.05, 37.30),  # então ela sai
-    ("6396", 15.90, 17.85),  # mesma história, cheia de bolso
-    ("6396", 20.10, 24.10),  # tá saindo a cor... então ela sai
+    ("6396", 11.85, 13.40),
+    ("6396", 15.90, 17.85),
+    ("6396", 20.10, 24.10),  # calça preta de camurça, usei muito, cheia de bolso, saindo a cor, ela sai
     ("6396", 39.20, 40.10),  # olha isso aqui
-    ("6396", 46.10, 48.40),  # já saiu a maioria das tachinhas
-    ("6396", 52.00, 53.60),  # vai ter que sair
+    ("6396", 46.10, 48.35),  # já saiu a maioria das tachinhas, tá surradinho o jeans
+    ("6396", 52.00, 55.00),  # infelizmente vai ter que sair, ela que se acabou
+    ("6396", 59.05, 59.95),  # mas ela era perfeita
     ("6396", 67.95, 69.90),  # gente, que tanta coisa que tá saindo
-    ("6397", 12.15, 15.95),  # só coloquei no corpo pra verem que ela é icônica
+    ("6397", 12.15, 15.95),  # só coloquei no corpo pra verem o tanto que ela é icônica
+    ("6397", 19.65, 23.60),  # nada convencional, sei nem que cor é isso, acho que é um vinho, perfeita
+    ("6398", 7.35, 7.95),    # olha isso!
     ("6398", 11.10, 13.95),  # maravilhosa, pelinho por dentro
-    ("6398", 15.05, 16.80),  # com certeza fica
-    ("6399", 1.65, 5.95),    # nem vou experimentar, enorme, desbotado
-    ("6399", 9.40, 11.10),   # vai sair
+    ("6398", 15.05, 16.80),  # ela com certeza fica
+    ("6399", 1.65, 5.95),
+    ("6399", 9.40, 11.10),   # nem vou experimentar, enorme, desbotado, surrada, vai sair
     ("6401", 8.35, 12.05),   # amo essa calça pra ir em rodeio
     ("6401", 31.50, 33.20),  # e ela fica
-    ("6403", 1.90, 3.55),    # essa calça aqui foi um
-    ("6403", 6.95, 11.50),   # acontecimento... abalou as estruturas
+    ("6403", 1.45, 3.12),    # essa calça aqui
+    ("6403", 6.95, 11.50),
+    ("6403", 15.30, 18.25),   # acontecimento... abalou as estruturas, tá sem cor mas ainda amo, não vai sair
     ("6403", 24.10, 25.10),  # fica
-    ("6404", 9.25, 11.05),   # eu amei, fiquei obcecada nessa calça
-    ("6404", 13.75, 17.75),  # às vezes é bom uma ousadinha
-    ("6406", 2.45, 5.40),    # paguei caríssimo nela
-    ("6406", 8.15, 9.60),    # mas ela tá muito larga
-    ("6406", 33.80, 35.90),  # vocês vão ter que me ajudar
+    ("6404", 9.25, 17.75),   # amei, obcecada, só tenho calça básica, uma ousadinha
+    ("6404", 18.65, 19.95),  # e nessa mesma pegada
+    ("6404", 21.78, 22.50),  # eu comprei outra
+    ("6405", 13.30, 21.60),  # queria uma calça diferente, vários croppeds de uma cor só
+    ("6405", 49.75, 51.80),  # então, eu amei
+    ("6406", 2.45, 5.60),   # paguei caríssimo
+    ("6406", 8.10, 11.95),   # paguei caríssimo, não lembro a loja, tá muito larga, não me valorizou
+    ("6406", 19.65, 23.95),  # sinceramente não sei, vai ficar um ponto de interrogação
+    ("6406", 33.80, 35.90),  # essa aqui vocês vão ter que me ajudar
     ("6407", 4.05, 7.60),    # pegada de bolso, né galera?
-    ("6407", 20.95, 23.10),  # vai ficar só porque ela é marrom
-    ("6407", 25.00, 27.30),  # mas eu não amo ela
-    ("6408", 22.15, 26.40),  # tenho comprado cintura baixa, autoestima elevada
-    ("6408", 29.45, 31.40),  # e ela vai ficar
+    ("6407", 8.40, 12.75),   # gosto dessa calça, me veste bem, bumbum bonitinho
+    ("6407", 21.05, 23.10),  # vai ficar só porque ela é marrom
+    ("6407", 25.40, 27.30),  # mas eu não amo ela
+    ("6408", 2.05, 7.40),   # comprei com uma amiga, amo, super diferente, dá pra usar com parte de cima, me veste bem
+    ("6408", 22.15, 31.40),  # tenho comprado cintura baixa, autoestima... ela vai ficar
     ("6409", 1.15, 4.45),    # couro pro Chile, não usei
-    ("6409", 11.70, 13.40),  # ela vai ficar
+    ("6409", 11.70, 13.40),  # então eu gosto, ela vai ficar
     ("6409", 14.65, 18.40),  # 40 reais no TikTok Shop
-    ("6412", 2.20, 5.70),    # calça branca, uso muito na praia
-    ("6412", 7.95, 10.35),   # só praia, vai ficar
-    ("6412", 10.50, 14.45),  # Shein há 5, 6 anos, toda surrada
-    ("6412", 17.30, 20.15),  # não sei se ela vai ou se ela fica
-    ("6412", 46.20, 48.10),  # isso foi tudo que saiu
-    ("6412", 62.35, 64.80),  # ainda tenho muita coisa pra tirar do guarda-roupa
+    ("6410", 24.75, 32.69),  # apesar de social nunca usei pra trabalhar, usei e gostei... ocupando espaço, agora vou usar
+    ("6412", 2.20, 5.75),   # essa calça branca, uso muito na praia
+    ("6412", 7.95, 10.35),   # calça branca, uso muito na praia, só praia, vai ficar
+    ("6412", 10.50, 21.60),  # Shein há 5, 6 anos, surrada, gosto mas não sei se vai ou fica, ainda tô pensando
+    ("6412", 47.30, 49.40),  # e isso foi tudo que saiu
+    ("6412", 62.30, 64.75),  # ainda tenho muita coisa pra tirar: cropped, blusinha, short, saia, casaco
     ("6412", 80.50, 81.05),  # beijo! (congela no sorriso)
 ]
 FILES = sorted({s[0] for s in SEGS})
@@ -77,6 +89,12 @@ FIX = {
     ("6401", 10.96): "rodeio", ("6390", 21.24): "chuvosos,",
     ("6412", 11.40): "Shein", ("6407", 11.42): "deixa",
 }
+FIXW = {"camorça": "camurça", "camuça": "camurça", "sorradinho": "surradinho", "surada": "surrada", "rodeia": "rodeio",
+        "chen": "Shein", "deixe": "deixa", "chuvoso": "chuvosos", "emangreci": "emagreci", "pega": "apego"}
+def fix_text(t):
+    core = re.sub(r"[^\wà-úÀ-Ú-]", "", t)
+    rep = FIXW.get(core.lower())
+    return t.replace(core, rep) if rep else t
 words = {f: [w for s in json.load(open(f"{S}/audio/IMG_{f}.m.json")) for w in s["words"]] for f in FILES}
 
 def ts(t):
@@ -84,37 +102,92 @@ def ts(t):
     return f"{h}:{m:02d}:{s:05.2f}"
 
 # tira as pausas dentro de cada trecho (corte seco), mantendo o "rabinho" depois da última palavra
-import sys; sys.path.insert(0, os.path.dirname(S)); from fala import speech
-# corta pelo ÁUDIO: só fica o que é fala reconhecida; pausas e falas sem palavra (repetição, tropeço) saem
-PRE, POST, TAIL = 0.07, 0.12, 0.85
+import sys, re; sys.path.insert(0, os.path.dirname(S)); from fala import speech
+# Corte: transcrição LITERAL de cada trecho (pega "essa daqui, essa daqui"), tira a 1ª vez de toda repetição,
+# depois tira pelo ÁUDIO toda pausa > 0.25 s e todo pedaço de fala sem palavra reconhecida.
+PRE, POST, TAIL = 0.06, 0.10, 0.85
 VERD_SRC = {("6385", 24.00), ("6388", 25.66), ("6389", 36.38), ("6390", 25.06), ("6391", 12.98), ("6393", 16.84),
             ("6394", 25.12), ("6395", 36.34), ("6396", 23.02), ("6396", 52.56), ("6398", 15.56), ("6399", 10.02),
-            ("6401", 32.28), ("6403", 24.16), ("6404", 15.24), ("6406", 33.84), ("6407", 25.42), ("6408", 30.36),
-            ("6409", 12.46), ("6412", 9.20), ("6412", 18.30)}
+            ("6401", 32.28), ("6403", 24.16), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
+            ("6408", 30.36), ("6409", 12.46), ("6410", 32.24), ("6412", 9.20), ("6412", 18.30)}
+def norm(t): return re.sub(r"[^\wà-úÀ-Ú]", "", t.lower())
+KEPT = {f: [] for f in FILES}
+REPL = [("6394", ["puxar", "ele,"], ["pro", "Chile,"]), ("6401", ["por", "aí,", "enrodeia"], ["pra", "ir", "em", "rodeio"]),
+        ("6396", ["camor,", "se"], ["camurça,"]), ("6396", ["portanto,"], ["coitada"]), ("6396", ["quis", "se"], ["que", "se"]),
+        ("6397", ["fundo."], ["couro."]), ("6397", ["Perfeito."], ["Perfeita."]), ("6385", ["a", "cintura", "abaixo,"], ["cintura", "baixa,"]),
+        ("6393", ["camela."], ["canela."]), ("6408", ["levada,"], ["elevada,"]), ("6405", ["croppedes"], ["croppeds"]),
+        ("6409", ["R", "$40"], ["R$", "40"]), ("6394", ["fingo"], ["finge"]),
+        ("6412", ["Da..."], ["ainda"]), ("6399", ["passado", "também,"], []),
+        ("6396", ["camorceuzinho."], ["camurça."]), ("6396", ["cuidado,"], ["coitada,"]), ("6396", ["tostinhas"], ["tachinhas"])]
+REMOVIDOS = []
 pieces = []
 for f, a, b in SEGS:
-    ivs, _ = speech(f, a, b + 0.6)
-    after = [w["start"] for w in words[f] if w["start"] >= b - 0.02]
-    hard = min(after) - PRE if after else b + 0.6          # nunca entra na palavra seguinte
-    keep = []
-    for s0, e0 in ivs:
-        if any(s0 - 0.15 <= w["start"] <= min(e0, b) for w in words[f] if a - 0.05 <= w["start"] < b):
-            keep.append([max(a, s0 - PRE), min(max(b, hard) if e0 > b else b, e0 + POST, hard if e0 > b else 9e9)])
-    if not keep: continue
-    if any(a <= vt <= b for vf, vt in VERD_SRC if vf == f):     # trecho com veredito: deixa um respiro pro texto
-        keep[-1][1] = min(b, max(keep[-1][1], keep[-1][1] - POST + TAIL))
-    if f == "6412" and b > 81: keep[-1][1] = b                      # beijo -> congela no sorriso
-    merged = []
-    for s0, e0 in keep:
-        if merged and s0 - merged[-1][1] < 0.10: merged[-1][1] = e0
-        else: merged.append([s0, e0])
-    pieces += [(f, s0, e0) for s0, e0 in merged]
+    VW = json.load(open(f"{S}/audio/verb_{f}_{a:.2f}_{b:.2f}.json"))
+    nxt_after = [w["start"] for w in VW if w["start"] >= b - 0.02]
+    VW = [w for w in VW if (a - 0.05 <= w["start"] or (w["end"] >= a + 0.10 and w["end"] - w["start"] > 0.05)) and w["start"] < b - 0.02]
+    if not VW:
+        VW = [dict(w) for w in words[f] if a - 0.05 <= w["start"] < b - 0.02]
+    if not VW: continue
+    first3 = {norm(w["word"]) for w in VW[:3]}
+    extra = [dict(w) for w in words[f] if a - 0.05 <= w["start"] < VW[0]["start"] - 0.02 and norm(w["word"]) not in first3]
+    VW = extra + VW
+    for rf, old, new in REPL:
+        if rf != f: continue
+        for i in range(len(VW) - len(old) + 1):
+            if [norm(w["word"]) for w in VW[i:i + len(old)]] == [norm(o) for o in old]:
+                VW[i] = dict(VW[i], word=" ".join(new) if new else "")
+                for k in range(1, len(old)): VW[i + k] = dict(VW[i + k], word="")
+    VW = [w for w in VW if w["word"].strip()]
+    tok = [norm(w["word"]) for w in VW]
+    drop = set()
+    for n in range(6, 0, -1):
+        i = 0
+        while i + 2 * n <= len(tok):
+            if all(tok[i + k] and tok[i + k] == tok[i + n + k] for k in range(n)) and not drop & set(range(i, i + 2 * n)):
+                drop.update(range(i, i + n)); REMOVIDOS.append((f, " ".join(tok[i:i + n]))); i += n
+            else: i += 1
+    hard_end = (min(nxt_after) - 0.04) if nxt_after else b + 0.6
+    runs, cur = [], []
+    for i, w in enumerate(VW):
+        if i in drop:
+            if cur: runs.append((cur, VW[i]["start"] - 0.03)); cur = []
+        else: cur.append(w)
+    if cur: runs.append((cur, hard_end))
+    ivs, _ = speech(f, a - 0.2, b + 0.6)
+    seg_pieces = []
+    for ws, lim in runs:
+        r0, r1 = max(a - 0.15, ws[0]["start"] - PRE), min(ws[-1]["end"] + POST, lim)
+        for s0, e0 in ivs:
+            lo, hi = max(r0, s0 - PRE), min(r1, e0 + POST)
+            if hi - lo < 0.06: continue
+            if not any(lo - 0.12 <= w["start"] <= hi for w in ws): continue
+            if seg_pieces and (lo - seg_pieces[-1][1] < 0.10 or any(seg_pieces[-1][1] - 0.05 <= w["start"] <= lo for w in ws)):
+                seg_pieces[-1][1] = hi
+            else: seg_pieces.append([lo, hi])
+        KEPT[f] += ws
+    if not seg_pieces: continue
+    if any(a <= vt <= b for vf, vt in VERD_SRC if vf == f):
+        seg_pieces[-1][1] = min(max(seg_pieces[-1][1], seg_pieces[-1][1] - POST + TAIL), hard_end, b + 0.6)
+    if f == "6412" and b > 81: seg_pieces[-1][1] = b
+    for s0, e0 in seg_pieces:
+        if pieces and pieces[-1][0] == f and s0 < pieces[-1][2]: s0 = pieces[-1][2]
+        if e0 - s0 > 0.08: pieces.append((f, s0, e0))
+print("repetições tiradas:", REMOVIDOS, flush=True)
+ASSIGN, used = {}, set()
+for k, (f, a, b) in enumerate(pieces):
+    ASSIGN[k] = []
+    for w in KEPT[f]:
+        if id(w) in used: continue
+        if w["start"] < b - 0.03 and w["end"] > a + 0.05:
+            ASSIGN[k].append(w); used.add(id(w))
+if os.environ.get("DRY"):
+    for k, (f, a, b) in enumerate(pieces): print(f, round(a, 2), round(b, 2), " ".join(w["word"].strip() for w in ASSIGN[k]))
 SEGS = [(f, round(a * 30) / 30, round(b * 30) / 30) for f, a, b in pieces]   # grade de quadros (30 fps)
-SPEED = 1.2
+SPEED = 1.25
 timeline, t = [], 0.0
 for i, seg in enumerate(SEGS):
     d = round((seg[2] - seg[1]) / SPEED * 30) / 30
-    z = 1.0 if i % 2 == 0 else 1.08
+    z = 1.0
     timeline.append((seg, t, d, z)); t += d
 TOTAL = t
 END = 3.0
@@ -137,15 +210,15 @@ def seg_end_at(f, src_t):
 # ---------- legendas das falas (dinâmicas) — não na intro (lá entram as palavras grandes) ----------
 caps, seg_end = [], []
 for i, (seg, o, d, z) in enumerate(timeline):
-    if i == 0: continue
     f, a, b = seg
+    if f == "6380": continue
     chunk = []
-    for w in [w for w in words[f] if a - 0.05 <= w["start"] < b - 0.05]:
-        txt = FIX.get((f, round(w["start"], 2)), w["word"].strip())
+    for w in ASSIGN[i - 0]:
+        txt = fix_text(w["word"].strip())
         if not txt: continue
         if txt.startswith("-") and chunk:
             p = chunk[-1]; chunk[-1] = (p[0] + txt, p[1], o + (min(w["end"], b) - a) / SPEED); continue
-        st = o + (w["start"] - a) / SPEED
+        st = max(o, o + (w["start"] - a) / SPEED)
         if chunk and st <= chunk[-1][1] + 0.1: st = chunk[-1][1] + 0.12
         chunk.append((txt, st, max(o + (min(w["end"], b) - a) / SPEED, st + 0.1)))
         if len(chunk) >= 3 or txt[-1] in ",.?!":
@@ -175,9 +248,9 @@ VERD = [  # (arquivo, tempo da palavra, texto)
     ("6390", 25.06, "vai embora"), ("6391", 12.98, "vai embora"), ("6393", 16.84, "vai embora"),
     ("6394", 25.12, "fica"), ("6395", 36.34, "vai embora"), ("6396", 23.02, "vai embora"),
     ("6396", 52.56, "vai embora"), ("6398", 15.56, "fica"), ("6399", 10.02, "vai embora"),
-    ("6401", 32.28, "fica"), ("6403", 24.16, "fica"), ("6404", 9.46, "fica"),
+    ("6401", 32.28, "fica"), ("6403", 24.16, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
     ("6406", 33.84, "fica ou|vai embora?"), ("6407", 21.56, "fica"), ("6408", 30.36, "fica"),
-    ("6409", 12.46, "fica"),     ("6412", 9.20, "fica"), ("6412", 18.30, "fica ou|vai embora?"),
+    ("6409", 12.46, "fica"), ("6410", 32.24, "fica"),     ("6412", 9.20, "fica"), ("6412", 18.30, "fica ou|vai embora?"),
 ]
 EXTEND = {("6407", 21.56): ("6407", 26.30)}  # segura até o fim da peça
 sfx = []
@@ -195,12 +268,37 @@ overlays.append((a, seg_end_at("6409", 16.0), "Info", 540, 330, POP + r"{\c&HA6F
 sfx.append(("bling", a, 0.0, 0.4))
 
 # ---------- cartão de categoria "calças ✨" ----------
-CARD_A, CARD_B = timeline[1][1], timeline[1][1] + 1.8
+CARD_A = INTRO; CARD_B = INTRO + 1.8
 overlays.append((CARD_A, CARD_B, "Card", 540, 1010, r"{\fad(0,200)}" + POP + "calças"))
 sfx.append(("bling", CARD_A + 0.1, 0.0, 0.45))
 SPARK = [  # (x, y, tamanho, atraso)
     (175, 880, 100, 0.10), (850, 900, 80, 0.16), (220, 1080, 64, 0.22), (880, 1075, 104, 0.12), (585, 860, 56, 0.26),
 ]
+
+# ---------- placar fixo: ficou / saiu / ? ----------
+ev = []
+for f, wt, txt in VERD:
+    k = "talvez" if txt.startswith("fica ou") else ("ficou" if txt.startswith("fica") else "saiu")
+    ev.append((at(f, wt), k))
+ev.sort()
+cnt = {"ficou": 0, "saiu": 0, "talvez": 0}
+GRAY = "&HFFFFFF&"
+def placar(c, changed):
+    def num(k):
+        n = str(c[k])
+        if k == changed:
+            return r"{\fscx40\fscy40\t(0,120,\fscx135\fscy135)\t(120,220,\fscx100\fscy100)}" + n + r"{\fscx100\fscy100}"
+        return n
+    out = r"{\c&HFFFFFF&}ficou {\c&HA6F3FF&}" + num("ficou") + r"{\c&HFFFFFF&}   ·   saiu {\c&HA6F3FF&}" + num("saiu")
+    if c["talvez"]: out += r"{\c&HFFFFFF&}   ·   ? {\c&HA6F3FF&}" + num("talvez")
+    return out
+t0, changed = INTRO, None
+for t1, k in ev + [(None, None)]:
+    b = t1 if t1 is not None else TOTAL + END
+    overlays.append((t0, b, "Placar", 540, 230, (r"{\fad(200,0)}" if changed is None else "") + placar(cnt, changed)))
+    if k is None: break
+    cnt[k] += 1; t0, changed = t1, k
+print("placar final:", cnt)
 
 # ---------- fechamento ----------
 def bounce_line(ws, t_first, step):
@@ -212,8 +310,8 @@ def bounce_line(ws, t_first, step):
     return out
 END_T0 = 0.15
 overlays += [
-    (TOTAL, TOTAL + END, "End", 540, 300, r"{\fad(0,250)}" + bounce_line(["vem", "aí", "o"], END_T0, 0.17)),
-    (TOTAL, TOTAL + END, "End", 520, 440, r"{\fad(0,250)\fs150}" + bounce_line(["ep.", "2"], END_T0 + 0.6, 0.2)),
+    (TOTAL, TOTAL + END, "End", 540, 400, r"{\fad(0,250)}" + bounce_line(["vem", "aí", "o"], END_T0, 0.17)),
+    (TOTAL, TOTAL + END, "End", 520, 540, r"{\fad(0,250)\fs150}" + bounce_line(["ep.", "2"], END_T0 + 0.6, 0.2)),
 ]
 EP2_T = TOTAL + END_T0 + 0.6 + 0.2
 sfx.append(("plim", EP2_T, 0.0, 0.5))
@@ -233,6 +331,7 @@ Style: Title,Nunito Black,124,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,
 Style: Verd,Nunito Black,96,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-2,0,1,0,5,5,40,40,0,1
 Style: Card,Nunito Black,180,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-4,0,1,0,6,5,40,40,0,1
 Style: End,Nunito Black,96,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-3,0,1,0,6,5,40,40,0,1
+Style: Placar,Nunito Black,50,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-1,0,1,0,4,5,40,40,0,1
 Style: Info,Poppins SemiBold,56,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,0,0,0,100,100,0,0,1,0,4,5,60,60,0,1
 
 [Events]
@@ -317,13 +416,13 @@ inputs, fc = ["-i", f"{OUT}/base.mkv"], []
 si = inputs.count("-i"); inputs += ["-loop", "1", "-i", f"{OUT}/sparkle.png"]
 esc = lambda p: p.replace(":", r"\:")
 fc.append("[0:v]setpts=PTS-STARTPTS[vc]"); fc.append("[0:a]asetpts=PTS-STARTPTS[ac]")
-fc.append(f"[vc]{LOOK}[b2]")
+fc.append("[vc]null[b2]")
 fc.append(f"[b2]tpad=stop_mode=clone:stop_duration={END},subtitles='{esc(OUT)}/legendas.ass':fontsdir={FONTS}[v0s]")
 # ✨ do cartão + ✨ do fechamento
 nsp = len(SPARK) + 1
 fc.append(f"[{si}:v]format=rgba,split={nsp}" + "".join(f"[sp{j}]" for j in range(nsp)))
 cur = "v0s"
-for j, (x, y, size, dl) in enumerate(SPARK + [(800, 440, 110, 0.0)]):
+for j, (x, y, size, dl) in enumerate(SPARK + [(800, 540, 110, 0.0)]):
     if j < len(SPARK):
         a, b = CARD_A + dl, CARD_B
     else:

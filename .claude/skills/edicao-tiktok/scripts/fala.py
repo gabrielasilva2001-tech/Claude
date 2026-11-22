@@ -7,7 +7,7 @@ def env(f):
     return db
 def speech(f, a, b, rel=13, minsil=0.25, minsp=0.08):
     db=env(f); floor=np.percentile(db,95)
-    th=floor-19
+    th=floor-22
     i0,i1=int(a*100),int(b*100)
     on=db[i0:i1]>th
     # smooth: fill short gaps

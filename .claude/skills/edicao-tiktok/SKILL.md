@@ -58,6 +58,11 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
   p95−19 dB; só fica trecho que tem palavra reconhecida começando nele) e, no fim, **transcrever o vídeo pronto de novo**
   e conferir que não sobrou frase repetida nem palavra cortada no meio.
 - Vídeo longo: ela prefere **fala acelerada 1,2x** (atempo, sem afinar a voz) e só o essencial de cada item.
+- **Repetição tipo "essa daqui, essa daqui"**: o Whisper normal NÃO escreve. Usar `scripts/transcricao_literal.py`
+  (Whisper com prompt cheio de repetições → transcreve literal) em cada trecho, tirar a 1ª ocorrência de toda
+  sequência repetida, e conferir o vídeo final com a mesma transcrição literal.
+- **Filtro de cor e zoom alternando** — no quadro da limpa ela achou péssimo: imagem natural, sem zoom.
+- **Cortar demais** o que dá sentido (o porquê de cada peça). Tirar só pausa/repetição/tropeço e detalhe lateral.
 - **Texto passando atrás da cabeça dela** (recorte da pessoa) — achou horroroso. Título fica no alto, livre.
 
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.

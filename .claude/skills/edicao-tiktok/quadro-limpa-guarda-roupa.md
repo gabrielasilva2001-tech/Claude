@@ -47,3 +47,8 @@ usar as palavras grandes uma a uma acompanhando a fala.
 ## v4 (aprovação pendente) — o que mudou depois da reclamação
 - Título no alto, sem efeito atrás da cabeça. Cortes pelo áudio (`scripts/fala.py`), fala 1,2x, falas enxugadas: 2:04.
 - Conferência final: Whisper no `base.mkv` — sem repetições.
+
+## v5 — pedidos dela
+- **Placar fixo o vídeo todo** no topo: "ficou N · saiu N" (+ "? N" quando houver talvez), sobe com pulinho
+  no momento em que ela diz fica/sai.
+- Sem filtro de cor, sem zoom. Fala 1,25x. Explicações de cada calça de volta (3:07).
