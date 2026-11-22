@@ -1,4 +1,4 @@
-"""Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
+"""APROVADO (v3, "como entrar num banco ou cooperativa"). Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
 Tema: coisas que eu faria se quisesse entrar num banco/cooperativa.
 Base: editar_exemplo_tripe.py (estilo aprovado) + ideias da referência (lista #1, #2... no topo durante cada dica).
 """

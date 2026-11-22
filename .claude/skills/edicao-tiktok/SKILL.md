@@ -37,10 +37,10 @@ referência de outra criadora (lista "#1. …" no peito), mas no estilo dela.
 - **Cabeçalho da dica no topo (y≈300) durante a dica inteira:** Montserrat Black Itálico 60,
   "**#1** siga a cooperativa" (número rosa, texto branco) + 2ª linha maior em amarelo ("no INSTAGRAM").
   Entra com pulinho + som de **"check"** (duas notinhas subindo, sintetizado no script).
-- Gancho digitado de sempre ("Como entrar num banco / ou **COOPERATIVA** ✦"), legenda dinâmica,
+- Gancho digitado de sempre ("Como entrar num banco / ou **COOPERATIVA** ✨"), legenda dinâmica,
   rótulos Caveat ("ai, mas...", "sinto muito!", "metade?!"), info em Poppins com colchetes rosa
   ("[ CPA-10 · CPA-20 · CEA ]" + plim), P&B quando algo deu errado ("nunca me chamaram" + "5x não...").
-- Fechamento igual ao aprovado: congela no rosto dela centralizado, "Corre atrás e / **NÃO DESISTE** ✦".
+- Fechamento igual ao aprovado: congela no rosto dela centralizado, "Corre atrás e / **NÃO DESISTE** ✨".
 - Aprovado com ~1:45. Tirar trechos que o Whisper não entendeu (nomes, siglas) e listar pra ela no final.
   Termos que ele erra aqui: Sicoob ("Ciccobi"), Sicredi ("Ciccred"), CEA ("CEPIA").
 - **Render em etapas** (cada corte vira um arquivo, depois concat, depois legendas/sons): com 40+ cortes
@@ -72,7 +72,7 @@ referência de outra criadora (lista "#1. …" no peito), mas no estilo dela.
 - **Fechamento:** congelar no sorriso dela (no meio do quadro!), frase de fechamento no topo com
   **palavras chegando uma a uma com pulinho** (desfoque→nítido, estica e assenta), 2ª linha maior em rosa,
   "plim" quando a palavra-chave chega, escurecer até o preto (~3 s no total).
-  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
+  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✨". Se ela não falou nada de fechamento, propor uma frase curta.
 - **Volume:** normalizar para -14 LUFS.
 
 ## Som: SEMPRE segue a imagem (regra mais importante)
