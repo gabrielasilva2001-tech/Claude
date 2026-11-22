@@ -1,4 +1,4 @@
-"""APROVADO (v2, "como entrar num banco ou cooperativa"). Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
+"""Arrume-se comigo — formato DICAS NUMERADAS falando perto da câmera.
 Tema: coisas que eu faria se quisesse entrar num banco/cooperativa.
 Base: editar_exemplo_tripe.py (estilo aprovado) + ideias da referência (lista #1, #2... no topo durante cada dica).
 """
@@ -227,9 +227,15 @@ overlays += [
 ]
 
 # ---------- fechamento ----------
+# ✨ é emoji colorido (o libass não desenha): no texto vai um "O" invisível guardando o lugar,
+# e a imagem do ✨ é sobreposta exatamente ali (posição achada renderizando o "O" em verde).
+SLOT = "{\\alpha&HFF&}O"
+SLOT_MARK = "{\\alpha&H00&\\c&H00FF00&}O"
 def bounce_line(ws, t_first, step, color_of):
     out = ""
     for k, w in enumerate(ws):
+        if w == "✨":
+            out += "@SLOT@"; continue
         ms = int((t_first + k * step) * 1000)
         out += (r"{\alpha&HFF&\fscy35\blur6\c%s" % color_of(k)
                 + r"\t(%d,%d,\alpha&H00&\fscy128\blur0)\t(%d,%d,\fscy92)\t(%d,%d,\fscy100)}" % (ms, ms + 110, ms + 110, ms + 190, ms + 190, ms + 260)
@@ -237,7 +243,7 @@ def bounce_line(ws, t_first, step, color_of):
     return out
 END_TEXT_T0 = 0.15
 l1 = bounce_line(["Corre", "atrás", "e"], END_TEXT_T0, 0.17, lambda k: "&HFFFFFF&")
-l2 = bounce_line(["NÃO", "DESISTE", "✦"], END_TEXT_T0 + 0.6, 0.2, lambda k: "&H3DD9FF&" if k == 2 else "&HB45CFF&")
+l2 = bounce_line(["NÃO", "DESISTE", "✨"], END_TEXT_T0 + 0.6, 0.2, lambda k: "&H3DD9FF&" if k == 2 else "&HB45CFF&")
 overlays += [
     (TOTAL, TOTAL + END, "Title", 540, 300, r"{\fad(0,250)}" + l1),
     (TOTAL, TOTAL + END, "Title", 540, 390, r"{\fad(0,250)\fs86}" + l2),
@@ -277,7 +283,7 @@ for a, b, st, x, y, txt in overlays:
 # gancho digitado letra por letra (fica até o fim do 2º corte do gancho)
 TYPE_START, TYPE_STEP = 0.20, 0.045
 TYPE_END = cut_out[1][1]
-parts = [("&HFFFFFF&", "Como entrar num banco"), ("&HFFFFFF&", "\n"), ("&HFFFFFF&", "ou "), ("&HB45CFF&", "COOPERATIVA "), ("&H3DD9FF&", "✦")]
+parts = [("&HFFFFFF&", "Como entrar num banco"), ("&HFFFFFF&", "\n"), ("&HFFFFFF&", "ou "), ("&HB45CFF&", "COOPERATIVA "), ("&H3DD9FF&", "✨")]
 chars = [(c, ch) for c, txt in parts for ch in txt]
 typed = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
 for k, n in enumerate(typed):
@@ -286,10 +292,33 @@ for k, n in enumerate(typed):
     body = ""
     for i, (c, ch) in enumerate(chars):
         tok = r"\N" if ch == "\n" else ch
+        if ch == "✨": body += "@SLOT@" if i <= n else SLOT; continue
         body += ("{\\c%s\\alpha&H00&}" % c if i <= n else "{\\alpha&HFF&}") + tok
     fade = r"{\fad(0,200)}" if k + 1 == len(typed) else ""
     ass += f"Dialogue: 1,{ts(a)},{ts(b)},Title,,0,0,0,,{{\\pos(540,330)}}{fade}{body}\n"
-open(f"{OUT}/legendas.ass", "w").write(ass)
+open(f"{OUT}/legendas.ass", "w").write(ass.replace("@SLOT@", SLOT))
+open(f"{OUT}/legendas_mark.ass", "w").write(ass.replace("@SLOT@", SLOT_MARK))
+EMO_HOOK = (TYPE_START + (len(typed) - 1) * TYPE_STEP, TYPE_END)          # entra quando é "digitado"
+EMO_END = (TOTAL + END_TEXT_T0 + 0.6 + 2 * 0.2, TOTAL + END)              # chega depois de DESISTE
+
+def emoji_png(path, h):
+    from PIL import Image, ImageDraw, ImageFont
+    fnt = ImageFont.truetype("/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf", 109)
+    im = Image.new("RGBA", (160, 160), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((10, 10), "✨", font=fnt, embedded_color=True)
+    im = im.crop(im.getbbox())
+    im.resize((round(im.width * h / im.height), h), Image.LANCZOS).save(path)
+
+def slot_box(t):
+    """renderiza o marcador verde num fundo preto e devolve o centro e a altura do 'O'"""
+    import numpy as np
+    raw = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i", f"color=black:s={W}x{H}:r=30:d={TOTAL+END+1}",
+        "-vf", f"subtitles='{OUT}/legendas_mark.ass':fontsdir={FONTS}", "-ss", f"{t}", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+        capture_output=True, check=True).stdout
+    im = np.frombuffer(raw, np.uint8).reshape(H, W, 3).astype(int)
+    m = (im[:, :, 1] > 150) & (im[:, :, 0] < 90) & (im[:, :, 2] < 90)
+    ys, xs = np.nonzero(m)
+    return xs.min(), (ys.min() + ys.max()) / 2, ys.max() - ys.min()
 
 # ---------- sons (sempre seguem a imagem) ----------
 def synth(name, expr):
@@ -312,28 +341,46 @@ def render():
     lst = []
     for i, (seg, o, d) in enumerate(timeline):
         f, a, b, z = seg["f"], seg["a"], seg["b"], seg["z"]
-        cw, ch = int(W / z) // 2 * 2, int(H / z) // 2 * 2
+        # direto do ORIGINAL 4K: recorta o zoom em 4K e só depois reduz (mais nitidez)
+        cw, ch = int(2160 / z) // 2 * 2, int(3840 / z) // 2 * 2
         bw = ",hue=s=0" if CUTS[seg["ci"]]["tag"] in BW_TAGS else ""
         dst = f"{OUT}/segs/{i:03d}.mp4"
-        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-i", f"{PROXY}/{f}.mp4", "-frames:v", str(round(d * 30)), "-t", f"{d:.4f}",
-            "-vf", f"crop={cw}:{ch}:(iw-{cw})/2:(ih-{ch})/2.6,scale={W}:{H},fps=30,setsar=1{bw}",
-            "-af", f"aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.02,afade=t=out:st={max(d-0.03,0):.3f}:d=0.03,apad,atrim=0:{d:.4f}",
-            "-c:v", "libx264", "-preset", "fast", "-crf", "16", "-pix_fmt", "yuv420p", "-c:a", "pcm_s16le", "-f", "mov", dst + ".mov"], check=True)
         lst.append(f"file '{dst}.mov'")
+        if "--reuse" in sys.argv and os.path.exists(dst + ".mov"): continue
+        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{a}", "-i", f"{S}/raw/{f}.mov", "-frames:v", str(round(d * 30)), "-t", f"{d:.4f}",
+            "-vf", f"crop={cw}:{ch}:(iw-{cw})/2:(ih-{ch})/2.6,scale={W}:{H}:flags=lanczos,fps=30,setsar=1{bw}",
+            "-af", f"aresample=48000,aformat=channel_layouts=stereo,afade=t=in:d=0.02,afade=t=out:st={max(d-0.03,0):.3f}:d=0.03,apad,atrim=0:{d:.4f}",
+            "-c:v", "libx264", "-preset", "fast", "-crf", "12", "-pix_fmt", "yuv420p", "-c:a", "pcm_s16le", "-f", "mov", dst + ".mov"], check=True)
     open(f"{OUT}/segs/list.txt", "w").write("\n".join(lst))
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{OUT}/segs/list.txt",
                     "-c", "copy", f"{OUT}/concat.mov"], check=True)
     inputs = ["-i", f"{OUT}/concat.mov"]
-    fc = [f"[0:v]tpad=stop_mode=clone:stop_duration={END},{LOOK},subtitles='{OUT}/legendas.ass':fontsdir={FONTS},fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]",
+    fc = [f"[0:v]tpad=stop_mode=clone:stop_duration={END},{LOOK},subtitles='{OUT}/legendas.ass':fontsdir={FONTS}[vs0]",
           f"[0:a]apad=pad_dur={END}[acp]"]
+    # ✨ por cima, no lugar do marcador
+    last = "vs0"
+    for n, ((t0, t1), size_k) in enumerate([(EMO_HOOK, 1.7), (EMO_END, 1.7)]):
+        x0, cy, hh = slot_box((t0 + t1) / 2)
+        hpx = int(hh * size_k) // 2 * 2
+        png = f"{OUT}/sparkle_{n}.png"; emoji_png(png, hpx)
+        from PIL import Image
+        ew = Image.open(png).width
+        dur = t1 - t0
+        idx = inputs.count("-i"); inputs += ["-loop", "1", "-framerate", "30", "-t", f"{dur:.3f}", "-i", png]
+        fc.append(f"[{idx}:v]format=rgba,fade=t=in:st=0:d=0.12:alpha=1,fade=t=out:st={max(dur-0.2,0):.3f}:d=0.2:alpha=1,setpts=PTS+{t0:.3f}/TB[e{n}]")
+        fc.append(f"[{last}][e{n}]overlay=x={x0 + 8:.0f}:y={cy - hpx/2:.0f}:eof_action=pass[vs{n+1}]")
+        last = f"vs{n+1}"
+        print(f"✨ {n}: x {x0 + 8:.0f}, y {cy:.0f} altura {hpx}px, {t0:.2f}-{t1:.2f}s")
+    fc.append(f"[{last}]fade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[vout]")
     mix = ["[acp]"]
     for j, (name, at, vol) in enumerate(sfx):
-        idx = len(inputs) // 2; inputs += ["-i", f"{OUT}/{name}.wav"]
+        idx = inputs.count("-i"); inputs += ["-i", f"{OUT}/{name}.wav"]
         ms = int(max(at, 0) * 1000)
         fc.append(f"[{idx}:a]volume={vol},adelay={ms}|{ms},aformat=channel_layouts=stereo[s{j}]"); mix.append(f"[s{j}]")
     fc.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0:duration=first,loudnorm=I=-12.8:TP=-1.5:LRA=11,afade=t=out:st={TOTAL+END-0.8:.2f}:d=0.8[aout]")
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(fc),
-       "-map", "[vout]", "-map", "[aout]", "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-pix_fmt", "yuv420p",
+       "-map", "[vout]", "-map", "[aout]", "-c:v", "libx264", "-preset", "slow", "-crf", "17", "-maxrate", "6800k", "-bufsize", "13600k",
+       "-profile:v", "high", "-level", "4.1", "-pix_fmt", "yuv420p",
        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", f"{OUT}/arrume_banco_{VERSION}.mp4"], check=True)
 
 print(f"duração {TOTAL:.1f}s + {END}s fechamento, {len(caps)} legendas")

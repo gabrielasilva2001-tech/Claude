@@ -46,12 +46,18 @@ referência de outra criadora (lista "#1. …" no peito), mas no estilo dela.
 - **Render em etapas** (cada corte vira um arquivo, depois concat, depois legendas/sons): com 40+ cortes
   num filtro só o processo morre por falta de memória. Duração de cada corte arredondada em quadros
   (1/30 s) para a legenda não escorregar.
-- Vídeo final > 100 MB: não vai pro git (`videos/` no .gitignore); entregar pelo chat.
+- **Estrela = emoji ✨** (ela pediu; nada de ✦). O libass não desenha emoji colorido: no texto fica um "O"
+  invisível guardando o lugar, o script acha a posição renderizando esse "O" em verde e sobrepõe a imagem
+  do ✨ (Noto Color Emoji via Pillow), 1,7× a altura do marcador, alinhado pelo começo do espaço.
+- **Qualidade para baixar:** cortes renderizados direto do ORIGINAL 4K (zoom recortado em 4K, depois
+  reduz com lanczos), intermediários crf 12, final x264 `-preset slow -crf 17 -maxrate 6800k` → ~92 MB
+  em 1:46, abaixo de 100 MB. Entregar no chat **e** commitar em `videos/` (`git add -f`) para ela ter o
+  link de download do GitHub (pelo chat o download de ~120 MB falhou).
 
 ## O que ela APROVOU
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
-  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
+  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✨ (emoji; ver Formato 2).
   Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).
 - **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, centro-baixo (MarginV 620).
   **Dinâmica:** cada bloco entra com pulinho (85%→100%) e a **palavra falada fica amarela e 8% maior**.
