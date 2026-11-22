@@ -52,3 +52,8 @@ usar as palavras grandes uma a uma acompanhando a fala.
 - **Placar fixo o vídeo todo** no topo: "ficou N · saiu N" (+ "? N" quando houver talvez), sobe com pulinho
   no momento em que ela diz fica/sai.
 - Sem filtro de cor, sem zoom. Fala 1,25x. Explicações de cada calça de volta (3:07).
+
+## v6 — pedidos dela
+- Título no modelo APROVADO do tripé (Montserrat Black Itálico: "uma limpa no" branco / "GUARDA-ROUPA" rosa, ✨,
+  "ep. 1" amarelo) — ela não quis o título na mesma cor creme da legenda.
+- Placar embaixo (y≈1530). Cor corrigida por clipe. Sem respiro no fim das falas. Corte antes de tirar a calça.

@@ -63,6 +63,10 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
   sequência repetida, e conferir o vídeo final com a mesma transcrição literal.
 - **Filtro de cor e zoom alternando** — no quadro da limpa ela achou péssimo: imagem natural, sem zoom.
 - **Cortar demais** o que dá sentido (o porquê de cada peça). Tirar só pausa/repetição/tropeço e detalhe lateral.
+- **Respiro no fim da fala** e "rabinho" depois do veredito: aparar começo/fim de cada corte pelo volume
+  (respiração < p95−19 dB), sem nunca cortar dentro da primeira/última palavra; conferir com transcrição literal.
+- **Aparecer tirando a calça / se trocando**: olhar o último quadro de cada corte e cortar antes.
+- **Clipes azulados**: corrigir balanço de branco por clipe pelo piso branco (colorchannelmixer), sem filtro.
 - **Texto passando atrás da cabeça dela** (recorte da pessoa) — achou horroroso. Título fica no alto, livre.
 
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.

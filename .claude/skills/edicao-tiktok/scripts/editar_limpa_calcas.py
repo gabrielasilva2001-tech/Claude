@@ -55,7 +55,6 @@ SEGS = [
     ("6403", 1.45, 3.12),    # essa calça aqui
     ("6403", 6.95, 11.50),
     ("6403", 15.30, 18.25),   # acontecimento... abalou as estruturas, tá sem cor mas ainda amo, não vai sair
-    ("6403", 24.10, 25.10),  # fica
     ("6404", 9.25, 17.75),   # amei, obcecada, só tenho calça básica, uma ousadinha
     ("6404", 18.65, 19.95),  # e nessa mesma pegada
     ("6404", 21.78, 22.50),  # eu comprei outra
@@ -102,13 +101,15 @@ def ts(t):
     return f"{h}:{m:02d}:{s:05.2f}"
 
 # tira as pausas dentro de cada trecho (corte seco), mantendo o "rabinho" depois da última palavra
-import sys, re; sys.path.insert(0, os.path.dirname(S)); from fala import speech
+import sys, re; sys.path.insert(0, os.path.dirname(S)); from fala import speech, env
+import numpy as np
+ENV = {f: env(f) for f in FILES}
 # Corte: transcrição LITERAL de cada trecho (pega "essa daqui, essa daqui"), tira a 1ª vez de toda repetição,
 # depois tira pelo ÁUDIO toda pausa > 0.25 s e todo pedaço de fala sem palavra reconhecida.
-PRE, POST, TAIL = 0.06, 0.10, 0.85
+PRE, POST, TAIL = 0.06, 0.10, 0.0
 VERD_SRC = {("6385", 24.00), ("6388", 25.66), ("6389", 36.38), ("6390", 25.06), ("6391", 12.98), ("6393", 16.84),
             ("6394", 25.12), ("6395", 36.34), ("6396", 23.02), ("6396", 52.56), ("6398", 15.56), ("6399", 10.02),
-            ("6401", 32.28), ("6403", 24.16), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
+            ("6401", 32.28), ("6403", 17.96), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
             ("6408", 30.36), ("6409", 12.46), ("6410", 32.24), ("6412", 9.20), ("6412", 18.30)}
 def norm(t): return re.sub(r"[^\wà-úÀ-Ú]", "", t.lower())
 KEPT = {f: [] for f in FILES}
@@ -166,12 +167,21 @@ for f, a, b in SEGS:
             else: seg_pieces.append([lo, hi])
         KEPT[f] += ws
     if not seg_pieces: continue
-    if any(a <= vt <= b for vf, vt in VERD_SRC if vf == f):
-        seg_pieces[-1][1] = min(max(seg_pieces[-1][1], seg_pieces[-1][1] - POST + TAIL), hard_end, b + 0.6)
+    db = ENV[f]; thr = np.percentile(db, 95) - 19        # respiração fica bem abaixo da voz
+    keptw = [w for i, w in enumerate(VW) if i not in drop]
+    for sp in seg_pieces:
+        wsp = [w for w in keptw if sp[0] - 0.12 <= w["start"] < sp[1]]
+        if not wsp: continue
+        lo_end = min(sp[1], max(w["start"] for w in wsp) + 0.35)   # nunca corta dentro da última palavra
+        hi_start = max(sp[0], min(w["start"] for w in wsp) - 0.04)  # nem dentro da primeira
+        i0, i1 = int(sp[0] * 100), int(sp[1] * 100)
+        while i1 - 1 > lo_end * 100 and db[i1 - 1] < thr: i1 -= 1
+        while i0 + 1 < hi_start * 100 and db[i0] < thr: i0 += 1
+        sp[0], sp[1] = max(sp[0], i0 / 100 - 0.03), min(sp[1], i1 / 100 + 0.08)
     if f == "6412" and b > 81: seg_pieces[-1][1] = b
     for s0, e0 in seg_pieces:
         if pieces and pieces[-1][0] == f and s0 < pieces[-1][2]: s0 = pieces[-1][2]
-        if e0 - s0 > 0.08: pieces.append((f, s0, e0))
+        if e0 - s0 > 0.25: pieces.append((f, s0, e0))
 print("repetições tiradas:", REMOVIDOS, flush=True)
 ASSIGN, used = {}, set()
 for k, (f, a, b) in enumerate(pieces):
@@ -248,7 +258,7 @@ VERD = [  # (arquivo, tempo da palavra, texto)
     ("6390", 25.06, "vai embora"), ("6391", 12.98, "vai embora"), ("6393", 16.84, "vai embora"),
     ("6394", 25.12, "fica"), ("6395", 36.34, "vai embora"), ("6396", 23.02, "vai embora"),
     ("6396", 52.56, "vai embora"), ("6398", 15.56, "fica"), ("6399", 10.02, "vai embora"),
-    ("6401", 32.28, "fica"), ("6403", 24.16, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
+    ("6401", 32.28, "fica"), ("6403", 17.96, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
     ("6406", 33.84, "fica ou|vai embora?"), ("6407", 21.56, "fica"), ("6408", 30.36, "fica"),
     ("6409", 12.46, "fica"), ("6410", 32.24, "fica"),     ("6412", 9.20, "fica"), ("6412", 18.30, "fica ou|vai embora?"),
 ]
@@ -259,6 +269,7 @@ for f, wt, txt in VERD:
     b = seg_end_at(*EXTEND[(f, wt)]) if (f, wt) in EXTEND else seg_end_at(f, wt)
     l = txt.split("|")
     body = l[0] if len(l) == 1 else (l[0] + r"\N{\fs58}" + l[1] if l[1].startswith("(") else l[0] + r"\N" + l[1])
+    b = max(b, a + 1.0)
     overlays.append((a, b, "Verd", 540, 330, r"{\frz-3}" + POP + body))
     if txt == "fica": sfx.append(("plim", a, 0.0, 0.45))
     elif txt == "vai embora": sfx.append(("tchau", a, 0.0, 0.5))
@@ -295,7 +306,7 @@ def placar(c, changed):
 t0, changed = INTRO, None
 for t1, k in ev + [(None, None)]:
     b = t1 if t1 is not None else TOTAL + END
-    overlays.append((t0, b, "Placar", 540, 230, (r"{\fad(200,0)}" if changed is None else "") + placar(cnt, changed)))
+    overlays.append((t0, b, "Placar", 540, 1530, (r"{\fad(200,0)}" if changed is None else "") + placar(cnt, changed)))
     if k is None: break
     cnt[k] += 1; t0, changed = t1, k
 print("placar final:", cnt)
@@ -327,7 +338,7 @@ ScaledBorderAndShadow: yes
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Cap,Poppins SemiBold,66,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,4,2,8,80,80,470,1
 Style: Big,Nunito Black,124,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-3,0,1,0,5,5,40,40,0,1
-Style: Title,Nunito Black,124,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-3,0,1,0,5,5,40,40,0,1
+Style: Title,Montserrat Thin Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,-1,0,0,100,100,-2,0,1,0,6,5,40,40,0,1
 Style: Verd,Nunito Black,96,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-2,0,1,0,5,5,40,40,0,1
 Style: Card,Nunito Black,180,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-4,0,1,0,6,5,40,40,0,1
 Style: End,Nunito Black,96,&H00A6F3FF,&H00FFFFFF,&H00000000,&H9A3A2A1A,0,0,0,0,100,100,-3,0,1,0,6,5,40,40,0,1
@@ -353,32 +364,25 @@ for a, b, st, x, y, txt in overlays:
     ass += f"Dialogue: 1,{ts(a)},{ts(b)},{st},,0,0,0,,{{\\pos({x},{y})}}{txt}\n"
 open(f"{OUT}/legendas.ass", "w").write(ass)
 
-# ---------- título digitado (camada que fica ATRÁS dela) ----------
+# ---------- título digitado: modelo aprovado do tripé (Montserrat Black Itálico, branco + rosa, ✨) ----------
 tass = STY
-TYPE_START, TYPE_STEP = 0.25, 0.045
-lines = ["uma limpa no", "guarda-roupa"]
-chars = [ch for ch in "\n".join(lines)]
-typed = [i for i, ch in enumerate(chars) if ch not in " \n"]
-def title_body(n, cursor):
+TYPE_START, TYPE_STEP = 0.20, 0.045
+parts = [("&HFFFFFF&", "uma limpa no"), ("&HFFFFFF&", "\n"), ("&HB45CFF&", "GUARDA-ROUPA")]
+chars = [(c, ch) for c, txt in parts for ch in txt]
+typed = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
+def title_body(n):
     out = ""
-    for i, ch in enumerate(chars):
+    for i, (c, ch) in enumerate(chars):
         tok = r"\N" if ch == "\n" else ch
-        out += ("{\\alpha&H00&}" if i <= n else "{\\alpha&HFF&}") + tok
-        if i == n and cursor: out += "{\\alpha&H00&}|"
-        elif i == n: out += "{\\alpha&HFF&}|"
+        out += ("{\\c%s\\alpha&H00&}" % c if i <= n else "{\\alpha&HFF&}") + tok
     return out
 for k, n in enumerate(typed):
     a = TYPE_START + k * TYPE_STEP
-    b = TYPE_START + (k + 1) * TYPE_STEP if k + 1 < len(typed) else None
-    if b is None: break
-    tass += f"Dialogue: 0,{ts(a)},{ts(b)},Title,,0,0,0,,{{\\pos(540,330)}}{title_body(n, True)}\n"
+    b = TYPE_START + (k + 1) * TYPE_STEP if k + 1 < len(typed) else INTRO
+    fade = r"{\fad(0,200)}" if k + 1 == len(typed) else ""
+    tass += f"Dialogue: 0,{ts(a)},{ts(b)},Title,,0,0,0,,{{\\pos(540,330)}}{fade}{title_body(n)}\n"
 TYPE_DONE = TYPE_START + (len(typed) - 1) * TYPE_STEP
-t, on = TYPE_DONE, True     # cursor piscando depois de digitar
-while t < 2.6:
-    tass += f"Dialogue: 0,{ts(t)},{ts(t+0.3)},Title,,0,0,0,,{{\\pos(540,330)}}{title_body(typed[-1], on)}\n"
-    t += 0.3; on = not on
-tass += f"Dialogue: 0,{ts(t)},{ts(INTRO)},Title,,0,0,0,,{{\\pos(540,330)\\fad(0,200)}}{title_body(typed[-1], False)}\n"
-tass += f"Dialogue: 0,{ts(TYPE_DONE+0.25)},{ts(INTRO)},Title,,0,0,0,,{{\\pos(800,470)\\fs58\\fad(0,200)}}{POP}ep. 1\n"
+tass += f"Dialogue: 0,{ts(TYPE_DONE+0.2)},{ts(INTRO)},Title,,0,0,0,,{{\\pos(760,470)\\fs54\\c&H3DD9FF&\\fad(0,200)}}{POP}ep. 1\n"
 open(f"{OUT}/legendas.ass", "a").write(tass[len(STY):])
 
 # ---------- sons sintetizados ----------
@@ -395,6 +399,12 @@ bell("tchau", [(987.8, 0.5, 8, 0), (659.3, 0.55, 6, 0.11)], d=0.8)   # duas nota
 # ---------- render ----------
 LOOK = "eq=contrast=1.06:saturation=1.12:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03"
 if os.environ.get("DRY"): print(f"DRY duração {TOTAL+END:.1f}s, {len(timeline)} cortes"); raise SystemExit
+# balanço de branco por clipe: piso branco de cada clipe igualado ao dos clipes de cor certa (6385/6412)
+PISO = json.load(open(f"{OUT}/piso.json"))
+TR, TG, TB = PISO["6412"]
+def wb(f):
+    r, g, b = PISO[f]
+    return f"colorchannelmixer=rr={(TR/TG)*g/r:.3f}:gg=1:bb={(TB/TG)*g/b:.3f}"
 # 1) cada corte vira um arquivo (evita estourar a memória com dezenas de trims do mesmo arquivo)
 PCS = f"{OUT}/pecas"; os.makedirs(PCS, exist_ok=True)
 lst = []
@@ -404,7 +414,7 @@ for i, (seg, o, d, z) in enumerate(timeline):
     n = round(d * 30)
     pf = f"{PCS}/{i:03d}.mkv"; lst.append(f"file '{pf}'")
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{max(a-1,0):.3f}", "-i", f"{PROXY}/IMG_{f}.mp4",
-        "-filter_complex", f"[0:v]trim=start={a-max(a-1,0):.4f},setpts=(PTS-STARTPTS)/{SPEED},crop={cw}:{chh}:(iw-{cw})/2:(ih-{chh})*0.62,scale={W}:{H},fps=30,setsar=1,format=yuv420p,trim=end_frame={n}[v];"
+        "-filter_complex", f"[0:v]trim=start={a-max(a-1,0):.4f},setpts=(PTS-STARTPTS)/{SPEED},crop={cw}:{chh}:(iw-{cw})/2:(ih-{chh})*0.62,scale={W}:{H},fps=30,setsar=1,{wb(f)},format=yuv420p,trim=end_frame={n}[v];"
         f"[0:a]atrim=start={a-max(a-1,0):.4f},asetpts=PTS-STARTPTS,atempo={SPEED},aresample=48000,aformat=channel_layouts=stereo,atrim=end={n/30:.4f},apad=whole_dur={n/30:.4f},"
         f"afade=t=in:d=0.02,afade=t=out:st={max(n/30-0.03,0):.3f}:d=0.03[a]",
         "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-c:a", "pcm_s16le", pf], check=True)
@@ -419,14 +429,16 @@ fc.append("[0:v]setpts=PTS-STARTPTS[vc]"); fc.append("[0:a]asetpts=PTS-STARTPTS[
 fc.append("[vc]null[b2]")
 fc.append(f"[b2]tpad=stop_mode=clone:stop_duration={END},subtitles='{esc(OUT)}/legendas.ass':fontsdir={FONTS}[v0s]")
 # ✨ do cartão + ✨ do fechamento
-nsp = len(SPARK) + 1
+nsp = len(SPARK) + 2
 fc.append(f"[{si}:v]format=rgba,split={nsp}" + "".join(f"[sp{j}]" for j in range(nsp)))
 cur = "v0s"
-for j, (x, y, size, dl) in enumerate(SPARK + [(800, 540, 110, 0.0)]):
+SPX = 950
+EXTRA_SP = [(800, 540, 110, 0.0, EP2_T + 0.1, TOTAL + END), (SPX, 378, 84, 0.0, TYPE_DONE + 0.05, INTRO)]
+for j, (x, y, size, dl) in enumerate(SPARK + [e[:4] for e in EXTRA_SP]):
     if j < len(SPARK):
         a, b = CARD_A + dl, CARD_B
     else:
-        a, b = EP2_T + 0.1, TOTAL + END
+        a, b = EXTRA_SP[j - len(SPARK)][4:]
     fc.append(f"[sp{j}]scale={size}:-1,fade=t=in:st={a:.2f}:d=0.15:alpha=1,fade=t=out:st={b-0.2:.2f}:d=0.2:alpha=1[spx{j}]")
     fc.append(f"[{cur}][spx{j}]overlay=x={x}-w/2:y={y}-h/2:enable='between(t,{a:.2f},{b:.2f})':shortest=1[ov{j}]")
     cur = f"ov{j}"
