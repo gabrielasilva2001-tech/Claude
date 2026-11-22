@@ -19,6 +19,8 @@ SEGS = [
     ("6388", 13.10, 14.80),  # porque eu amava calça com bolso
     ("6388", 23.10, 26.90),  # hoje eu já não amo, então ela vai sair
     ("6389", 3.75, 8.85),    # calça sujinha, amo ela, só que olha o tamanho dessa barra
+    ("6389", 12.75, 19.40),  # essa barra eu não fiz porque usei com bota de cano alto numa prova de laço
+    ("6389", 21.25, 24.55),  # e aí a bota deu uma sustentada nessa barra
     ("6389", 25.00, 27.45),  # se eu não fizer a barra dessa calça aqui até
     ("6389", 28.40, 31.45),  # a semana que vem eu vou ter que tirar ela
     ("6389", 35.75, 40.00),  # mas ela fica por enquanto, se eu não arrumar, tchau
@@ -27,6 +29,8 @@ SEGS = [
     ("6391", 1.75, 4.20),    # essa daqui eu uso pra trabalhar
     ("6391", 8.65, 12.10),   # tá vendo aqui? fazendo até onda de tão usada
     ("6391", 12.90, 14.30),  # vai ter que sair
+    ("6392", 3.45, 5.15),    # outra de trabalho
+    ("6392", 8.45, 11.30),   # o que eu não gosto nela, nunca gostei, foi esse ...
     ("6393", 1.90, 3.05),
     ("6393", 4.86, 13.10),   # outra de trabalho... boca de sino... pra mim não dá
     ("6393", 16.50, 17.90),  # então ela vai sair
@@ -50,11 +54,15 @@ SEGS = [
     ("6398", 15.05, 16.80),  # ela com certeza fica
     ("6399", 1.65, 5.95),
     ("6399", 9.40, 11.10),   # nem vou experimentar, enorme, desbotado, surrada, vai sair
+    ("6401", 3.75, 7.95),    # fala, fala, Ana Castela... Ana Castela purinha
     ("6401", 8.35, 12.05),   # amo essa calça pra ir em rodeio
+    ("6401", 13.85, 16.30),  # amo essas calças quando o evento é agro
     ("6401", 31.50, 33.20),  # e ela fica
     ("6403", 1.45, 3.12),    # essa calça aqui
     ("6403", 6.95, 11.50),
     ("6403", 15.30, 18.25),   # acontecimento... abalou as estruturas, tá sem cor mas ainda amo, não vai sair
+    ("6403", 31.50, 35.70),  # calça de trabalhar, não vou colocar, claro que vai ficar
+    ("6403", 39.50, 43.30),  # compro tudo na Shopee, pago 50 reais e é isso
     ("6404", 9.25, 17.75),   # amei, obcecada, só tenho calça básica, uma ousadinha
     ("6404", 18.65, 19.95),  # e nessa mesma pegada
     ("6404", 21.78, 22.50),  # eu comprei outra
@@ -78,8 +86,8 @@ SEGS = [
     ("6412", 7.95, 10.35),   # calça branca, uso muito na praia, só praia, vai ficar
     ("6412", 10.50, 21.60),  # Shein há 5, 6 anos, surrada, gosto mas não sei se vai ou fica, ainda tô pensando
     ("6412", 47.30, 49.40),  # e isso foi tudo que saiu
-    ("6412", 62.30, 64.75),  # ainda tenho muita coisa pra tirar: cropped, blusinha, short, saia, casaco
-    ("6412", 80.50, 81.05),  # beijo! (congela no sorriso)
+    ("6412", 62.30, 70.40),  # ainda tenho muita coisa pra tirar: cropped, blusinha, short, saia, casaco
+    ("6412", 79.75, 81.05),  # beijo! (congela no sorriso)
 ]
 FILES = sorted({s[0] for s in SEGS})
 
@@ -109,7 +117,7 @@ ENV = {f: env(f) for f in FILES}
 PRE, POST, TAIL = 0.06, 0.10, 0.0
 VERD_SRC = {("6385", 24.00), ("6388", 25.66), ("6389", 36.38), ("6390", 25.06), ("6391", 12.98), ("6393", 16.84),
             ("6394", 25.12), ("6395", 36.34), ("6396", 23.02), ("6396", 52.56), ("6398", 15.56), ("6399", 10.02),
-            ("6401", 32.28), ("6403", 17.96), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
+            ("6401", 32.28), ("6403", 17.96), ("6403", 35.24), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
             ("6408", 30.36), ("6409", 12.46), ("6410", 32.24), ("6412", 9.20), ("6412", 18.30)}
 def norm(t): return re.sub(r"[^\wà-úÀ-Ú]", "", t.lower())
 KEPT = {f: [] for f in FILES}
@@ -119,10 +127,14 @@ REPL = [("6394", ["puxar", "ele,"], ["pro", "Chile,"]), ("6401", ["por", "aí,",
         ("6393", ["camela."], ["canela."]), ("6408", ["levada,"], ["elevada,"]), ("6405", ["croppedes"], ["croppeds"]),
         ("6409", ["R", "$40"], ["R$", "40"]), ("6394", ["fingo"], ["finge"]),
         ("6412", ["Da..."], ["ainda"]), ("6399", ["passado", "também,"], []),
-        ("6396", ["camorceuzinho."], ["camurça."]), ("6396", ["cuidado,"], ["coitada,"]), ("6396", ["tostinhas"], ["tachinhas"])]
+        ("6396", ["camorceuzinho."], ["camurça."]), ("6396", ["cuidado,"], ["coitada,"]), ("6396", ["tostinhas"], ["tachinhas"]),
+        ("6401", ["Fala,", "Dona", "Castela.", "Dona", "Castela,", "porinha."], ["Fala,", "Ana", "Castela.", "Ana", "Castela", "purinha."]),
+        ("6389", ["canoaldo"], ["cano", "alto"]), ("6392", ["sabor."], ["…"])]
 REMOVIDOS = []
 pieces = []
 for f, a, b in SEGS:
+    if f == "6412" and b > 81:          # "E foi isso. Beijo!" inteiro, congela no sorriso
+        pieces.append((f, a, b)); KEPT[f] += [w for w in words[f] if a - 0.05 <= w["start"] < b]; continue
     VW = json.load(open(f"{S}/audio/verb_{f}_{a:.2f}_{b:.2f}.json"))
     nxt_after = [w["start"] for w in VW if w["start"] >= b - 0.02]
     VW = [w for w in VW if (a - 0.05 <= w["start"] or (w["end"] >= a + 0.10 and w["end"] - w["start"] > 0.05)) and w["start"] < b - 0.02]
@@ -136,12 +148,16 @@ for f, a, b in SEGS:
         if rf != f: continue
         for i in range(len(VW) - len(old) + 1):
             if [norm(w["word"]) for w in VW[i:i + len(old)]] == [norm(o) for o in old]:
+                if len(new) == len(old):        # mesma quantidade: troca palavra a palavra, mantendo os tempos
+                    for k in range(len(old)): VW[i + k] = dict(VW[i + k], word=new[k])
+                    continue
                 VW[i] = dict(VW[i], word=" ".join(new) if new else "")
                 for k in range(1, len(old)): VW[i + k] = dict(VW[i + k], word="")
     VW = [w for w in VW if w["word"].strip()]
     tok = [norm(w["word"]) for w in VW]
     drop = set()
-    for n in range(6, 0, -1):
+    REP_OK = {("6401", 3.75)}            # repetição de propósito (brincadeira da Ana Castela)
+    for n in (range(6, 0, -1) if (f, a) not in REP_OK else []):
         i = 0
         while i + 2 * n <= len(tok):
             if all(tok[i + k] and tok[i + k] == tok[i + n + k] for k in range(n)) and not drop & set(range(i, i + 2 * n)):
@@ -258,7 +274,7 @@ VERD = [  # (arquivo, tempo da palavra, texto)
     ("6390", 25.06, "vai embora"), ("6391", 12.98, "vai embora"), ("6393", 16.84, "vai embora"),
     ("6394", 25.12, "fica"), ("6395", 36.34, "vai embora"), ("6396", 23.02, "vai embora"),
     ("6396", 52.56, "vai embora"), ("6398", 15.56, "fica"), ("6399", 10.02, "vai embora"),
-    ("6401", 32.28, "fica"), ("6403", 17.96, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
+    ("6401", 32.28, "fica"), ("6403", 17.96, "fica"), ("6403", 35.24, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
     ("6406", 33.84, "fica ou|vai embora?"), ("6407", 21.56, "fica"), ("6408", 30.36, "fica"),
     ("6409", 12.46, "fica"), ("6410", 32.24, "fica"),     ("6412", 9.20, "fica"), ("6412", 18.30, "fica ou|vai embora?"),
 ]
@@ -269,7 +285,8 @@ for f, wt, txt in VERD:
     b = seg_end_at(*EXTEND[(f, wt)]) if (f, wt) in EXTEND else seg_end_at(f, wt)
     l = txt.split("|")
     body = l[0] if len(l) == 1 else (l[0] + r"\N{\fs58}" + l[1] if l[1].startswith("(") else l[0] + r"\N" + l[1])
-    b = max(b, a + 1.0)
+    nxt_other = [o for seg, o, d, z in timeline if o > a and seg[0] != f]
+    b = min(max(b, a + 1.0), min(nxt_other) if nxt_other else 9e9)
     overlays.append((a, b, "Verd", 540, 330, r"{\frz-3}" + POP + body))
     if txt == "fica": sfx.append(("plim", a, 0.0, 0.45))
     elif txt == "vai embora": sfx.append(("tchau", a, 0.0, 0.5))
@@ -402,9 +419,11 @@ if os.environ.get("DRY"): print(f"DRY duração {TOTAL+END:.1f}s, {len(timeline)
 # balanço de branco por clipe: piso branco de cada clipe igualado ao dos clipes de cor certa (6385/6412)
 PISO = json.load(open(f"{OUT}/piso.json"))
 TR, TG, TB = PISO["6412"]
-def wb(f):
+def wb(f, amt=0.5, target=185):   # metade da correção (jeans continua azul) + clareia pro piso ficar ~185
     r, g, b = PISO[f]
-    return f"colorchannelmixer=rr={(TR/TG)*g/r:.3f}:gg=1:bb={(TB/TG)*g/b:.3f}"
+    gr = 1 + amt * ((TR / TG) * g / r - 1); gb = 1 + amt * ((TB / TG) * g / b - 1)
+    k = min(1.35, max(1.0, target / g))
+    return f"colorchannelmixer=rr={gr*k:.3f}:gg={k:.3f}:bb={gb*k:.3f}"
 # 1) cada corte vira um arquivo (evita estourar a memória com dezenas de trims do mesmo arquivo)
 PCS = f"{OUT}/pecas"; os.makedirs(PCS, exist_ok=True)
 lst = []

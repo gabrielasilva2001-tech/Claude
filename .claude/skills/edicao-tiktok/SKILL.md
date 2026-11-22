@@ -66,7 +66,10 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - **Respiro no fim da fala** e "rabinho" depois do veredito: aparar começo/fim de cada corte pelo volume
   (respiração < p95−19 dB), sem nunca cortar dentro da primeira/última palavra; conferir com transcrição literal.
 - **Aparecer tirando a calça / se trocando**: olhar o último quadro de cada corte e cortar antes.
-- **Clipes azulados**: corrigir balanço de branco por clipe pelo piso branco (colorchannelmixer), sem filtro.
+- **Clipes azulados**: corrigir só METADE do azul por clipe (pelo piso branco) e clarear o piso pra ~185 — correção
+  total deixou o jeans cinza e a calça difícil de ver.
+- **Cortar o final** (precisa do "E foi isso. Beijo!" e congelar) e **cortar piadas/contexto** dela (ex.: Ana Castela,
+  calças de trabalho). Repetição de propósito (piada) não pode ser tirada pela detecção automática.
 - **Texto passando atrás da cabeça dela** (recorte da pessoa) — achou horroroso. Título fica no alto, livre.
 
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.
