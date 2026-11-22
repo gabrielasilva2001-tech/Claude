@@ -66,6 +66,10 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - **Respiro no fim da fala** e "rabinho" depois do veredito: aparar começo/fim de cada corte pelo volume
   (respiração < p95−19 dB), sem nunca cortar dentro da primeira/última palavra; conferir com transcrição literal.
 - **Aparecer tirando a calça / se trocando**: olhar o último quadro de cada corte e cortar antes.
+- **Veredito no começo da fala** parece contar a peça anterior: colocar o "fica/sai" no FIM da fala da peça.
+  Se a fala acaba logo, CONGELAR o último quadro (~0,85 s, sem som) — deixar o vídeo correr mostra ela já tirando a calça.
+- **Entrega pro celular**: arquivo >100 MB não salva; comprimir em H.264 baixo fica péssimo. Usar HEVC
+  (`libx265 -crf 22 -tag:v hvc1`) → mesma qualidade com ~metade do tamanho.
 - **Clipes azulados**: corrigir só METADE do azul por clipe (pelo piso branco) e clarear o piso pra ~185 — correção
   total deixou o jeans cinza e a calça difícil de ver.
 - **Cortar o final** (precisa do "E foi isso. Beijo!" e congelar) e **cortar piadas/contexto** dela (ex.: Ana Castela,

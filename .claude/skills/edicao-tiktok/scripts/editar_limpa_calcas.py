@@ -30,9 +30,7 @@ SEGS = [
     ("6391", 8.65, 12.10),   # tá vendo aqui? fazendo até onda de tão usada
     ("6391", 12.90, 14.30),  # vai ter que sair
     ("6392", 3.45, 5.15),    # outra de trabalho
-    ("6392", 8.45, 11.30),   # o que eu não gosto nela, nunca gostei, foi esse ...
-    ("6393", 1.90, 3.05),
-    ("6393", 4.86, 13.10),   # outra de trabalho... boca de sino... pra mim não dá
+    ("6393", 3.00, 13.10),   # outra de trabalho... boca de sino... pra mim não dá
     ("6393", 16.50, 17.90),  # então ela vai sair
     ("6394", 7.33, 14.60),   # comprei no desespero pro Chile, ela é G, uso cintura baixa e finge que tá tudo certo
     ("6394", 24.80, 26.20),  # ela vai ficar
@@ -115,9 +113,10 @@ ENV = {f: env(f) for f in FILES}
 # Corte: transcrição LITERAL de cada trecho (pega "essa daqui, essa daqui"), tira a 1ª vez de toda repetição,
 # depois tira pelo ÁUDIO toda pausa > 0.25 s e todo pedaço de fala sem palavra reconhecida.
 PRE, POST, TAIL = 0.06, 0.10, 0.0
-VERD_SRC = {("6385", 24.00), ("6388", 25.66), ("6389", 36.38), ("6390", 25.06), ("6391", 12.98), ("6393", 16.84),
+SPEED_SRC = 1.25
+VERD_SRC = {("6385", 24.00), ("6388", 25.66), ("6389", 36.38), ("6390", 25.06), ("6391", 12.98), ("6392", 4.64), ("6393", 16.84),
             ("6394", 25.12), ("6395", 36.34), ("6396", 23.02), ("6396", 52.56), ("6398", 15.56), ("6399", 10.02),
-            ("6401", 32.28), ("6403", 17.96), ("6403", 35.24), ("6404", 9.46), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
+            ("6401", 32.28), ("6403", 17.96), ("6403", 35.24), ("6404", 17.26), ("6405", 50.86), ("6406", 33.84), ("6407", 25.42),
             ("6408", 30.36), ("6409", 12.46), ("6410", 32.24), ("6412", 9.20), ("6412", 18.30)}
 def norm(t): return re.sub(r"[^\wà-úÀ-Ú]", "", t.lower())
 KEPT = {f: [] for f in FILES}
@@ -198,6 +197,18 @@ for f, a, b in SEGS:
     for s0, e0 in seg_pieces:
         if pieces and pieces[-1][0] == f and s0 < pieces[-1][2]: s0 = pieces[-1][2]
         if e0 - s0 > 0.25: pieces.append((f, s0, e0))
+# veredito precisa ficar ~1 s na tela: se a fala acaba logo, segura a imagem em silêncio (sem respiro)
+MUTE = {}
+for vf, vt in sorted(VERD_SRC):
+    idx = [k for k, (f, a, b) in enumerate(pieces) if f == vf and a - 0.3 <= vt <= b]
+    if not idx: continue
+    k = idx[0]; f, a, b = pieces[k]
+    need = vt + 0.85 * SPEED_SRC
+    if b >= need: continue
+    nxt = [pa for pf, pa, pb in pieces[k + 1:] if pf == f and pa >= b]
+    nb = min(need, nxt[0] - 0.02) if nxt else need
+    if nb > b + 0.05:
+        pieces[k] = (f, a, nb); MUTE[k] = b
 print("repetições tiradas:", REMOVIDOS, flush=True)
 ASSIGN, used = {}, set()
 for k, (f, a, b) in enumerate(pieces):
@@ -271,10 +282,10 @@ for k, (txt, st) in enumerate(BIG):
 # ---------- veredito ----------
 VERD = [  # (arquivo, tempo da palavra, texto)
     ("6385", 24.00, "fica"), ("6388", 25.66, "vai embora"), ("6389", 36.38, "fica|(por enquanto)"),
-    ("6390", 25.06, "vai embora"), ("6391", 12.98, "vai embora"), ("6393", 16.84, "vai embora"),
+    ("6390", 25.06, "vai embora"), ("6391", 12.98, "vai embora"), ("6392", 4.64, "vai embora"), ("6393", 16.84, "vai embora"),
     ("6394", 25.12, "fica"), ("6395", 36.34, "vai embora"), ("6396", 23.02, "vai embora"),
     ("6396", 52.56, "vai embora"), ("6398", 15.56, "fica"), ("6399", 10.02, "vai embora"),
-    ("6401", 32.28, "fica"), ("6403", 17.96, "fica"), ("6403", 35.24, "fica"), ("6404", 9.46, "fica"), ("6405", 50.86, "fica"),
+    ("6401", 32.28, "fica"), ("6403", 17.96, "fica"), ("6403", 35.24, "fica"), ("6404", 17.26, "fica"), ("6405", 50.86, "fica"),
     ("6406", 33.84, "fica ou|vai embora?"), ("6407", 21.56, "fica"), ("6408", 30.36, "fica"),
     ("6409", 12.46, "fica"), ("6410", 32.24, "fica"),     ("6412", 9.20, "fica"), ("6412", 18.30, "fica ou|vai embora?"),
 ]
@@ -433,9 +444,9 @@ for i, (seg, o, d, z) in enumerate(timeline):
     n = round(d * 30)
     pf = f"{PCS}/{i:03d}.mkv"; lst.append(f"file '{pf}'")
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-ss", f"{max(a-1,0):.3f}", "-i", f"{PROXY}/IMG_{f}.mp4",
-        "-filter_complex", f"[0:v]trim=start={a-max(a-1,0):.4f},setpts=(PTS-STARTPTS)/{SPEED},crop={cw}:{chh}:(iw-{cw})/2:(ih-{chh})*0.62,scale={W}:{H},fps=30,setsar=1,{wb(f)},format=yuv420p,trim=end_frame={n}[v];"
+        "-filter_complex", f"[0:v]trim=start={a-max(a-1,0):.4f},setpts=(PTS-STARTPTS)/{SPEED},crop={cw}:{chh}:(iw-{cw})/2:(ih-{chh})*0.62,scale={W}:{H},fps=30,setsar=1,{wb(f)},format=yuv420p,{('trim=end_frame=%d,tpad=stop_mode=clone:stop=%d,' % (round((MUTE[i]-a)/SPEED*30), n)) if i in MUTE else ''}trim=end_frame={n}[v];"
         f"[0:a]atrim=start={a-max(a-1,0):.4f},asetpts=PTS-STARTPTS,atempo={SPEED},aresample=48000,aformat=channel_layouts=stereo,atrim=end={n/30:.4f},apad=whole_dur={n/30:.4f},"
-        f"afade=t=in:d=0.02,afade=t=out:st={max(n/30-0.03,0):.3f}:d=0.03[a]",
+        f"afade=t=in:d=0.02,afade=t=out:st={(max(n/30-0.03,0) if i not in MUTE else max((MUTE[i]-a)/SPEED-0.04,0)):.3f}:d={0.03 if i not in MUTE else 0.06}[a]",
         "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-c:a", "pcm_s16le", pf], check=True)
 open(f"{OUT}/pecas.txt", "w").write("\n".join(lst) + "\n")
 subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{OUT}/pecas.txt",
