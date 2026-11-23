@@ -1,0 +1,106 @@
+[
+ {
+  "key": "arena_3",
+  "file": "arena_3.jpg",
+  "t0": 16.42,
+  "t1": 17.5,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "terreno_2",
+  "file": "terreno_2.jpg",
+  "t0": 25.3,
+  "t1": 29.5,
+  "rot": 2,
+  "y": 0.275
+ },
+ {
+  "key": "arena_1",
+  "file": "arena_1.jpg",
+  "t0": 30.42,
+  "t1": 36.06,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "areia_dela",
+  "file": "areia_dela.jpg",
+  "t0": 37.62,
+  "t1": 40.45,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "pedra_0",
+  "file": "pedra_0.jpg",
+  "t0": 40.48,
+  "t1": 45.85,
+  "rot": 2,
+  "y": 0.275
+ },
+ {
+  "key": "arquib_dela",
+  "file": "arquib_dela.jpg",
+  "t0": 55.0,
+  "t1": 62.56,
+  "rot": 2,
+  "y": 0.275
+ },
+ {
+  "key": "fila_0",
+  "file": "fila_0.jpg",
+  "t0": 79.3,
+  "t1": 85.12,
+  "rot": 2,
+  "y": 0.275
+ },
+ {
+  "key": "chuv3_0",
+  "file": "chuv3_0.jpg",
+  "t0": 87.9,
+  "t1": 93.38,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "fechado_3",
+  "file": "fechado_3.jpg",
+  "t0": 100.5,
+  "t1": 103.22,
+  "rot": 3,
+  "y": 0.275
+ },
+ {
+  "key": "grana_dela",
+  "file": "grana_dela.jpg",
+  "t0": 108.6,
+  "t1": 112.0,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "pouco_dela",
+  "file": "pouco_dela.jpg",
+  "t0": 112.05,
+  "t1": 114.45,
+  "rot": 2,
+  "y": 0.275
+ },
+ {
+  "key": "sol_3",
+  "file": "sol_3.jpg",
+  "t0": 192.3,
+  "t1": 195.6,
+  "rot": -2,
+  "y": 0.275
+ },
+ {
+  "key": "oculos_dela",
+  "file": "oculos_dela.jpg",
+  "t0": 196.6,
+  "t1": 198.2,
+  "rot": -2,
+  "y": 0.275
+ }
+]

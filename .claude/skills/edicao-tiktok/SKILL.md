@@ -7,6 +7,7 @@ description: Edita de verdade os vídeos brutos dela para TikTok/Reels (rotina, 
 
 Estilo construído e aprovado no vídeo "tripé com inteligência artificial" (versão 11, postada).
 O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **copie e adapte**, não comece do zero.
+Para vídeos "falando + fotos de exemplo" (crítica irônica), use o **Formato 2** abaixo e `scripts/editar_exemplo_arena.py`.
 
 ## Fluxo
 
@@ -15,6 +16,8 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
    (comparar a transcrição) e usar cada trecho uma vez só.
 2. **Cópias de trabalho** 1080x1920 (`proxy/`), áudio 16 kHz mono (`audio/`).
 3. **Transcrever** com `scripts/transcrever.py` (Whisper `medium`, palavra a palavra; o `small` erra muito).
+   Trechos duvidosos: recortar 2–3 s e transcrever de novo isolado (ex.: "não vai seguir" era "não vai esquecer").
+   Retomadas no meio da frase às vezes viram uma palavra só esticada no Whisper — conferir com `silencedetect`.
    O Whisper erra gírias/termos: ex. ela disse "carrinho laranja" e ele ouviu "carro em laranja".
    **Nunca inventar fala**: trecho duvidoso fica sem legenda e eu pergunto pra ela.
 4. **Decupar**: tirar pausas, falas repetidas (mesma frase dita duas vezes → fica uma) e tentativas.
@@ -61,6 +64,47 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Repetir "tem na minha vitrine" no final / cartão "Gostou? / me segue".
 - Congelar o final num quadro vazio (sem ela).
 - Legenda inventada quando a transcrição não tem certeza.
+
+## Formato 2: "fala + fotos de exemplo" (crítica irônica) — APROVADO e postado
+
+Modelo: vídeo "Construindo uma Arena" (crítica irônica a arena de beach tennis, ela sentada "projetando" no tablet).
+Script: `scripts/editar_exemplo_arena.py` (+ `scripts/exemplo_arena/escolhidas.json` e `rotulos.json`). Copie e adapte.
+Ela copia o formato de outra criadora: enquanto fala, **fotos de exemplo** do que ela está dizendo aparecem na tela.
+
+- **Título** no começo, digitado letra por letra, 2 linhas (ex.: "Construindo / uma **ARENA**" com ARENA em rosa).
+  **Sem estrela ✦** nesse formato.
+- **Legenda bem simples:** Poppins SemiBold 66, branca com contorno, 2–4 palavras, **sem** destaque amarelo nem pulinho.
+- **Fotos:** cartão com borda branca, cantos arredondados, sombra, leve inclinação (±2°), entram com pulinho e somem rápido.
+  **Pequenas** (máx. ~1080x820 px no 4K, ≈ metade da largura) e na parede acima da cabeça dela.
+  Cada foto entra **na palavra** que ela ilustra e fica até o fim da frase.
+- **Área segura do Instagram:** fotos, título e rótulos **mais para baixo** (centro das fotos em ~27,5% da altura; título em y≈470 de 1920),
+  senão o Instagram corta.
+- **Rótulos** só quando não há foto boa ("[ término: ??? ]", "esperando desde as 7h...", "[ arquibancada: 5 lugares ]" abaixo da foto).
+  Quando existe uma foto que mostra, ela prefere **foto** a texto (ex.: "usar o óculos" → foto de óculos de beach tennis, não "óculos obrigatório").
+- **Cortes:** tirar todas as repetições/retomadas (fica a última tomada boa). **Deixar folga de ~0,25 s no fim de cada trecho**:
+  ela reclamou quando a última palavra antes do corte foi comida. Zoom alternado 1.0 ↔ 1.12 a cada corte.
+- **Final:** ela olhando para a câmera depois da última frase; sem cartão extra.
+- **Sem efeitos sonoros** nesse formato (ela pediu simples).
+
+### Fotos: o que ela quer em cada tipo de fala
+- Seja **literal e específica**: "chuveiro sem porta" = banheiro com paredes, **vaso e chuveiro no mesmo cômodo, sem box**
+  (não chuveiro de praia). "Areia bem grossa" = areia grossa de verdade (ela mandou foto de mão com areia de construção),
+  **antes** da foto de pedrinhas. "Arquibancada pequena" = estrutura de arena (ela usou foto de uma mesa com bancos dentro da arena),
+  nada de banquinho/portátil. "Posição das quadras pro sol" = foto de **sol bem forte**.
+  "150 de inscrição / 80 de premiação" = foto de **muito dinheiro** (notas de 50/100) e depois de **pouco** (moedas e notas de 2).
+- Nada de foto de machucado (ela vetou o "joelho esfolado").
+- **Pedir as fotos a ela cedo**: ela manda prontas em minutos ("qualquer coisa já te mando pronto"). Mais rápido que buscar.
+- Busca em licença livre: Wikimedia Commons (`scripts/busca.py`, `scripts/baixa_escolhidas.py`). Limita muito (erro 429):
+  buscas espaçadas (~25 s), termos simples em inglês, baixar só as escolhidas. Unsplash/Pexels/Pixabay não estão acessíveis.
+  Guardar os créditos (`fotos/creditos.txt`).
+
+### Qualidade e entrega
+- Ela edita no CapCut se perder qualidade: **render final direto do .mov original em 4K (2160x3840)**.
+- Duas etapas (senão estoura a memória): cada trecho vira intermediário CRF 10; depois junta + fotos + legendas (CRF 16, preset fast).
+  Trechos já prontos ficam em cache: refazer só a etapa final leva ~4 min.
+- Prévias em 1080 (`--preview`) para ela aprovar antes do 4K.
+- O 4K (~180 MB) **não baixa no app**: mandar também uma versão 1080x1920 (~50 MB, CRF 17) — é a que ela posta.
+- Ela costuma ter **horário para postar**: perguntar o prazo e entregar o essencial a tempo.
 
 ## Sons dela
 

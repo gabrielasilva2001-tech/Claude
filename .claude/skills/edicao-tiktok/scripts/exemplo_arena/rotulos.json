@@ -1,0 +1,38 @@
+[
+ {
+  "t0": 228.5,
+  "t1": 232.56,
+  "x": 540,
+  "y": 580,
+  "rot": 4,
+  "style": "Label",
+  "text": "inesquecível ✦"
+ },
+ {
+  "t0": 56.8,
+  "t1": 62.56,
+  "x": 540,
+  "y": 760,
+  "rot": 0,
+  "style": "Info",
+  "text": "{\\c&HB45CFF&}[ {\\c&HFFFFFF&}arquibancada: 5 lugares {\\c&HB45CFF&}]"
+ },
+ {
+  "t0": 148.26,
+  "t1": 152.64,
+  "x": 540,
+  "y": 530,
+  "rot": 0,
+  "style": "Info",
+  "text": "{\\c&HB45CFF&}[ {\\c&HFFFFFF&}término: ??? {\\c&HB45CFF&}]"
+ },
+ {
+  "t0": 161.6,
+  "t1": 165.2,
+  "x": 560,
+  "y": 550,
+  "rot": -4,
+  "style": "Label",
+  "text": "esperando desde as 7h..."
+ }
+]
