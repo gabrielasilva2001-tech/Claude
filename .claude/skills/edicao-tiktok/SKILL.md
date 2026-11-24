@@ -54,6 +54,7 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 ## Legenda do post
 
 - Sempre mandar legenda + 5 hashtags.
+- **Não escrever "tem na minha vitrine"** (nem chamar pro link/vitrine) na legenda: o carrinho laranja do TikTok Shop já aparece.
 - **Nunca usar #tiktokshop** (nem #tiktokmademebuyit e afins). As hashtags são escolhidas pelo alcance
   no assunto do vídeo: esporte/nicho, produto/marca e o que a pessoa procuraria
   (ex. troca de grip: #beachtennis #beachtennisbrasil #spingrip #overgrip #raquetedebeachtennis).
