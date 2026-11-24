@@ -51,6 +51,13 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Fechamento → plim na palavra-chave.
 - "plim" e "bling" atuais são sintetizados no script (sinos com eco); ela aprovou o plim.
 
+## Legenda do post
+
+- Sempre mandar legenda + 5 hashtags.
+- **Nunca usar #tiktokshop** (nem #tiktokmademebuyit e afins). As hashtags são escolhidas pelo alcance
+  no assunto do vídeo: esporte/nicho, produto/marca e o que a pessoa procuraria
+  (ex. troca de grip: #beachtennis #beachtennisbrasil #spingrip #overgrip #raquetedebeachtennis).
+
 ## O que ela NÃO quer (não repetir)
 
 - O primeiro áudio que ela mandou (a gravação de "passando/whoosh" do CapCut) — **nunca usar**.
