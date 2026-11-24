@@ -24,7 +24,7 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 ## O que ela APROVOU
 
 - **Gancho:** título pequeno, 2 linhas no topo (y≈330), Montserrat Black Itálico 68 —
-  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`) + ✦.
+  linha 1 branca, linha 2 com palavras-chave em **rosa** (`&HB45CFF&`) e **amarelo** (`&H3DD9FF&`). **Sem ✦ nem nenhum símbolo/emoji.**
   Entra **digitado letra por letra** (~45 ms/letra), **sem som de teclado**, letras não digitadas invisíveis (texto não pula).
 - **Legenda da fala (ela ama):** Poppins SemiBold 68, branca com contorno, 2–3 palavras por vez, centro-baixo (MarginV 620).
   **Dinâmica:** cada bloco entra com pulinho (85%→100%) e a **palavra falada fica amarela e 8% maior**.
@@ -39,7 +39,7 @@ O script `scripts/editar_exemplo_tripe.py` é a edição aprovada completa: **co
 - **Fechamento:** congelar no sorriso dela (no meio do quadro!), frase de fechamento no topo com
   **palavras chegando uma a uma com pulinho** (desfoque→nítido, estica e assenta), 2ª linha maior em rosa,
   "plim" quando a palavra-chave chega, escurecer até o preto (~3 s no total).
-  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO** ✦". Se ela não falou nada de fechamento, propor uma frase curta.
+  Ex. aprovado: "Isso daqui vale / **CADA CENTAVO**" (sem ✦). Se ela não falou nada de fechamento, propor uma frase curta.
 - **Volume:** normalizar para -14 LUFS.
 
 ## Som: SEMPRE segue a imagem (regra mais importante)
@@ -58,6 +58,7 @@ Cada som precisa de um motivo na tela, no quadro exato. Um som por vez.
 - Som de teclado sintetizado.
 - Som solto sem nada acontecendo na tela; som longo (tipo música inteira) em transição.
 - Título grande ocupando a tela.
+- Estrela ✦ (ela acha horrorosa) e emojis/figuras no título — em nenhum vídeo.
 - Repetir "tem na minha vitrine" no final / cartão "Gostou? / me segue".
 - Congelar o final num quadro vazio (sem ela).
 - Legenda inventada quando a transcrição não tem certeza.

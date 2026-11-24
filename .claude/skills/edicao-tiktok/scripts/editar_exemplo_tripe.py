@@ -110,7 +110,7 @@ def bounce_line(words, t_first, step, color_of):
     return out
 END_TEXT_T0 = 0.15  # depois que a imagem congela
 l1 = bounce_line(["Isso", "daqui", "vale"], END_TEXT_T0, 0.17, lambda k: "&HFFFFFF&")
-l2 = bounce_line(["CADA", "CENTAVO", "✦"], END_TEXT_T0 + 0.6, 0.2, lambda k: "&H3DD9FF&" if k == 2 else "&HB45CFF&")
+l2 = bounce_line(["CADA", "CENTAVO"], END_TEXT_T0 + 0.6, 0.2, lambda k: "&HB45CFF&")
 END_TEXT = [
     (TOTAL, TOTAL + END, "Title", 540, 300, r"{\fad(0,250)}" + l1),
     (TOTAL, TOTAL + END, "Title", 540, 390, r"{\fad(0,250)\fs86}" + l2),
@@ -160,7 +160,7 @@ for a, b, st, x, y, txt in overlays:
     pos = "" if "\\move" in txt else f"{{\\pos({x},{y})}}"
     ass += f"Dialogue: 1,{ts(a)},{ts(b)},{st},,0,0,0,,{pos}{txt}\n"
 TYPE_START, TYPE_STEP, TYPE_END = 0.20, 0.045, 3.6
-parts = [("&HFFFFFF&", "Comprei um tripé com"), ("&HFFFFFF&", "\n"), ("&HB45CFF&", "INTELIGÊNCIA "), ("&H3DD9FF&", "ARTIFICIAL ✦")]
+parts = [("&HFFFFFF&", "Comprei um tripé com"), ("&HFFFFFF&", "\n"), ("&HB45CFF&", "INTELIGÊNCIA "), ("&H3DD9FF&", "ARTIFICIAL")]
 chars = [(c, ch) for c, txt in parts for ch in txt]
 typed = [i for i, (c, ch) in enumerate(chars) if ch not in " \n"]
 key_times = []
